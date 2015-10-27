@@ -1,0 +1,10 @@
+node,parent,branch_length,species,istip,haplo_size,haplo_num,hetero_size,hetero_num,rhopalo_size,nectophore_number
+1,6,,Nanomia bijuga,TRUE,22.5,4500,32,35,11,14
+2,6,,Agalma elegans,TRUE,35,17000,180,30,7.5,10
+3,8,,Hippopodius hippopus,TRUE,30,200,84,10,6,16
+4,7,,Muggiaea atlantica,TRUE,15,300,36,6,6,1
+5,7,,Abylopsis tetragona,TRUE,52.5,800,155,21,23,2
+6,9,,Physonectae,FALSE,28.75,10750,106,32.5,9.25,12
+7,8,,Diphyidae,FALSE,22.5,250,60,8,6,8.5
+8,9,,Calycophorae,FALSE,26.25,225,72,9,6,12.25
+9,,,Codonophora,FALSE,27.5,5487.5,89,20.75,7.625,12.125
