@@ -45,9 +45,9 @@ var padding = 50;
 
 var colors = {"Nanomia bijuga":"blue", "Agalma elegans":"red", "Hippopodius hippopus":"green", "Muggiaea atlantica":"yellow", "Abylopsis tetragona":"purple", "Physonectae":"black", "Diphyidae":"black", "Calycophorae":"black", "Codonophora":"black"};
 
-var headers = ["node","parent","branch_length","species","istip","Haploneme size (microns)","Haploneme number","Heteroneme size (microns)","Heteroneme number","Rhopaloneme size","Nectophore number"];
+var headers = ["node","parent","branch_length","species","istip","Haploneme size (microns)","Haploneme number","Heteroneme size (microns)","Heteroneme number","Rhopaloneme size (microns)"];
 
-var dataset = [[1,6,,"Nanomia bijuga",true,22.5,4500,32,35,11,14],[2,6,,"Agalma elegans",true,35,17000,180,30,7.5,10],[3,8,,"Hippopodius hippopus",true,30,200,84,10,6,16],[4,7,,"Muggiaea atlantica",true,15,300,36,6,6,1],[5,7,,"Abylopsis tetragona",true,52.5,800,155,21,23,2],[6,9,,"Physonectae",false,28.75,10750,106,32.5,9.25,12],[7,8,,"Diphyidae",false,22.5,250,60,8,6,8.5],[8,9,,"Calycophorae",false,26.25,225,72,9,6,12.25],[9,0,,"Codonophora",false,27.5,5487.5,89,20.75,7.625,12.125]];
+var dataset = [[1,6,,"Nanomia bijuga",true,22.5,4500,32,35,11],[2,6,,"Agalma elegans",true,35,17000,180,30,7.5],[3,8,,"Hippopodius hippopus",true,30,200,84,10,6],[4,7,,"Muggiaea atlantica",true,15,300,36,6,6],[5,7,,"Abylopsis tetragona",true,52.5,800,155,21,23],[6,9,,"Physonectae",false,28.75,10750,106,32.5,9.25],[7,8,,"Diphyidae",false,22.5,250,60,8,6],[8,9,,"Calycophorae",false,26.25,225,72,9,6],[9,0,,"Codonophora",false,27.5,5487.5,89,20.75,7.625]];
 
 var minx = d3.min(dataset, function(d) {return d[5];});
 var maxx = d3.max(dataset, function(d) {return d[5];});
