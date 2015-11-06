@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>D3: Force layout</title>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+		<style type="text/css">
+			/* No style rules here yet */
+		</style>
+	</head>
+	<body>
+		<script type="text/javascript">
+
+			//Width and height
+			var w = 500;
+			var h = 300;
+
+
+var dataa =[
+		["node","parent","branch_length","species","istip","Haploneme size (microns)","Haploneme number","Heteroneme size (microns)","Heteroneme number","Rhopaloneme size","Nectophore number"],
+		[7,3,,"Nanomia bijuga",true,22.5,4500,32,35,11,14],
+		[8,3,,"Agalma elegans",true,35,17000,180,30,7.5,10],
+		[4,1,,"Hippopodius hippopus",true,30,200,84,10,6,16],
+		[5,2,,"Muggiaea atlantica",true,15,300,36,6,6,1],
+		[6,2,,"Abylopsis tetragona",true,52.5,800,155,21,23,2],
+		[3,0,,"Physonectae",false,28.75,10750,106,32.5,9.25,12],
+		[2,1,,"Diphyidae",false,22.5,250,60,8,6,8.5],
+		[1,0,,"Calycophorae",false,26.25,225,72,9,6,12.25],
+		[0,,,"Codonophora",false,27.5,5487.5,89,20.75,7.625,12.125]
+		];
+
+			//Original data
+var dataset = {
+
+	nodes: [
+		{ name: "Nanomia bijuga", istip: true, haps: 22.5, hapn: 4500, hets: 32, hetn: 35, rs: 11, nn: 14 },
+		{ name: "Agalma elegans", istip: true, haps: 35, hapn: 17000, hets: 180, hetn: 30, rs: 7.5, nn: 10},
+		{ name: "Hippopodius hippopus", istip: true, haps: 30, hapn: 200, hets: 84, hetn: 10, rs: 6, nn: 16},
+		{ name: "Muggiaea atlantica", istip: true, haps: 15, hapn: 300, hets: 36, hetn: 6, rs: 6, nn: 1},
+		{ name: "Abylopsis tetragona", istip: true, haps: 52.5, hapn: 800, hets: 155, hetn: 21, rs: 23, nn: 2},
+		{ name: "Physonectae", istip: false, haps: 28.75, hapn: 10750, hets: 106, hetn: 32.5, rs: 9.25, nn: 12},
+		{ name: "Diphyidae", istip: false, haps: 22.5, hapn: 250, hets: 60, hetn: 8, rs: 6, nn: 8.5},
+		{ name: "Calycophorae", istip: false, haps: 26.25, hapn: 225, hets: 72, hetn: 9, rs: 6, nn: 12.25},
+		{ name: "Codonophora", istip: false, haps: 27.5, hapn: 5487.5, hets: 89, hetn: 20.75, rs: 7.625, nn: 12.125}
+		],
+
+	edges: [
+		{ source: 0, target: 1 },
+		{ source: 0, target: 3 },
+		{ source: 1, target: 4 },
+		{ source: 1, target: 2 },
+		{ source: 2, target: 5 },
+		{ source: 2, target: 6 },
+		{ source: 3, target: 7 },
+		{ source: 3, target: 8 }
+		]
+
+};
+
+			//Initialize a default force layout, using the nodes and edges in dataset
+			var force = d3.layout.force()
+								 .nodes(dataset.nodes)
+								 .links(dataset.edges)
+								 .size([w, h])
+								 .linkDistance([40])
+								 .charge([100])
+								 .start();
+
+			var colors = d3.scale.category10();
+
+			//Create SVG element
+			var svg = d3.select("body")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", h);
+			
+			//Create edges as lines
+			var edges = svg.selectAll("line")
+				.data(dataset.edges)
+				.enter()
+				.append("line")
+				.style("stroke", "#ccc")
+				.style("stroke-width", 1);
+			
+			//Create nodes as circles
+			var nodes = svg.selectAll("circle")
+				.data(dataset.nodes)
+				.enter()
+				.append("circle")
+				.attr("r", 5)
+				.style("fill", function(d, i) {
+					return colors(i);
+				})
+				.call(force.drag);
+			
+			//Every time the simulation "ticks", this will be called
+			force.on("tick", function() {
+
+				edges.attr("x1", function(d) { return d.source.x; })
+					 .attr("y1", function(d) { return d.source.y; })
+					 .attr("x2", function(d) { return d.target.x; })
+					 .attr("y2", function(d) { return d.target.y; });
+			
+				nodes.attr("cx", function(d) { return d.x; })
+					 .attr("cy", function(d) { return d.y; });
+	
+			});
+
+
+		</script>
+	</body>
+</html>

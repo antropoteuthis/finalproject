@@ -1,1 +1,42 @@
-var dataset = [{"node","parent","branch_length","species","istip","Haploneme size (microns)","Haploneme number","Heteroneme size (microns)","Heteroneme number","Rhopaloneme size","Nectophore number"},{1,6,,"Nanomia bijuga",true,22.5,4500,32,35,11,14},{2,6,,"Agalma elegans",true,35,17000,180,30,7.5,10},{3,8,,"Hippopodius hippopus",true,30,200,84,10,6,16},{4,7,,"Muggiaea atlantica",true,15,300,36,6,6,1},{5,7,,"Abylopsis tetragona",true,52.5,800,155,21,23,2},{6,9,,"Physonectae",false,28.75,10750,106,32.5,9.25,12},{7,8,,"Diphyidae",false,22.5,250,60,8,6,8.5},{8,9,,"Calycophorae",false,26.25,225,72,9,6,12.25},{9,0,,"Codonophora",false,27.5,5487.5,89,20.75,7.625,12.125}];
+
+
+var dataa =[
+		["node","parent","branch_length","species","istip","Haploneme size (microns)","Haploneme number","Heteroneme size (microns)","Heteroneme number","Rhopaloneme size","Nectophore number"],
+		[7,3,,"Nanomia bijuga",true,22.5,4500,32,35,11,14],
+		[8,3,,"Agalma elegans",true,35,17000,180,30,7.5,10],
+		[4,1,,"Hippopodius hippopus",true,30,200,84,10,6,16],
+		[5,2,,"Muggiaea atlantica",true,15,300,36,6,6,1],
+		[6,2,,"Abylopsis tetragona",true,52.5,800,155,21,23,2],
+		[3,0,,"Physonectae",false,28.75,10750,106,32.5,9.25,12],
+		[2,1,,"Diphyidae",false,22.5,250,60,8,6,8.5],
+		[1,0,,"Calycophorae",false,26.25,225,72,9,6,12.25],
+		[0,,,"Codonophora",false,27.5,5487.5,89,20.75,7.625,12.125]
+		];
+
+			//Original data
+var dataset = {
+
+	nodes: [
+		{ name: "Nanomia bijuga" },
+		{ name: "Agalma elegans" },
+		{ name: "Hippopodius hippopus" },
+		{ name: "Muggiaea atlantica" },
+		{ name: "Abylopsis tetragona" },
+		{ name: "Physonectae" },
+		{ name: "Diphyidae" },
+		{ name: "Calycophorae" },
+		{ name: "Codonophora" }
+		],
+
+	edges: [
+		{ source: 0, target: 1 },
+		{ source: 0, target: 3 },
+		{ source: 1, target: 4 },
+		{ source: 1, target: 2 },
+		{ source: 2, target: 5 },
+		{ source: 2, target: 6 },
+		{ source: 3, target: 7 },
+		{ source: 3, target: 8 }
+		]
+
+};

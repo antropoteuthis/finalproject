@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>D3 Static force layout</title>
+<title>Interactive Siphonophore Cnidome Phylomorphospace</title>
 <style type="text/css">
 
 text {
@@ -37,6 +37,10 @@ circle {
 </script>
 </head>
 <body>
+<h2> Interactive Siphonophore Cnidomic Phylomorphospace </h2>
+<p>Alejandro Damian Serrano</p>
+<h3 class = "hets_hetn"> Heteroneme size (microns) vs. Heteroneme number </h3>
+<h3 class = "rs_nn"> Rhopaloneme size (microns) vs. Nectophore number </h3>
 <script>
 
 var w = 660,
@@ -47,26 +51,64 @@ var colors = {"Nanomia bijuga":"blue", "Agalma elegans":"red", "Hippopodius hipp
 
 var headers = ["node","parent","branch_length","species","istip","Haploneme size (microns)","Haploneme number","Heteroneme size (microns)","Heteroneme number","Rhopaloneme size (microns)"];
 
-var dataset = [[1,6,,"Nanomia bijuga",true,22.5,4500,32,35,11],[2,6,,"Agalma elegans",true,35,17000,180,30,7.5],[3,8,,"Hippopodius hippopus",true,30,200,84,10,6],[4,7,,"Muggiaea atlantica",true,15,300,36,6,6],[5,7,,"Abylopsis tetragona",true,52.5,800,155,21,23],[6,9,,"Physonectae",false,28.75,10750,106,32.5,9.25],[7,8,,"Diphyidae",false,22.5,250,60,8,6],[8,9,,"Calycophorae",false,26.25,225,72,9,6],[9,0,,"Codonophora",false,27.5,5487.5,89,20.75,7.625]];
+var dataa =[
+		[7,3,,"Nanomia bijuga",true,22.5,4500,32,35,11,14],
+		[8,3,,"Agalma elegans",true,35,17000,180,30,7.5,10],
+		[4,1,,"Hippopodius hippopus",true,30,200,84,10,6,16],
+		[5,2,,"Muggiaea atlantica",true,15,300,36,6,6,1],
+		[6,2,,"Abylopsis tetragona",true,52.5,800,155,21,23,2],
+		[3,0,,"Physonectae",false,28.75,10750,106,32.5,9.25,12],
+		[2,1,,"Diphyidae",false,22.5,250,60,8,6,8.5],
+		[1,0,,"Calycophorae",false,26.25,225,72,9,6,12.25],
+		[0,,,"Codonophora",false,27.5,5487.5,89,20.75,7.625,12.125]
+		];
 
-var minx = d3.min(dataset, function(d) {return d[5];});
-var maxx = d3.max(dataset, function(d) {return d[5];});
-var miny = d3.min(dataset, function(d) {return d[6];});
-var maxy = d3.max(dataset, function(d) {return d[6];});
+var dataset = {
 
-var nodes = dataset;
-var links = dataset;
+	nodes: [
+		{ name: "Codonophora", istip: false, haps: 27.5, hapn: 5487.5, hets: 89, hetn: 20.75, rs: 7.625, nn: 12.125},
+		{ name: "Calycophorae", istip: false, haps: 26.25, hapn: 225, hets: 72, hetn: 9, rs: 6, nn: 12.25},
+		{ name: "Diphyidae", istip: false, haps: 22.5, hapn: 250, hets: 60, hetn: 8, rs: 6, nn: 8.5},
+		{ name: "Physonectae", istip: false, haps: 28.75, hapn: 10750, hets: 106, hetn: 32.5, rs: 9.25, nn: 12},
+		{ name: "Abylopsis tetragona", istip: true, haps: 52.5, hapn: 800, hets: 155, hetn: 21, rs: 23, nn: 2},
+		{ name: "Muggiaea atlantica", istip: true, haps: 15, hapn: 300, hets: 36, hetn: 6, rs: 6, nn: 1},
+		{ name: "Hippopodius hippopus", istip: true, haps: 30, hapn: 200, hets: 84, hetn: 10, rs: 6, nn: 16},
+		{ name: "Agalma elegans", istip: true, haps: 35, hapn: 17000, hets: 180, hetn: 30, rs: 7.5, nn: 10},
+		{ name: "Nanomia bijuga", istip: true, haps: 22.5, hapn: 4500, hets: 32, hetn: 35, rs: 11, nn: 14 }
+		
+		],
+
+	edges: [
+		{ source: 0, target: 1 },
+		{ source: 0, target: 3 },
+		{ source: 2, target: 4 },
+		{ source: 1, target: 2 },
+		{ source: 2, target: 5 },
+		{ source: 2, target: 6 },
+		{ source: 3, target: 7 },
+		{ source: 3, target: 8 }
+		]
+
+};
+
+var minx = 0;
+var maxx = 52.5;
+var miny = 0;
+var maxy = 17000;
+
+var nodes = dataset.nodes;
+var links = dataset.edges;
 
 var force = d3.layout.force()
     .nodes(nodes)
     .links(links)
     .size([w, h]);
 
-var xScale = d3.scale(linear)
+var xScale = d3.scale.linear()
 				.domain([minx, maxx])
 				.range([padding, (w*2) - padding]);
 
-var yScale = d3.scale(linear)
+var yScale = d3.scale.linear()
 				.domain([miny, maxy])
 				.range([(h*2) - padding, padding]);
 
@@ -81,8 +123,8 @@ var yAxis = d3.svg.axis()
     .ticks(6);
 
 var svg = d3.select("body").append("svg")
-    .attr("width", w)
-    .attr("height", h);
+    .attr("width", (w*2)+100) 
+    .attr("height", h*2);
 
 var loading = svg.append("text")
     .attr("x", w / 2)
@@ -98,36 +140,210 @@ setTimeout(function() {
   // The ideal number of times scales with graph complexity.
   // Of course, don't run too long—you'll hang the page!
   force.start();
-  for (var i = n * n; i > 0; --i) force.tick();
+  for (var i = 18; i > 0; --i) force.tick();
   force.stop();
 
-  svg.selectAll("line")
-      .data(links)
-    .enter().append("line")
-      .attr("x1", function(d) { return d[5]; })
-      .attr("y1", function(d) { return d[6]; })
-      .attr("x2", function(d) { return d[5]; })
-      .attr("y2", function(d) { return d[6]; });
+	svg.selectAll("line")
+	      .data(links)
+	    .enter().append("line")
+	      .attr("x1", function(d) { return xScale(d.source.haps); })
+	      .attr("y1", function(d) { return yScale(d.source.hapn); })
+	      .attr("x2", function(d) { return xScale(d.target.haps); })
+	      .attr("y2", function(d) { return yScale(d.target.hapn); });
 
   svg.selectAll("circle")
       .data(nodes)
     .enter().append("circle")
-      .attr("cx", function(d) { return d[5]; })
-      .attr("cy", function(d) { return d[6]; })
-      .attr("r", 6.5)
-      .attr("fill", function(d) { return colors[d[3]]; })
+      .attr("cx", function(d) { return xScale(d.haps); })
+      .attr("cy", function(d) { return yScale(d.hapn); })
+      .attr("r", function(d) {if (d.istip == false) {return 4;} else {
+        return 10;}})
+      .attr("fill", function(d) { return colors[d.name]; })
       .attr("opacity", 0.8);
 
   svg.selectAll("text")
-   		.data(dataset)
+   		.data(nodes)
    		.enter()
    		.append("text")
-		.text(function(d) {return d[3];})
-		.attr("x", function(d) {return xscale(d[5]);})
-   		.attr("y", function(d) {return yscale(d[6]);})
+		.text(function(d) {return d.name;})
+		.attr("x", function(d) {return xScale(d.haps);})
+   		.attr("y", function(d) {return yScale(d.hapn);})
 		.attr("font-family", "arial-black")
-   		.attr("font-size", "10px")
+   		.attr("font-size", function(d) {if (d.istip == false) {return "100px";} else {
+        return "40px";}})
+   		.attr("fill", function(d) {if (d.istip == false) {return "grey";} else {
+        return "black";}});
+
+    svg.append("g")
+   		.attr("class", "x axis")
+   		.attr("transform", "translate(0," + (h*2 - padding) + ")")
+   		.call(xAxis);
+
+   	svg.append("g")
+    .attr("class", "y axis")
+    .attr("transform", "translate(" + padding + ",0)")
+    .call(yAxis);
+
+    svg.selectAll("text.axx")
+    	.data(nodes)
+    	.enter()
+    	.append("text")
+    	.text("Haploneme size (microns)")
+    	.attr("class", "axx")
+    	.attr("x", w)
+   		.attr("y", h*2)
+		.attr("font-family", "arial-black")
+   		.attr("font-size", "40px")
    		.attr("fill", "black");
+
+   	svg.selectAll("text.axy")
+   		.data(nodes)
+   		.enter()
+   		.append("text")
+    	.text("Haploneme number")
+    	.attr("class","axy")
+    	.attr("x", 10 + padding)
+   		.attr("y", h)
+		.attr("font-family", "arial-black")
+   		.attr("font-size", "40px")
+   		.attr("fill", "black")
+   		.attr("transform", "rotate(-90 10 500)");
+
+
+   	d3.select("h3.hets_hetn").on("click", function() {
+   		durac = 2000;
+	maxx = 180;
+	maxy = 35;
+
+	xScale.domain([0, maxx]);
+	yScale.domain([0, maxy]);
+	
+	svg.selectAll("circle")
+			.data(nodes)
+			.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+			.attr("cx", function(d) {return xScale(d.hets);})
+   			.attr("cy", function(d) {return yScale(d.hetn);});
+
+   	svg.selectAll("line")
+	      .data(links)
+	      .transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	      .attr("x1", function(d) { return xScale(d.source.hets); })
+	      .attr("y1", function(d) { return yScale(d.source.hetn); })
+	      .attr("x2", function(d) { return xScale(d.target.hets); })
+	      .attr("y2", function(d) { return yScale(d.target.hetn); });
+
+	nodes2 = [
+		
+		{ name: "Calycophorae", istip: false, haps: 26.25, hapn: 225, hets: 72, hetn: 9, rs: 6, nn: 12.25},
+		{ name: "Diphyidae", istip: false, haps: 22.5, hapn: 250, hets: 60, hetn: 8, rs: 6, nn: 8.5},
+		{ name: "Physonectae", istip: false, haps: 28.75, hapn: 10750, hets: 106, hetn: 32.5, rs: 9.25, nn: 12},
+		{ name: "Abylopsis tetragona", istip: true, haps: 52.5, hapn: 800, hets: 155, hetn: 21, rs: 23, nn: 2},
+		{ name: "Muggiaea atlantica", istip: true, haps: 15, hapn: 300, hets: 36, hetn: 6, rs: 6, nn: 1},
+		{ name: "Hippopodius hippopus", istip: true, haps: 30, hapn: 200, hets: 84, hetn: 10, rs: 6, nn: 16},
+		{ name: "Agalma elegans", istip: true, haps: 35, hapn: 17000, hets: 180, hetn: 30, rs: 7.5, nn: 10},
+		{ name: "Nanomia bijuga", istip: true, haps: 22.5, hapn: 4500, hets: 32, hetn: 35, rs: 11, nn: 14 },
+		{ name: "Codonophora", istip: false, haps: 27.5, hapn: 5487.5, hets: 89, hetn: 20.75, rs: 7.625, nn: 12.125}
+		
+		],
+   			
+   	svg.selectAll("text")
+	   		.data(nodes2)
+	   		.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	   		.attr("x", function(d) {return xScale(d.hets);})
+	   		.attr("y", function(d) {return yScale(d.hetn);});
+
+
+   	xAxis.scale(xScale);
+   	yAxis.scale(yScale);
+
+   			//Update x-axis
+		svg.select(".x.axis")
+			.transition()
+			.duration(durac/3)
+			.call(xAxis);
+		//Update y-axis
+		svg.select(".y.axis")
+			.transition()
+			.duration(durac/3)
+			.call(yAxis);
+
+		svg.selectAll("text.axx")
+			.data(nodes)
+			.text("Heteroneme size (microns)");
+
+		svg.selectAll("text.axy")
+			.data(nodes)
+			.text("Heteroneme number");
+
+});
+
+d3.select("h3.rs_nn").on("click", function() {
+   		durac = 2000;
+	maxx = 23;
+	maxy = 16;
+
+	xScale.domain([0, maxx]);
+	yScale.domain([0, maxy]);
+	
+	svg.selectAll("circle")
+			.data(nodes)
+			.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+			.attr("cx", function(d) {return xScale(d.rs);})
+   			.attr("cy", function(d) {return yScale(d.nn);});
+
+   	svg.selectAll("line")
+	      .data(links)
+	      .transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	      .attr("x1", function(d) { return xScale(d.source.rs); })
+	      .attr("y1", function(d) { return yScale(d.source.nn); })
+	      .attr("x2", function(d) { return xScale(d.target.rs); })
+	      .attr("y2", function(d) { return yScale(d.target.nn); });
+
+	nodes2 = [
+		
+		{ name: "Calycophorae", istip: false, haps: 26.25, hapn: 225, hets: 72, hetn: 9, rs: 6, nn: 12.25},
+		{ name: "Diphyidae", istip: false, haps: 22.5, hapn: 250, hets: 60, hetn: 8, rs: 6, nn: 8.5},
+		{ name: "Physonectae", istip: false, haps: 28.75, hapn: 10750, hets: 106, hetn: 32.5, rs: 9.25, nn: 12},
+		{ name: "Abylopsis tetragona", istip: true, haps: 52.5, hapn: 800, hets: 155, hetn: 21, rs: 23, nn: 2},
+		{ name: "Muggiaea atlantica", istip: true, haps: 15, hapn: 300, hets: 36, hetn: 6, rs: 6, nn: 1},
+		{ name: "Hippopodius hippopus", istip: true, haps: 30, hapn: 200, hets: 84, hetn: 10, rs: 6, nn: 16},
+		{ name: "Agalma elegans", istip: true, haps: 35, hapn: 17000, hets: 180, hetn: 30, rs: 7.5, nn: 10},
+		{ name: "Nanomia bijuga", istip: true, haps: 22.5, hapn: 4500, hets: 32, hetn: 35, rs: 11, nn: 14 },
+		{ name: "Codonophora", istip: false, haps: 27.5, hapn: 5487.5, hets: 89, hetn: 20.75, rs: 7.625, nn: 12.125}
+		
+		],
+   			
+   	svg.selectAll("text")
+	   		.data(nodes2)
+	   		.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	   		.attr("x", function(d) {return xScale(d.rs);})
+	   		.attr("y", function(d) {return yScale(d.nn);});
+
+
+   	xAxis.scale(xScale);
+   	yAxis.scale(yScale);
+
+   			//Update x-axis
+		svg.select(".x.axis")
+			.transition()
+			.duration(durac/3)
+			.call(xAxis);
+		//Update y-axis
+		svg.select(".y.axis")
+			.transition()
+			.duration(durac/3)
+			.call(yAxis);
+
+		svg.selectAll("text.axx")
+			.data(nodes)
+			.text("Rhopaloneme size (microns)");
+
+		svg.selectAll("text.axy")
+			.data(nodes)
+			.text("Nectophore number");
+
+});
+
 
   loading.remove();
 }, 10);
