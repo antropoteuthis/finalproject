@@ -16,18 +16,39 @@ Branch length will be flexibly adjusted by the x,y position of the nodes/tips.
 	Trait measurements: Purcell, J. E. (1984). The functions of nematocysts in prey capture by epipelagic siphonophores (Coelenterata, Hydrozoa). The Biological Bulletin, 166(2), 310-327.
 	Phylogenetic relationships: Dunn, C. W., Pugh, P. R., & Haddock, S. H. (2005). Molecular phylogenetics of the Siphonophora (Cnidaria), with implications for the evolution of functional specialization. Systematic Biology, 54(6), 916-935.
 
-- Data structure: "node","parent","branch_length","species" #or clade name,"istip","Haploneme size (microns)","Haploneme number","Heteroneme size (microns)","Heteroneme number","Rhopaloneme size (microns)"
+- Data structure: 
 
-dataset = [
-	[1,6,,"Nanomia bijuga",true,22.5,4500,32,35,11],
-	[2,6,,"Agalma elegans",true,35,17000,180,30,7.5],
-	[3,8,,"Hippopodius hippopus",true,30,200,84,10,6],
-	[4,7,,"Muggiaea atlantica",true,15,300,36,6,6],
-	[5,7,,"Abylopsis tetragona",true,52.5,800,155,21,23],
-	[6,9,,"Physonectae",false,28.75,10750,106,32.5,9.25],
-	[7,8,,"Diphyidae",false,22.5,250,60,8,6],
-	[8,9,,"Calycophorae",false,26.25,225,72,9,6],
-	[9,0,,"Codonophora",false,27.5,5487.5,89,20.75,7.625]];
+	Nodes:"name" species or clade name,"istip" whether if internal node or species,"Haploneme size (microns)","Haploneme number","Heteroneme size (microns)","Heteroneme number","Rhopaloneme size (microns)"
+	Edges: Branches. Relationships between parent nodes and descendent nodes.
+
+var dataset = {
+
+	nodes: [
+		{ name: "Codonophora", istip: false, haps: 27.5, hapn: 5487.5, hets: 89, hetn: 20.75, rs: 7.625},
+		{ name: "Calycophorae", istip: false, haps: 26.25, hapn: 225, hets: 72, hetn: 9, rs: 6},
+		{ name: "Diphyidae", istip: false, haps: 22.5, hapn: 250, hets: 60, hetn: 8, rs: 6},
+		{ name: "Physonectae", istip: false, haps: 28.75, hapn: 10750, hets: 106, hetn: 32.5, rs: 9.25},
+		{ name: "Abylopsis tetragona", istip: true, haps: 52.5, hapn: 800, hets: 155, hetn: 21, rs: 23},
+		{ name: "Muggiaea atlantica", istip: true, haps: 15, hapn: 300, hets: 36, hetn: 6, rs: 6},
+		{ name: "Hippopodius hippopus", istip: true, haps: 30, hapn: 200, hets: 84, hetn: 10, rs: 6},
+		{ name: "Agalma elegans", istip: true, haps: 35, hapn: 17000, hets: 180, hetn: 30, rs: 7.5},
+		{ name: "Nanomia bijuga", istip: true, haps: 22.5, hapn: 4500, hets: 32, hetn: 35, rs: 11}
+		
+		],
+
+	edges: [
+		{ source: 0, target: 1 },
+		{ source: 0, target: 3 },
+		{ source: 2, target: 4 },
+		{ source: 1, target: 2 },
+		{ source: 2, target: 5 },
+		{ source: 2, target: 6 },
+		{ source: 3, target: 7 },
+		{ source: 3, target: 8 }
+		]
+
+};
+
 
 ## Background
 

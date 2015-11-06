@@ -40,7 +40,7 @@ circle {
 <h2> Interactive Siphonophore Cnidomic Phylomorphospace </h2>
 <p>Alejandro Damian Serrano</p>
 <h3 class = "hets_hetn"> Heteroneme size (microns) vs. Heteroneme number </h3>
-<h3 class = "rs_hets"> Rhopaloneme size (microns) vs. Heteroneme size (microns) </h3>
+<h3 class = "rs_hets"> Rhopaloneme size (microns) vs. Nectophore number </h3>
 <script>
 
 var w = 660,
