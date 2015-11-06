@@ -149,11 +149,12 @@ setTimeout(function() {
       .attr("fill", function(d) { return colors[d.name]; })
       .attr("opacity", 0.8);
 
-  svg.selectAll("text")
+  svg.selectAll("text.lab")
    		.data(nodes)
    		.enter()
    		.append("text")
 		.text(function(d) {return d.name;})
+		.attr("class", "lab")
 		.attr("x", function(d) {return xScale(d.haps);})
    		.attr("y", function(d) {return yScale(d.hapn);})
 		.attr("font-family", "arial-black")
@@ -234,7 +235,7 @@ setTimeout(function() {
 		
 		],
    			
-   	svg.selectAll("text")
+   	svg.selectAll("text.lab")
 	   		.data(nodes2)
 	   		.transition().duration(durac/2).ease("cubic-in-out").delay(100)
 	   		.attr("x", function(d) {return xScale(d.hets);})
@@ -301,8 +302,8 @@ d3.select("h3.rs_hets").on("click", function() {
 		
 		]
    			
-   	svg.selectAll("text")
-	   		.data(nodes2)
+   	svg.selectAll("text.lab")
+	   		.data(nodes)
 	   		.transition().duration(durac/2).ease("cubic-in-out").delay(100)
 	   		.attr("x", function(d) {return xScale(d.rs);})
 	   		.attr("y", function(d) {return yScale(d.hets);});

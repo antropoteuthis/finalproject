@@ -13,12 +13,17 @@ The parent node cnidomic variables were reconstructed using the mean values from
 Branch length will be flexibly adjusted by the x,y position of the nodes/tips.
 
 - Data source:
+
 	Trait measurements: Purcell, J. E. (1984). The functions of nematocysts in prey capture by epipelagic siphonophores (Coelenterata, Hydrozoa). The Biological Bulletin, 166(2), 310-327.
+
+
 	Phylogenetic relationships: Dunn, C. W., Pugh, P. R., & Haddock, S. H. (2005). Molecular phylogenetics of the Siphonophora (Cnidaria), with implications for the evolution of functional specialization. Systematic Biology, 54(6), 916-935.
 
 - Data structure: 
 
 	Nodes:"name" species or clade name,"istip" whether if internal node or species,"Haploneme size (microns)","Haploneme number","Heteroneme size (microns)","Heteroneme number","Rhopaloneme size (microns)"
+
+
 	Edges: Branches. Relationships between parent nodes and descendent nodes.
 
 var dataset = {
@@ -53,10 +58,15 @@ var dataset = {
 ## Background
 
 Phylogenetic trees have been around since the 19th century, and naturalists have been tagging the species (tips) with relevant biological information to understand the evolutionary patterns and the nature of the clades.
+
+
 Software like Mesquite or ggplot allows to trace particular characters, mapped as colors with a key, to tips and branches of tree after performing reconstructions using maximum parsimony or other models.
+
+
 The concept of a phylomorphospace arises for the first time in the R package ['phytools'](http://www.inside-r.org/packages/cran/phytools/docs/phylomorphospace) .
-It allows the plotting of a static scatterplot for two traits as present in a set of species (the dots) connected by branches and nodes of trivial length and position that represent the phylogenetic relationships
-between those species. If the author wants to add the branch length, a color gradient scale is included.
+
+
+It allows the plotting of a static scatterplot for two traits as present in a set of species (the dots) connected by branches and nodes of trivial length and position that represent the phylogenetic relationships between those species. If the author wants to add the branch length, a color gradient scale is included.
 
 ![Alt text](http://4.bp.blogspot.com/-mj1toWvpbjs/Ud3G9IX-XRI/AAAAAAAAChA/CUEOYifsVNY/s1600/time-phylomorphospace-2.png)
 
@@ -69,14 +79,25 @@ The goal of this project is to provide the user with an interactive option to vi
 ### Mapping of data to aesthetics
 
 Each node/tip is a circle, of fixed radius. The fill will be determined by a dictionary of colors dependent on the species name.
+
+
 Each node is accompanied by a text label. Its content is the species/clade name.
+
+
 X, Y position of node/tips and text labels represent two cnidomic variables on demand of the user.
+
+
+Branch length represents the phenotypic distance between 2 nodes (internal and/or species) in the 2 components selected.
+
+
 The axes are also scaled and updated with the cnidomic variables selected. They are labelled with the name of the variables selected.
+
 
 ### Filtering
 
 The quantitative values plotted are a filtered subset of 2 properties that the user demands. 
 The goal of filtering is to answer concrete questions about the relationship of each two variables.
+
 
 Two more cnidomic variables could be represented by the radius and the fill color of the nodes. However, this idea would clutter the plot with excess information at a time, therefore a filtering 
 2-at-a-time on demand approach is taken.
@@ -84,9 +105,6 @@ Two more cnidomic variables could be represented by the radius and the fill colo
 ### Extra ink
 
 The header and initial paragraph are not data-ink, but they are useful to explain the rationale of the project to the user, and give instruction on how to interact with it.
-
-Branch length is computed by the minimum straight line distances between the nodes given the constraints from the X,Y data (force layout). 
-It is strictly speaking data-driven, but it represents no information by itself. The purpose of this is to keep the nodes connected and show the overall phylogenetic relationships.
 
 There are button elements that the user clicks on (event listeners). They provide a clear menu for interaction with the user.
 
