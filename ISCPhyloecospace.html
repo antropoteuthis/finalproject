@@ -11,8 +11,8 @@ text {
 
 line {
   stroke: #999;
-  stroke-width: 1.5px
-  stroke-opacity: 0.6;
+  stroke-width: 2.5px
+  stroke-opacity: 0.8;
 }
 
 circle {
@@ -60,7 +60,7 @@ var w = 660,
     h = 500;
 var padding = 50;
 
-var colors = {"Nanomia bijuga":"blue", "Agalma elegans":"red", "Hippopodius hippopus":"green", "Muggiaea atlantica":"yellow", "Abylopsis tetragona":"purple", "Physonectae":"black", "Diphyidae":"black", "Calycophorae":"black", "Codonophora":"black"};
+var colors = {"Nanomia bijuga":"blue", "Agalma elegans":"red", "Hippopodius hippopus":"green", "Muggiaea atlantica":"orange", "Abylopsis tetragona":"purple", "Physonectae":"black", "Diphyidae":"black", "Calycophorae":"black", "Codonophora":"black"};
 
 var dataset = {
 
@@ -155,10 +155,11 @@ setTimeout(function() {
 	svg.selectAll("line")
 	      .data(links)
 	    .enter().append("line")
-	      .attr("x1", function(d) { return xScale(d.source.defx); })
-	      .attr("y1", function(d) { return yScale(d.source.defy); })
-	      .attr("x2", function(d) { return xScale(d.target.defx); })
-	      .attr("y2", function(d) { return yScale(d.target.defy); });
+	      .attr("x1", function(d) { return xScale(d.source.defx) + 5; })
+	      .attr("y1", function(d) { return yScale(d.source.defy) + 5; })
+	      .attr("x2", function(d) { return xScale(d.target.defx) + 5; })
+	      .attr("y2", function(d) { return yScale(d.target.defy) + 5; })
+	      .attr("stroke-width", "2.5px");
 
   svg.selectAll("rect")
       .data(nodes)
@@ -179,10 +180,9 @@ setTimeout(function() {
 		.attr("x", function(d) {return xScale(d.defx);})
    		.attr("y", function(d) {return yScale(d.defy);})
 		.attr("font-family", "arial-black")
-   		.style("font-size", function(d) {if (d.istip == false) {return "10px";} else {
+   		.style("font-size", function(d) {if (d.istip == false) {return "11px";} else {
         return "14px";}})
-   		.attr("fill", function(d) {if (d.istip == false) {return "grey";} else {
-        return "black";}});
+   		.attr("fill", "black");
 
     svg.append("g")
    		.attr("class", "x axis")
@@ -235,13 +235,13 @@ setTimeout(function() {
    	svg.selectAll("line")
 	      .data(links)
 	      .transition().duration(durac/2).ease("cubic-in-out").delay(100)
-	      .attr("x1", function(d) { return xScale(d.source.tempmin); })
-	      .attr("x2", function(d) { return xScale(d.target.tempmin); });
+	      .attr("x1", function(d) { return xScale(d.source.tempmin) + (xrScale(d.source.tempr))/2; })
+	      .attr("x2", function(d) { return xScale(d.target.tempmin) + (xrScale(d.target.tempr))/2; });
    			
    	svg.selectAll("text.lab")
 	   		.data(nodes)
 	   		.transition().duration(durac/2).ease("cubic-in-out").delay(100)
-	   		.attr("x", function(d) {return xScale(d.tempmin);});
+	   		.attr("x", function(d) {return xScale(d.tempmin) + (xrScale(d.tempr))/2;});
 
 
    	xAxis.scale(xScale); 
@@ -275,13 +275,13 @@ setTimeout(function() {
    	svg.selectAll("line")
 	      .data(links)
 	      .transition().duration(durac/2).ease("cubic-in-out").delay(100)
-	      .attr("y1", function(d) { return yScale(d.source.tempmax); })
-	      .attr("y2", function(d) { return yScale(d.target.tempmax); });
+	      .attr("y1", function(d) { return yScale(d.source.tempmax) + (yrScale(d.source.tempr))/2; })
+	      .attr("y2", function(d) { return yScale(d.target.tempmax) + (yrScale(d.target.tempr))/2; });
    			
    	svg.selectAll("text.lab")
 	   		.data(nodes)
 	   		.transition().duration(durac/2).ease("cubic-in-out").delay(100)
-	   		.attr("y", function(d) {return yScale(d.tempmax);});
+	   		.attr("y", function(d) {return yScale(d.tempmax) + (yrScale(d.tempr))/2;});
 
 
    	yAxis.scale(yScale); 
@@ -316,13 +316,13 @@ setTimeout(function() {
    	svg.selectAll("line")
 	      .data(links)
 	      .transition().duration(durac/2).ease("cubic-in-out").delay(100)
-	      .attr("x1", function(d) { return xScale(d.source.salmin); })
-	      .attr("x2", function(d) { return xScale(d.target.salmin); });
+	      .attr("x1", function(d) { return xScale(d.source.salmin) + (xrScale(d.source.salr))/2; })
+	      .attr("x2", function(d) { return xScale(d.target.salmin) + (xrScale(d.target.salr))/2; });
    			
    	svg.selectAll("text.lab")
 	   		.data(nodes)
 	   		.transition().duration(durac/2).ease("cubic-in-out").delay(100)
-	   		.attr("x", function(d) {return xScale(d.salmin);});
+	   		.attr("x", function(d) {return xScale(d.salmin) + (xrScale(d.salr))/2;});
 
 
    	xAxis.scale(xScale); 
@@ -355,13 +355,13 @@ setTimeout(function() {
    	svg.selectAll("line")
 	      .data(links)
 	      .transition().duration(durac/2).ease("cubic-in-out").delay(100)
-	      .attr("y1", function(d) { return yScale(d.source.salmax); })
-	      .attr("y2", function(d) { return yScale(d.target.salmax); });
+	      .attr("y1", function(d) { return yScale(d.source.salmax) + (yrScale(d.source.salr))/2; })
+	      .attr("y2", function(d) { return yScale(d.target.salmax) + (yrScale(d.target.salr))/2; });
    			
    	svg.selectAll("text.lab")
 	   		.data(nodes)
 	   		.transition().duration(durac/2).ease("cubic-in-out").delay(100)
-	   		.attr("y", function(d) {return yScale(d.salmax);});
+	   		.attr("y", function(d) {return yScale(d.salmax) + (yrScale(d.salr))/2;});
 
 
    	yAxis.scale(yScale); 
@@ -395,14 +395,14 @@ d3.select("h3.-depth_y").on("click", function() {
    	svg.selectAll("line")
 	      .data(links)
 	      .transition().duration(durac/2).ease("cubic-in-out").delay(100)
-	      .attr("y1", function(d) { return yScale(d.source.depthmin); })
-	      .attr("y2", function(d) { return yScale(d.target.depthmin); });
+	      .attr("y1", function(d) { return yScale(d.source.depthmin) + (yrScale(d.source.depthr))/2; })
+	      .attr("y2", function(d) { return yScale(d.target.depthmin) + (yrScale(d.target.depthr))/2; });
 
    			
    	svg.selectAll("text.lab")
 	   		.data(nodes)
 	   		.transition().duration(durac/2).ease("cubic-in-out").delay(100)
-	   		.attr("y", function(d) {return xScale(d.depthmin);});
+	   		.attr("y", function(d) {return xScale(d.depthmin) + (yrScale(d.depthr))/2;});
 
 
    	yAxis.scale(yScale);
@@ -436,14 +436,14 @@ d3.select("h3.chl_x").on("click", function() {
    	svg.selectAll("line")
 	      .data(links)
 	      .transition().duration(durac/2).ease("cubic-in-out").delay(100)
-	      .attr("x1", function(d) { return xScale(d.source.chlmin); })
-	      .attr("x2", function(d) { return xScale(d.target.chlmin); });
+	      .attr("x1", function(d) { return xScale(d.source.chlmin) + (xrScale(d.source.chlr))/2; })
+	      .attr("x2", function(d) { return xScale(d.target.chlmin) + (xrScale(d.target.chlr))/2; });
 
    			
    	svg.selectAll("text.lab")
 	   		.data(nodes)
 	   		.transition().duration(durac/2).ease("cubic-in-out").delay(100)
-	   		.attr("x", function(d) {return xScale(d.chlmin);});
+	   		.attr("x", function(d) {return xScale(d.chlmin) + (xrScale(d.chlr))/2;});
 
 
    	xAxis.scale(xScale);
@@ -477,14 +477,14 @@ d3.select("h3.chl_y").on("click", function() {
    	svg.selectAll("line")
 	      .data(links)
 	      .transition().duration(durac/2).ease("cubic-in-out").delay(100)
-	      .attr("y1", function(d) { return yScale(d.source.chlmax); })
-	      .attr("y2", function(d) { return yScale(d.target.chlmax); });
+	      .attr("y1", function(d) { return yScale(d.source.chlmax) + (yrScale(d.source.chlr))/2; })
+	      .attr("y2", function(d) { return yScale(d.target.chlmax) + (yrScale(d.target.chlr))/2; });
 
    			
    	svg.selectAll("text.lab")
 	   		.data(nodes)
 	   		.transition().duration(durac/2).ease("cubic-in-out").delay(100)
-	   		.attr("y", function(d) {return yScale(d.chlmax);});
+	   		.attr("y", function(d) {return yScale(d.chlmax) + (yrScale(d.chlr))/2;});
 
 
    	yAxis.scale(yScale);
