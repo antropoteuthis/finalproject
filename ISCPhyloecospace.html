@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Interactive Siphonophore Phyloecospace</title>
+<style type="text/css">
+
+text {
+  font: 10px sans-serif;
+}
+
+line {
+  stroke: #999;
+  stroke-width: 1.5px
+  stroke-opacity: 0.6;
+}
+
+circle {
+  stroke: #999;
+  stroke-width: 1.5px;
+}
+
+.axis path,
+			.axis line {
+				fill: none;
+				stroke: black;
+				shape-rendering: crispEdges;
+			}
+			
+			.axis text {
+				font-family: sans-serif;
+				font-size: 11px;
+			}
+h3 { vertical-align:absbottom; display:inline; }
+
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js">  
+</script>
+</head>
+<body>
+<h2> Interactive Siphonophore Phyloecospace </h2>
+<p>Alejandro Damian Serrano</p>
+<br>
+<p> This is a siphonophore phylogeny with 5 species.<br>
+You can click on the niche variable names below to turn it into a PHYLOECOSPACE.<br>
+This allows you to compare comp[onents of the oceanographic niche among these siphonophore species while preserving the topology of phylogenetic relationships (common descent)
+to interpret the evolutionary history of their ecology.<br><br>
+The phylogenetic relationships are adapted from: Dunn, C. W., Pugh, P. R., & Haddock, S. H. (2005). Molecular phylogenetics of the Siphonophora (Cnidaria), with implications for the evolution of functional specialization. Systematic Biology, 54(6), 916-935.
+<br><br>
+The oceanographic niche data was extracted from: Gonzalez, R., Damian, A., Fuentes, V., Tilves, U., Acevedo, M., Canepa, A., & Ziveri, P. (2015). Cnidarian zooplankton distribution across geographical, vertical, biotic and abiotic gradients in the Mediterranean Sea. ASLO 2015.
+<br><br>
+ </p>
+<h3>Temperature (centigrades)    </h3><h3 class = "temp_x" style="color:blue;">  -- (X Axis) </h3><h3 class = "temp_y" style="color:red;">  -- (Y Axis) </h3><br>
+<h3>Salinity (PSU)    </h3><h3 class = "sal_x" style="color:blue;">  -- (X Axis) </h3><h3 class = "sal_y" style="color:red;">  -- (Y Axis) </h3><br>
+<h3>-Depth (m)    </h3><h3 class = "-depth_y" style="color:red;">  -- (Y Axis) </h3><br>
+<h3>Surface Chlorophyll (mg/l)    </h3><h3 class = "chl_x" style="color:blue;">  -- (X Axis) </h3><h3 class = "chl_y" style="color:red;">  -- (Y Axis) </h3><br>
+<script>
+
+var w = 660,
+    h = 500;
+var padding = 50;
+
+var colors = {"Nanomia bijuga":"blue", "Agalma elegans":"red", "Hippopodius hippopus":"green", "Muggiaea atlantica":"yellow", "Abylopsis tetragona":"purple", "Physonectae":"black", "Diphyidae":"black", "Calycophorae":"black", "Codonophora":"black"};
+
+var dataset = {
+
+	nodes: [
+		{ name: "Codonophora", istip: false, defx: 660, defy: 200, tempmin: 12.5, tempmax: 20.5, tempr: 8, salmin: 32, salmax: 35, salr: 3, depthmin: 5, depthr: 300, chlmax: 0.9, chlmin: 0.6, chlr: 0.3 },
+		{ name: "Calycophorae", istip: false, defx: 990 , defy: 500, tempmin: 12, tempmax: 19, tempr: 7, salmin: 33, salmax: 35, salr: 2, depthmin: 10, depthr: 400, chlmax: 0.7, chlmin: 0.5, chlr: 0.2 },
+		{ name: "Diphyidae", istip: false, defx: 845, defy: 625, tempmin: 10, tempmax: 16.5, tempr: 6.5, salmin: 32, salmax: 35, salr: 2, depthmin: 20, depthr: 300, chlmax: 1, chlmin: 0.85, chlr: 0.15 },
+		{ name: "Physonectae", istip: false, defx: 330 , defy: 500, tempmin: 13, tempmax: 22, tempr: 9, salmin: 31, salmax: 35, salr: 4, depthmin: 0, depthr: 250, chlmax: 1.2, chlmin: 0.8, chlr: 0.4 },
+		{ name: "Abylopsis tetragona", istip: true, defx: 990, defy: 750, tempmin: 8, tempmax: 23, tempr: 15, salmin: 35, salmax: 36, salr: 1, depthmin: 50, depthr: 900, chlmax: 0.8, chlmin: 0.6, chlr: 0.2 },
+		{ name: "Muggiaea atlantica", istip: true, defx: 690, defy: 750, tempmin: 12, tempmax: 17, tempr: 5, salmin: 31, salmax: 34, salr: 3, depthmin: 0, depthr: 110, chlmax: 1.3, chlmin: 1.16, chlr: 0.14 },
+		{ name: "Hippopodius hippopus", istip: true, defx: 1290, defy: 750, tempmin: 14, tempmax: 22, tempr: 8, salmin: 34, salmax: 36, salr: 2, depthmin: 0, depthr: 500, chlmax: 0.5, chlmin: 0.3, chlr: 0.2 },
+		{ name: "Agalma elegans", istip: true, defx: 230, defy: 750, tempmin: 14, tempmax: 20, tempr: 6, salmin: 30, salmax: 33, salr: 3, depthmin: 0, depthr: 130, chlmax: 1, chlmin: 0.75, chlr: 0.25 },
+		{ name: "Nanomia bijuga", istip: true, defx: 430, defy: 750, tempmin: 10, tempmax: 22, tempr: 12, salmin: 32, salmax: 37, salr: 5, depthmin: 0, depthr: 400, chlmax: 1.6, chlmin: 0.9, chlr: 0.7}
+		],
+
+	edges: [
+		{ source: 0, target: 1 },
+		{ source: 0, target: 3 },
+		{ source: 2, target: 4 },
+		{ source: 1, target: 2 },
+		{ source: 2, target: 5 },
+		{ source: 1, target: 6 },
+		{ source: 3, target: 7 },
+		{ source: 3, target: 8 }
+		]
+
+};
+
+var minx = 0;
+var maxx = 1300;
+var miny = 0;
+var maxy = 1000;
+
+var nodes = dataset.nodes;
+var links = dataset.edges;
+
+var force = d3.layout.force()
+    .nodes(nodes)
+    .links(links)
+    .size([w, h]);
+
+var xScale = d3.scale.linear()
+				.domain([minx, maxx])
+				.range([padding, (w*2) - padding]);
+
+var yScale = d3.scale.linear()
+				.domain([miny, maxy])
+				.range([(h*2)-padding, padding]);
+				
+var max_l = d3.max(nodes, function(d) {return d.tempr;});
+var max_w = d3.max(nodes, function(d) {return d.tempr;});
+				
+var l_scale = d3.scale.linear()
+		.domain([0, max_l])
+		.range([1, 100]);
+		
+var w_scale = d3.scale.linear()
+		.domain([0, max_w])
+		.range([1, 30]);
+
+var xAxis = d3.svg.axis()
+    .scale(xScale)
+    .orient("bottom")
+    .ticks(8);
+
+var yAxis = d3.svg.axis()
+    .scale(yScale)
+    .orient("left")
+    .ticks(6);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", (w*2)+100) 
+    .attr("height", h*2);
+
+var loading = svg.append("text")
+    .attr("x", w / 2)
+    .attr("y", h / 2)
+    .attr("dy", ".35em")
+    .style("text-anchor", "middle")
+    .text("Simulating. One moment please…");
+
+// Use a timeout to allow the rest of the page to load first.
+setTimeout(function() {
+
+  // Run the layout a fixed number of times.
+  // The ideal number of times scales with graph complexity.
+  // Of course, don't run too long—you'll hang the page!
+  force.start();
+  for (var i = 18; i > 0; --i) force.tick();
+  force.stop();
+
+	svg.selectAll("line")
+	      .data(links)
+	    .enter().append("line")
+	      .attr("x1", function(d) { return xScale(d.source.defx); })
+	      .attr("y1", function(d) { return yScale(d.source.defy); })
+	      .attr("x2", function(d) { return xScale(d.target.defx); })
+	      .attr("y2", function(d) { return yScale(d.target.defy); });
+
+  svg.selectAll("rect")
+      .data(nodes)
+    .enter().append("rect")
+      .attr("x", function(d) { return xScale(d.defx); })
+      .attr("y", function(d) { return yScale(d.defy); })
+      .attr("height", 10)
+      .attr("width", 10)
+      .attr("fill", function(d) { return colors[d.name]; })
+      .attr("opacity", 0.3);
+
+  svg.selectAll("text.lab")
+   		.data(nodes)
+   		.enter()
+   		.append("text")
+		.text(function(d) {return d.name;})
+		.attr("class", "lab")
+		.attr("x", function(d) {return xScale(d.defx);})
+   		.attr("y", function(d) {return yScale(d.defy);})
+		.attr("font-family", "arial-black")
+   		.style("font-size", function(d) {if (d.istip == false) {return "10px";} else {
+        return "14px";}})
+   		.attr("fill", function(d) {if (d.istip == false) {return "grey";} else {
+        return "black";}});
+
+    svg.append("g")
+   		.attr("class", "x axis")
+   		.attr("transform", "translate(0," + (h*2 - padding) + ")")
+   		.call(xAxis);
+
+   	svg.append("g")
+    .attr("class", "y axis")
+    .attr("transform", "translate(" + padding + ",0)")
+    .call(yAxis);
+
+    svg.selectAll("text.axx")
+    	.data(nodes)
+    	.enter()
+    	.append("text")
+    	.text("Species")
+    	.attr("class", "axx")
+    	.attr("x", w)
+   		.attr("y", h*1.99)
+		.style("font-family", "arial")
+   		.style("font-size", "13px")
+   		.attr("fill", "black");
+
+   	svg.selectAll("text.axy")
+   		.data(nodes)
+   		.enter()
+   		.append("text")
+    	.text("Evolutionary time (arbitrary)")
+    	.attr("class","axy")
+    	.attr("x", 10 + padding)
+   		.attr("y", h)
+		.style("font-family", "arial")
+   		.style("font-size", "13px")
+   		.attr("fill", "black")
+   		.attr("transform", "rotate(-90 10 500)");
+
+
+   	d3.select("h3.temp_x").on("click", function() {
+   		durac = 2000;
+	maxx = 30;
+	xScale.domain([6, maxx]);
+	xrScale = d3.scale.linear().domain([6, maxx]).range([300, 550]);
+	
+	svg.selectAll("rect")
+			.data(nodes)
+			.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+			.attr("x", function(d) {return xScale(d.tempmin);})
+			.attr("width", function(d) {return xrScale(d.tempr);});
+
+   	svg.selectAll("line")
+	      .data(links)
+	      .transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	      .attr("x1", function(d) { return xScale(d.source.tempmin); })
+	      .attr("x2", function(d) { return xScale(d.target.tempmin); });
+   			
+   	svg.selectAll("text.lab")
+	   		.data(nodes)
+	   		.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	   		.attr("x", function(d) {return xScale(d.tempmin);});
+
+
+   	xAxis.scale(xScale); 
+
+   			//Update x-axis
+		svg.select(".x.axis")
+			.transition()
+			.duration(durac/3)
+			.call(xAxis);
+
+
+		svg.selectAll("text.axx")
+			.data(nodes)
+			.text("Temperature (centigrades)");
+
+});
+
+   	d3.select("h3.temp_y").on("click", function() {
+   		durac = 2000;
+	maxy = 30;
+	yScale.domain([6, maxy]);
+	yrScale = d3.scale.linear().domain([6, maxy]).range([280, 960]);
+	
+	
+	svg.selectAll("rect")
+			.data(nodes)
+			.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+			.attr("y", function(d) {return yScale(d.tempmax);})
+			.attr("height", function(d) {return yrScale(d.tempr);});
+
+   	svg.selectAll("line")
+	      .data(links)
+	      .transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	      .attr("y1", function(d) { return yScale(d.source.tempmax); })
+	      .attr("y2", function(d) { return yScale(d.target.tempmax); });
+   			
+   	svg.selectAll("text.lab")
+	   		.data(nodes)
+	   		.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	   		.attr("y", function(d) {return yScale(d.tempmax);});
+
+
+   	yAxis.scale(yScale); 
+
+   			//Update x-axis
+		svg.select(".y.axis")
+			.transition()
+			.duration(durac/3)
+			.call(yAxis);
+
+
+		svg.selectAll("text.axy")
+			.data(nodes)
+			.text("Temperature (centigrades)");
+
+});
+
+
+   	d3.select("h3.sal_x").on("click", function() {
+   		durac = 2000;
+	maxx = 38;
+	xScale.domain([0, maxx]);
+	xrScale = d3.scale.linear().domain([6, maxx]).range([160, 650]);
+	
+	
+	svg.selectAll("rect")
+			.data(nodes)
+			.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+			.attr("x", function(d) {return xScale(d.salmin);})
+			.attr("width", function(d) {return xrScale(d.salr);});
+
+   	svg.selectAll("line")
+	      .data(links)
+	      .transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	      .attr("x1", function(d) { return xScale(d.source.salmin); })
+	      .attr("x2", function(d) { return xScale(d.target.salmin); });
+   			
+   	svg.selectAll("text.lab")
+	   		.data(nodes)
+	   		.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	   		.attr("x", function(d) {return xScale(d.salmin);});
+
+
+   	xAxis.scale(xScale); 
+
+   			//Update x-axis
+		svg.select(".x.axis")
+			.transition()
+			.duration(durac/3)
+			.call(xAxis);
+
+
+		svg.selectAll("text.axx")
+			.data(nodes)
+			.text("Salinity (PSU)");
+
+});
+
+   	d3.select("h3.sal_y").on("click", function() {
+   		durac = 2000;
+	maxy = 38;
+	yScale.domain([0, maxy]);
+	yrScale=d3.scale.linear().domain([0, maxy]).range([0, 946]);
+	
+	svg.selectAll("rect")
+			.data(nodes)
+			.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+			.attr("y", function(d) {return yScale(d.salmax);})
+			.attr("height", function(d) {return yrScale(d.salr);});
+
+   	svg.selectAll("line")
+	      .data(links)
+	      .transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	      .attr("y1", function(d) { return yScale(d.source.salmax); })
+	      .attr("y2", function(d) { return yScale(d.target.salmax); });
+   			
+   	svg.selectAll("text.lab")
+	   		.data(nodes)
+	   		.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	   		.attr("y", function(d) {return yScale(d.salmax);});
+
+
+   	yAxis.scale(yScale); 
+
+   			//Update x-axis
+		svg.select(".y.axis")
+			.transition()
+			.duration(durac/3)
+			.call(yAxis);
+
+
+		svg.selectAll("text.axy")
+			.data(nodes)
+			.text("Salinity (PSU)");
+
+});
+
+d3.select("h3.-depth_y").on("click", function() {
+   	durac = 2000;
+	maxy = 1000;
+
+	yScale.domain([maxy, 0]);
+	yrScale=d3.scale.linear().domain([0, maxy]).range([0, 946]);
+	
+	svg.selectAll("rect")
+			.data(nodes)
+			.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+			.attr("y", function(d) {return yScale(d.depthmin);})
+			.attr("height", function(d) {return yrScale(d.depthr);});
+
+   	svg.selectAll("line")
+	      .data(links)
+	      .transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	      .attr("y1", function(d) { return yScale(d.source.depthmin); })
+	      .attr("y2", function(d) { return yScale(d.target.depthmin); });
+
+   			
+   	svg.selectAll("text.lab")
+	   		.data(nodes)
+	   		.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	   		.attr("y", function(d) {return xScale(d.depthmin);});
+
+
+   	yAxis.scale(yScale);
+
+
+		//Update y-axis
+		svg.select(".y.axis")
+			.transition()
+			.duration(durac/3)
+			.call(yAxis);
+
+		svg.selectAll("text.axy")
+			.data(nodes)
+			.text("-Depth (m)");
+
+});
+
+d3.select("h3.chl_x").on("click", function() {
+   	durac = 2000;
+	maxx = 2;
+
+	xScale.domain([0, maxx]);
+	xrScale=d3.scale.linear().domain([0, maxx]).range([10, 1000]);
+	
+	svg.selectAll("rect")
+			.data(nodes)
+			.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+			.attr("x", function(d) {return xScale(d.chlmin);})
+			.attr("width", function(d) {return xrScale(d.chlr);});
+
+   	svg.selectAll("line")
+	      .data(links)
+	      .transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	      .attr("x1", function(d) { return xScale(d.source.chlmin); })
+	      .attr("x2", function(d) { return xScale(d.target.chlmin); });
+
+   			
+   	svg.selectAll("text.lab")
+	   		.data(nodes)
+	   		.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	   		.attr("x", function(d) {return xScale(d.chlmin);});
+
+
+   	xAxis.scale(xScale);
+
+
+		//Update y-axis
+		svg.select(".x.axis")
+			.transition()
+			.duration(durac/3)
+			.call(xAxis);
+
+		svg.selectAll("text.axx")
+			.data(nodes)
+			.text("Surface ChlA concentration (mg/l)");
+
+});
+
+d3.select("h3.chl_y").on("click", function() {
+   	durac = 2000;
+	maxy = 2;
+
+	yScale.domain([0, maxy]);
+	yrScale=d3.scale.linear().domain([0, maxy]).range([10, 1000]);
+	
+	svg.selectAll("rect")
+			.data(nodes)
+			.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+			.attr("y", function(d) {return yScale(d.chlmax);})
+			.attr("height", function(d) {return yrScale(d.chlr);});
+
+   	svg.selectAll("line")
+	      .data(links)
+	      .transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	      .attr("y1", function(d) { return yScale(d.source.chlmax); })
+	      .attr("y2", function(d) { return yScale(d.target.chlmax); });
+
+   			
+   	svg.selectAll("text.lab")
+	   		.data(nodes)
+	   		.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	   		.attr("y", function(d) {return yScale(d.chlmax);});
+
+
+   	yAxis.scale(yScale);
+
+
+		//Update y-axis
+		svg.select(".y.axis")
+			.transition()
+			.duration(durac/3)
+			.call(yAxis);
+
+		svg.selectAll("text.axy")
+			.data(nodes)
+			.text("Surface ChlA concentration (mg/l)");
+
+});
+
+
+  loading.remove();
+}, 10);
+
+</script>
+</body>
+</html>

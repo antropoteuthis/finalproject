@@ -31,6 +31,10 @@ circle {
 				font-family: sans-serif;
 				font-size: 11px;
 			}
+			
+
+h3 { vertical-align:absbottom; display:inline; }
+
 
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js">  
@@ -41,15 +45,21 @@ circle {
 <p>Alejandro Damian Serrano</p>
 <br>
 <p> This is a siphonophore phylogeny with 5 species.
-You can click on the variable names below to turn it into a PHYLOMORPHOSPACE.
+You can click on the X AXIS / Y AXIS buttons in front of the variable names below to turn it into a PHYLOMORPHOSPACE.<br>
 This allows you to compare variables of the nematocyst composition (cnidome) among these siphonophore species while preserving the topology of phylogenetic relationships (common descent)
-to interpret the evolutionary history of thes variables (traits).
+to interpret the evolutionary history of these variables (traits).
+<br><br>
+The phylogenetic relationships are adapted from: Dunn, C. W., Pugh, P. R., & Haddock, S. H. (2005). Molecular phylogenetics of the Siphonophora (Cnidaria), with implications for the evolution of functional specialization. Systematic Biology, 54(6), 916-935.
+<br><br>
+The cnidomic data was extracted from: Purcell, J. E. (1984). The functions of nematocysts in prey capture by epipelagic siphonophores (Coelenterata, Hydrozoa). The Biological Bulletin, 166(2), 310-327.
+<br>
  </p>
-<h3 class = "hets_x"> Heteroneme size (microns) -- (X Axis) </h3>
-<h3 class = "haps_x"> Haploneme size (microns) -- (X Axis) </h3>
-<h3 class = "rs_x"> Rhopaloneme size (microns) -- (X Axis) </h3>
-<h3 class = "hapn_y"> Haploneme number -- (Y Axis) </h3>
-<h3 class = "hetn_y"> Heteroneme number -- (Y Axis) </h3>
+<h3>Heteroneme size (microns)    </h3><h3 class = "hets_x" style="color: blue">  -- (X Axis) </h3> <h3 class = "hets_y" style="color: red">  -- (Y Axis) </h3><br>
+<h3>Haploneme size (microns)    </h3><h3 class = "haps_x" style="color: blue">  -- (X Axis) </h3> <h3 class = "haps_y" style="color: red">  -- (Y Axis) </h3><br>
+<h3>Rhopaloneme size (microns)    </h3><h3 class = "rs_x" style="color: blue">  -- (X Axis) </h3> <h3 class = "rs_y" style="color: red">  -- (Y Axis) </h3><br>
+<h3>Heteroneme number    </h3><h3 class = "hetn_x" style="color: blue">  -- (X Axis) </h3> <h3 class = "hetn_y" style="color: red">  -- (Y Axis) </h3><br>
+<h3>Haploneme number    </h3><h3 class = "hapn_x" style="color: blue">  -- (X Axis) </h3> <h3 class = "hapn_y" style="color: red">  -- (Y Axis) </h3><br>
+
 <script>
 
 var w = 660,
@@ -246,6 +256,44 @@ setTimeout(function() {
 
 });
 
+   	d3.select("h3.hets_y").on("click", function() {
+   		durac = 2000;
+	maxy = 180;
+	yScale.domain([0, maxy]);
+	
+	
+	svg.selectAll("circle")
+			.data(nodes)
+			.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+			.attr("cy", function(d) {return yScale(d.hets);});
+
+   	svg.selectAll("line")
+	      .data(links)
+	      .transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	      .attr("y1", function(d) { return yScale(d.source.hets); })
+	      .attr("y2", function(d) { return yScale(d.target.hets); });
+   			
+   	svg.selectAll("text.lab")
+	   		.data(nodes)
+	   		.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	   		.attr("y", function(d) {return yScale(d.hets);});
+
+
+   	yAxis.scale(yScale); 
+
+   			//Update x-axis
+		svg.select(".y.axis")
+			.transition()
+			.duration(durac/3)
+			.call(yAxis);
+
+
+		svg.selectAll("text.axy")
+			.data(nodes)
+			.text("Heteroneme size (microns)");
+
+});
+
    	d3.select("h3.haps_x").on("click", function() {
    		durac = 2000;
 	maxx = 52.5;
@@ -284,7 +332,45 @@ setTimeout(function() {
 
 });
 
-d3.select("h3.rs_x").on("click", function() {
+   	d3.select("h3.haps_y").on("click", function() {
+   		durac = 2000;
+	maxy = 52.5;
+	yScale.domain([0, maxy]);
+	
+	
+	svg.selectAll("circle")
+			.data(nodes)
+			.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+			.attr("cy", function(d) {return yScale(d.haps);});
+
+   	svg.selectAll("line")
+	      .data(links)
+	      .transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	      .attr("y1", function(d) { return yScale(d.source.haps); })
+	      .attr("y2", function(d) { return yScale(d.target.haps); });
+   			
+   	svg.selectAll("text.lab")
+	   		.data(nodes)
+	   		.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	   		.attr("y", function(d) {return yScale(d.haps);});
+
+
+   	yAxis.scale(yScale); 
+
+   			//Update x-axis
+		svg.select(".y.axis")
+			.transition()
+			.duration(durac/3)
+			.call(yAxis);
+
+
+		svg.selectAll("text.axy")
+			.data(nodes)
+			.text("Haploneme size (microns)");
+
+});
+
+    d3.select("h3.rs_x").on("click", function() {
    	durac = 2000;
 	maxx = 23;
 
@@ -320,6 +406,84 @@ d3.select("h3.rs_x").on("click", function() {
 		svg.selectAll("text.axx")
 			.data(nodes)
 			.text("Rhopaloneme size (microns)");
+
+});
+
+    d3.select("h3.rs_y").on("click", function() {
+   	durac = 2000;
+	maxy = 23;
+
+	yScale.domain([0, maxy]);
+	
+	svg.selectAll("circle")
+			.data(nodes)
+			.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+			.attr("cy", function(d) {return yScale(d.rs);});
+
+   	svg.selectAll("line")
+	      .data(links)
+	      .transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	      .attr("y1", function(d) { return yScale(d.source.rs); })
+	      .attr("y2", function(d) { return yScale(d.target.rs); });
+
+   			
+   	svg.selectAll("text.lab")
+	   		.data(nodes)
+	   		.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	   		.attr("y", function(d) {return yScale(d.rs);});
+
+
+   	yAxis.scale(yScale);
+
+
+		//Update y-axis
+		svg.select(".y.axis")
+			.transition()
+			.duration(durac/3)
+			.call(yAxis);
+
+		svg.selectAll("text.axy")
+			.data(nodes)
+			.text("Rhopaloneme size (microns)");
+
+});
+
+d3.select("h3.hapn_x").on("click", function() {
+   	durac = 2000;
+	maxx = 17000;
+
+	xScale.domain([0, maxx]);
+	
+	svg.selectAll("circle")
+			.data(nodes)
+			.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+			.attr("cx", function(d) {return xScale(d.hapn);});
+
+   	svg.selectAll("line")
+	      .data(links)
+	      .transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	      .attr("x1", function(d) { return xScale(d.source.hapn); })
+	      .attr("x2", function(d) { return xScale(d.target.hapn); });
+
+   			
+   	svg.selectAll("text.lab")
+	   		.data(nodes)
+	   		.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	   		.attr("x", function(d) {return xScale(d.hapn);});
+
+
+   	xAxis.scale(xScale);
+
+
+		//Update y-axis
+		svg.select(".x.axis")
+			.transition()
+			.duration(durac/3)
+			.call(xAxis);
+
+		svg.selectAll("text.axx")
+			.data(nodes)
+			.text("Haploneme number");
 
 });
 
@@ -359,6 +523,45 @@ d3.select("h3.hapn_y").on("click", function() {
 		svg.selectAll("text.axy")
 			.data(nodes)
 			.text("Haploneme number");
+
+});
+
+d3.select("h3.hetn_x").on("click", function() {
+   	durac = 2000;
+	maxx = 35;
+
+	xScale.domain([0, maxx]);
+	
+	svg.selectAll("circle")
+			.data(nodes)
+			.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+			.attr("cx", function(d) {return xScale(d.hetn);});
+
+   	svg.selectAll("line")
+	      .data(links)
+	      .transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	      .attr("x1", function(d) { return xScale(d.source.hetn); })
+	      .attr("x2", function(d) { return xScale(d.target.hetn); });
+
+   			
+   	svg.selectAll("text.lab")
+	   		.data(nodes)
+	   		.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	   		.attr("x", function(d) {return xScale(d.hetn);});
+
+
+   	xAxis.scale(xScale);
+
+
+		//Update y-axis
+		svg.select(".x.axis")
+			.transition()
+			.duration(durac/3)
+			.call(xAxis);
+
+		svg.selectAll("text.axx")
+			.data(nodes)
+			.text("Heteroneme number");
 
 });
 
