@@ -6,7 +6,7 @@ var dataa =[
 		[8,3,,"Agalma elegans",true,35,17000,180,30,7.5,10],
 		[4,1,,"Hippopodius hippopus",true,30,200,84,10,6,16],
 		[5,2,,"Muggiaea atlantica",true,15,300,36,6,6,1],
-		[6,2,,"Abylopsis tetragona",true,52.5,800,155,21,23,2],
+		[6,2,,"Abyla trigona",true,54,400,153,13,23,2],
 		[3,0,,"Physonectae",false,28.75,10750,106,32.5,9.25,12],
 		[2,1,,"Diphyidae",false,22.5,250,60,8,6,8.5],
 		[1,0,,"Calycophorae",false,26.25,225,72,9,6,12.25],

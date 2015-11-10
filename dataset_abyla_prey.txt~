@@ -1,0 +1,9 @@
+{ name: Nanomia bijuga, istip: TRUE, haps: 22.5, hapn: 4500, hets: 32, hetn: 35, rs: 11, ps: 1.18  }
+{ name: Agalma elegans, istip: TRUE, haps: 35, hapn: 17000, hets: 180, hetn: 30, rs: 7.5, ps: 1.33  }
+{ name: Hippopodius hippopus, istip: TRUE, haps: 30, hapn: 200, hets: 84, hetn: 10, rs: 6, ps: 0.86  }
+{ name: Muggiaea atlantica, istip: TRUE, haps: 15, hapn: 300, hets: 36, hetn: 6, rs: 6, ps: 0.36  }
+{ name: Abyla trigona, istip: TRUE, haps: 54, hapn: 400, hets: 153, hetn: 13, rs: 13, ps: 1.1  }
+{ name: Physonectae, istip: FALSE, haps: 28.75, hapn: 10750, hets: 106, hetn: 32.5, rs: 9.25, ps: 1.255  }
+{ name: Diphyidae, istip: FALSE, haps: 34.5, hapn: 350, hets: 94.5, hetn: 9.5, rs: 9.5, ps: 0.73  }
+{ name: Calycophorae, istip: FALSE, haps: 32.25, hapn: 275, hets: 89.25, hetn: 9.75, rs: 7.75, ps: 0.795  }
+{ name: Codonophora, istip: FALSE, haps: 30.5, hapn: 5512.5, hets: 97.625, hetn: 21.125, rs: 8.5, ps: 1.025  }

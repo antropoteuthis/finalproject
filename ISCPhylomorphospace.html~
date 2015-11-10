@@ -73,16 +73,17 @@ var headers = ["node","parent","branch_length","species","istip","Haploneme size
 var dataset = {
 
 	nodes: [
-			{ name: "Codonophora", istip: false, defx: 660, defy: 200, haps: 30.5, hapn: 5512.5, hets: 97.625, hetn: 21.125, rs: 8.5, ps: 1.025 },
-			{ name: "Calycophorae", istip: false, defx: 990 , defy: 500, haps: 32.25, hapn: 275, hets: 89.25, hetn: 9.75, rs: 7.75, ps: 0.795 },
-			{ name: "Diphyidae", istip: false, defx: 845, defy: 625, haps: 34.5, hapn: 350, hets: 94.5, hetn: 9.5, rs: 9.5, ps: 0.73 },
-			{ name: "Physonectae", istip: false, defx: 330 , defy: 500, haps: 28.75, hapn: 10750, hets: 106, hetn: 32.5, rs: 9.25, ps: 1.255 },
-			{ name: "Abyla trigona", istip: true, haps: 54, hapn: 400, defx: 990, defy: 750, hets: 153, hetn: 13, rs: 13, ps: 1.1 },
-			{ name: "Muggiaea atlantica", istip: true, defx: 690, defy: 750, haps: 15, hapn: 300, hets: 36, hetn: 6, rs: 6, ps: 0.36 },
-			{ name: "Hippopodius hippopus", istip: true, defx: 1290, defy: 750, haps: 30, hapn: 200, hets: 84, hetn: 10, rs: 6, ps: 0.86 },
-			{ name: "Agalma elegans", istip: true, defx: 230, defy: 750, haps: 35, hapn: 17000, hets: 180, hetn: 30, rs: 7.5, ps: 1.33 },
-			{ name: "Nanomia bijuga", istip: true, defx: 430, defy: 750, haps: 22.5, hapn: 4500, hets: 32, hetn: 35, rs: 11, ps: 1.18 }			
-		    ],
+		{ name: "Codonophora", istip: false, haps: 27.5, hapn: 5487.5, hets: 89, hetn: 20.75, rs: 7.625, ps: 1.025, defx: 660, defy: 200 },
+		{ name: "Calycophorae", istip: false, haps: 26.25, hapn: 225, hets: 72, hetn: 9, rs: 6, ps: 0.795, defx: 990 , defy: 500 },
+		{ name: "Diphyidae", istip: false, haps: 22.5, hapn: 250, hets: 60, hetn: 8, rs: 6, ps: 0.73, defx: 845, defy: 625},
+		{ name: "Physonectae", istip: false, haps: 28.75, hapn: 10750, hets: 106, hetn: 32.5, rs: 9.25, ps: 1.255, defx: 330 , defy: 500 },
+		{ name: "Abyla trigona", istip: true, haps: 54, hapn: 400, hets: 153, hetn: 13, rs: 15, ps: 1.1, defx: 990, defy: 750 },
+		{ name: "Muggiaea atlantica", istip: true, haps: 15, hapn: 300, hets: 36, hetn: 6, rs: 6, ps: 0.36, defx: 690, defy: 750 },
+		{ name: "Hippopodius hippopus", istip: true, haps: 30, hapn: 200, hets: 84, hetn: 10, rs: 6, ps: 0.86, defx: 1290, defy: 750 },
+		{ name: "Agalma elegans", istip: true, haps: 35, hapn: 17000, hets: 180, hetn: 30, rs: 7.5, ps: 1.33, defx: 230, defy: 750 },
+		{ name: "Nanomia bijuga", istip: true, haps: 22.5, hapn: 4500, hets: 32, hetn: 35, rs: 11, ps: 1.18, defx: 430, defy: 750}
+		
+		],
 
 	edges: [
 		{ source: 0, target: 1 },
