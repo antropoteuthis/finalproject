@@ -82,7 +82,9 @@ Each node/tip is a circle, of fixed radius. The fill will be determined by a dic
 
 Each node is accompanied by a text label. Its content is the species/clade name.
 
-X, Y position of node/tips and text labels represent two cnidomic variables on demand of the user. Namtocyst sizes are available options for the X Axis, while nematocyst numbers are available as options for the Y Axis.
+The default view (overview) shows a spaced out cladogram with arbitrary X,Y mapping.
+
+On user demand, X, Y position of node/tips and text labels represent two cnidomic variables on demand of the user. Nematocyst sizes are available options for the X Axis, while nematocyst numbers are available as options for the Y Axis.
 
 Branch length represents the phenotypic distance between 2 nodes (internal and/or species) in the 2 components selected.
 

@@ -122,4 +122,10 @@ Limitations: It can only show 2 variables at a time.
 
 Future directions: A 3D visualization which the user could rotate 360º would provide more simultaneous information about variable relationships.
 
+## License
+
+Copyright (c) 2012-2014 Brown University. All rights reserved.
+
+Agalma is distributed under the GNU General Public License version 3. For more information, see LICENSE or visit: http://www.gnu.org/licenses/gpl.html
+
 
