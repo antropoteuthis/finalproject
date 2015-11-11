@@ -2,14 +2,17 @@
 
 ## Introduction
 
-This is a final project for the [Interacting with Data](https://github.com/Brown-BIOL2430-S04-Fall2015/syllabus) seminar in fall 2015. This project targets the representation of dependence relationships between quantitative cnidomic traits in 5 siphonophore species, while simultaneously keeping track of the phylogenetic relationships between the species. It will alternate views of the data by shifting the variables plotted in the scatterplot on demand, using movement and color to maintain the continuity of the identity of the species. A node-hinged polyline will connect the dots as they move through the phenotypic hyperspace using a force layout.
+This is a final project for the [Interacting with Data](https://github.com/Brown-BIOL2430-S04-Fall2015/syllabus) seminar in fall 2015. This project targets the representation of dependence relationships between quantitative traits in 10 siphonophore species, while simultaneously keeping track of the phylogenetic relationships between the species. It will alternate views of the data by shifting the variables plotted in the scatterplot on demand, using movement and color to maintain the continuity of the identity of the species. A node-hinged polyline will connect the dots as they move through the phenotypic hyperspace using a force layout.
 
-To view this project, open the file [ISCPhylomorphospace.html](https://github.com/antropoteuthis/finalproject/blob/master/ISCPhylomorphospace.html) in your browser. Once open, read the introductory paragraph for the rationale and instructions. You can click the bold subheaders with the variable names to change the X/Y representative variables.
+[Click here to access visualization](https://rawgit.com/antropoteuthis/finalproject/master/ISCPhylomorphospace_expanded.html)
+
+Instructions are available within the visualization.
+
 
 ## The data
 
-The data includes node-parent realtionships, species names, determination of tip or node class, 5 quantitative cnidomic variables.
-The parent node cnidomic variables were reconstructed using the mean values from the descendant nodes/tips.
+The data includes node-parent realtionships, species names, determination of tip or node class, 5 quantitative variables (cnidoband length, nematocyst sizes and numbers, prey size).
+The parent node variables were reconstructed using the mean values from the descendant nodes/tips.
 Branch length will be flexibly adjusted by the x,y position of the nodes/tips.
 
 - Data source:
@@ -21,38 +24,54 @@ Branch length will be flexibly adjusted by the x,y position of the nodes/tips.
 
 - Data structure: 
 
-	Nodes:"name" species or clade name,"istip" whether if internal node or species,"Haploneme size (microns)","Haploneme number","Heteroneme size (microns)","Heteroneme number","Rhopaloneme size (microns)"
+	Node attributes: "name" species or clade name,"istip" whether if internal node or species, "Cnidoband length (um)" in the longest dimension, while still coiled (if coiled), Haploneme size (microns)","Haploneme number","Heteroneme size (microns)","Heteroneme number","Rhopaloneme size (microns)", "Prey size (mm)" length in the longest dimension of the copepod prey found in the gastrozooids.
 
 
+		nodes: [
+			{name: "Codonophora", istip: false, defx: 710, defy: 100, cbl: 249.88, haps: 26.94, hapn: 2517.19, hets: 67.06, hetn: 21.09, rs: 8.83, ps: 0.93 }, 
+			{name: "Calycophorae", istip: false, defx: 960, defy: 250, cbl: 116.25, haps: 24.81, hapn: 184.38, hets: 71.88, hetn: 8.44, rs: 6.59, ps: 0.71 }, 
+			{name: " ", istip: false, defx: 1010, defy: 400, cbl: 136.50, haps: 19.63, hapn: 168.75, hets: 59.75, hetn: 6.88, rs: 7.19, ps: 0.56 }, 
+			{name: "Diphyidae", istip: false, defx: 1060, defy: 550, cbl: 225.00, haps: 27.25, hapn: 287.50, hets: 83.50, hetn: 9.75, rs: 10.38, ps: 0.76 }, 
+			{name: " ", istip: false, defx: 960, defy: 700, cbl: 117.00, haps: 17.50, hapn: 250.00, hets: 41.75, hetn: 7.00, rs: 6.75, ps: 0.47 }, 
+			{name: " ", istip: false, defx: 1160, defy: 700, cbl: 333.00, haps: 37.00, hapn: 325.00, hets: 125.25, hetn: 12.50, rs: 14.00, ps: 1.05 }, 
+			{name: "Physonectae", istip: false, defx: 450, defy: 250, cbl: 383.50, haps: 29.06, hapn: 4850.00, hets: 62.25, hetn: 33.75, rs: 11.06, ps: 1.15 }, 
+			{name: "Agalmatidae", istip: false, defx: 360, defy: 700, cbl: 347.00, haps: 28.13, hapn: 6700.00, hets: 86.50, hetn: 37.50, rs: 9.13, ps: 1.13 }, 
+			{name: " ", istip: false, defx: 310, defy: 750, cbl: 249.00, haps: 33.75, hapn: 8900.00, hets: 141.00, hetn: 40.00, rs: 7.25, ps: 1.09 }, 
+			{name: "Diphyes dispar", istip: true, defx: 1210, defy: 850, cbl: 270.00, haps: 20.00, hapn: 250.00, hets: 97.50, hetn: 12.00, rs: 15.00, ps: 0.99 }, 
+			{name: "Abyla trigona", istip: true, defx: 1120, defy: 850, cbl: 396.00, haps: 54.00, hapn: 400.00, hets: 153.00, hetn: 13.00, rs: 13.00, ps: 1.10 }, 
+			{name: "Sulculeolaria quadrivalvis", istip: true, defx: 1010, defy: 850, cbl: 114.00, haps: 20.00, hapn: 200.00, hets: 47.50, hetn: 8.00, rs: 7.50, ps: 0.57 }, 
+			{name: "Muggiaea atlantica", istip: true, defx: 910, defy: 850, cbl: 120.00, haps: 15.00, hapn: 300.00, hets: 36.00, hetn: 6.00, rs: 6.00, ps: 0.36 }, 
+			{name: "Sphaeronectes gracilis", istip: true, defx: 810, defy: 850, cbl: 48.00, haps: 12.00, hapn: 50.00, hets: 36.00, hetn: 4.00, rs: 4.00, ps: 0.36 }, 
+			{name: "Hippopodius hippopus", istip: true, defx: 710, defy: 850, cbl: 96.00, haps: 30.00, hapn: 200.00, hets: 84.00, hetn: 10.00, rs: 6.00, ps: 0.86 }, 
+			{name: "Forskalia edwardsii", istip: true, defx: 610, defy: 850, cbl: 420.00, haps: 30.00, hapn: 3000.00, hets: 38.00, hetn: 30.00, rs: 13.00, ps: 1.17 }, 
+			{name: "Nanomia bijuga", istip: true, defx: 510, defy: 850, cbl: 445.00, haps: 22.50, hapn: 4500.00, hets: 32.00, hetn: 35.00, rs: 11.00, ps: 1.18 }, 
+			{name: "Athorybia rosacea", istip: true, defx: 210, defy: 850, cbl: 102.00, haps: 32.50, hapn: 800.00, hets: 102.00, hetn: 50.00, rs: 7.00, ps: 0.84 }, 
+			{name: "Agalma elegans", istip: true, defx: 410, defy: 850, cbl: 396.00, haps: 35.00, hapn: 17000.00, hets: 180.00, hetn: 30.00, rs: 7.50, ps: 1.33 }
+		    ],
+
+	
 	Edges: Branches. Relationships between parent nodes and descendent nodes.
 
-var dataset = {
-
-	nodes: [
-		{ name: "Codonophora", istip: false, haps: 27.5, hapn: 5487.5, hets: 89, hetn: 20.75, rs: 7.625},
-		{ name: "Calycophorae", istip: false, haps: 26.25, hapn: 225, hets: 72, hetn: 9, rs: 6},
-		{ name: "Diphyidae", istip: false, haps: 22.5, hapn: 250, hets: 60, hetn: 8, rs: 6},
-		{ name: "Physonectae", istip: false, haps: 28.75, hapn: 10750, hets: 106, hetn: 32.5, rs: 9.25},
-		{ name: "Abylopsis tetragona", istip: true, haps: 52.5, hapn: 800, hets: 155, hetn: 21, rs: 23},
-		{ name: "Muggiaea atlantica", istip: true, haps: 15, hapn: 300, hets: 36, hetn: 6, rs: 6},
-		{ name: "Hippopodius hippopus", istip: true, haps: 30, hapn: 200, hets: 84, hetn: 10, rs: 6},
-		{ name: "Agalma elegans", istip: true, haps: 35, hapn: 17000, hets: 180, hetn: 30, rs: 7.5},
-		{ name: "Nanomia bijuga", istip: true, haps: 22.5, hapn: 4500, hets: 32, hetn: 35, rs: 11}
-		
-		],
-
-	edges: [
-		{ source: 0, target: 1 },
-		{ source: 0, target: 3 },
-		{ source: 2, target: 4 },
-		{ source: 1, target: 2 },
-		{ source: 2, target: 5 },
-		{ source: 2, target: 6 },
-		{ source: 3, target: 7 },
-		{ source: 3, target: 8 }
+edges: [
+			{ source: 0, target: 1 },
+			{ source: 1, target: 2 },
+			{ source: 2, target: 3 },
+			{ source: 3, target: 4 },
+			{ source: 3, target: 5 },
+			{ source: 0, target: 6 },
+			{ source: 6, target: 7 },
+			{ source: 7, target: 8 },
+			{ source: 5, target: 9 },
+			{ source: 5, target: 10 },
+			{ source: 4, target: 11 },
+			{ source: 4, target: 12 },
+			{ source: 2, target: 13 },
+			{ source: 1, target: 14 },
+			{ source: 6, target: 15 },
+			{ source: 7, target: 16 },
+			{ source: 8, target: 17 },
+			{ source: 8, target: 18 }
 		]
-
-};
 
 
 ## Background
@@ -63,7 +82,7 @@ Phylogenetic trees have been around since the 19th century, and naturalists have
 Software like Mesquite or ggplot allows to trace particular characters, mapped as colors with a key, to tips and branches of tree after performing reconstructions using maximum parsimony or other models.
 
 
-The concept of a phylomorphospace arises for the first time in the R package ['phytools'](http://www.inside-r.org/packages/cran/phytools/docs/phylomorphospace) .
+The concept of a phylomorphospace arises for the first time in the R package ['phytools'](http://www.inside-r.org/packages/cran/phytools/docs/phylomorphospace).
 
 
 It allows the plotting of a static scatterplot for two traits as present in a set of species (the dots) connected by branches and nodes of trivial length and position that represent the phylogenetic relationships between those species. If the author wants to add the branch length, a color gradient scale is included.
@@ -80,15 +99,15 @@ The goal of this project is to provide the user with an interactive option to vi
 
 Each node/tip is a circle, of fixed radius. The fill will be determined by a dictionary of colors dependent on the species name.
 
-Each node is accompanied by a text label. Its content is the species/clade name.
+Each node is accompanied by a text label. Its content is the species/clade name (if available).
 
-The default view (overview) shows a spaced out cladogram with arbitrary X,Y mapping.
+The default view (overview) shows a spaced out cladogram with arbitrary X,Y mapping -- Species and nodes are evenly spaced, evolutionary time is shown arbitrarily from the roots to the tips.
 
-On user demand, X, Y position of node/tips and text labels represent two cnidomic variables on demand of the user. Nematocyst sizes are available options for the X Axis, while nematocyst numbers are available as options for the Y Axis.
+On user demand, X, Y position of node/tips and text labels represent two cnidomic variables on demand of the user.
 
 Branch length represents the phenotypic distance between 2 nodes (internal and/or species) in the 2 components selected.
 
-The axes are also scaled and updated with the cnidomic variables selected. They are labelled with the name of the variables selected.
+The axes are also scaled and updated with the variables selected. They are labelled with the name of the variables selected.
 
 ### Filtering
 
@@ -112,20 +131,20 @@ Motion serves the purpose of maintaining the continuity of each circle (species)
 
 ### Perspective
 
-To what extent is perspective (eg mappings) controlled by users vs hard coded in advance? How does this project aid in exploration vs exposition?
+In this project the user has total control on the perspective of observation over the hyperspatial multidimensional morphospace, being abl to rotate it to show any 2 variables at a time.
 
 ## Assessment
 
-Was the new visualization successful at providing insight that was not possible or more difficult with previous approaches?
+The new visualization allows a novel way to visualize a siphonophore phylogeny together with morpho-ecological variables combined on user demand.
 
-Limitations: It can only show 2 variables at a time. 
+Limitations: It can only show 2 variables at a time. It does not show an acurate representation of evolutionary time of rates of change along the branches.
 
-Future directions: A 3D visualization which the user could rotate 360º would provide more simultaneous information about variable relationships.
+Future directions: A 3D visualization which the user could rotate 360º would provide more simultaneous information about variable relationships. More species and traits will be included after the data acquisition process of my PhD work. With a molecular clock it would be possible in the future to obtain evolutionary time data to plot on the branches as a color gradient.
 
 ## License
 
-Copyright (c) 2012-2014 Brown University. All rights reserved.
+This visualization is distributed under the GNU General Public License version 3. For more information, see LICENSE or visit: http://www.gnu.org/licenses/gpl.html
 
-Agalma is distributed under the GNU General Public License version 3. For more information, see LICENSE or visit: http://www.gnu.org/licenses/gpl.html
+## Acknowledgements
 
-
+This visualization is a tribute to the invaluable work of Dr. Jennifer Purcell on siphonophore cnidomics and trophic ecology that has inspired me to pursue my career in ecoevolutionary planktology.
