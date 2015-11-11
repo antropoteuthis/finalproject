@@ -52,7 +52,7 @@ The oceanographic niche data was extracted from: Gonzalez, R., Damian, A., Fuent
 <h3>Temperature (ºC)    </h3><h3 class = "temp_x" style="color:blue;">  -- (X Axis) </h3><h3 class = "temp_y" style="color:red;">  -- (Y Axis) </h3><br>
 <h3>Salinity (PSU)    </h3><h3 class = "sal_x" style="color:blue;">  -- (X Axis) </h3><h3 class = "sal_y" style="color:red;">  -- (Y Axis) </h3><br>
 <h3>-Depth (m)    </h3><h3 class = "-depth_y" style="color:red;">  -- (Y Axis) </h3><br>
-<h3>Surface nitrate (micrograms/l)    </h3><h3 class = "nit_x" style="color:blue;">  -- (X Axis) </h3><h3 class = "nit_y" style="color:red;">  -- (Y Axis) </h3><br>
+<h3>Nitrate (ug/l)    </h3><h3 class = "nit_x" style="color:blue;">  -- (X Axis) </h3><h3 class = "nit_y" style="color:red;">  -- (Y Axis) </h3><br>
 <script>
 
 var w = 660,
@@ -221,9 +221,9 @@ setTimeout(function() {
 
    	d3.select("h3.temp_x").on("click", function() {
    		durac = 2000;
-	maxx = 30;
-	xScale.domain([6, maxx]);
-	xrScale = d3.scale.linear().domain([6, maxx]).range([300, 550]);
+	maxx = 25;
+	xScale.domain([0, maxx]);
+	xrScale = d3.scale.linear().domain([6, maxx]).range([50, 1000]);
 	
 	svg.selectAll("rect")
 			.data(nodes)
@@ -260,9 +260,9 @@ setTimeout(function() {
 
    	d3.select("h3.temp_y").on("click", function() {
    		durac = 2000;
-	maxy = 30;
-	yScale.domain([6, maxy]);
-	yrScale = d3.scale.linear().domain([6, maxy]).range([280, 960]);
+	maxy = 25;
+	yScale.domain([0, maxy]);
+	yrScale = d3.scale.linear().domain([6, maxy]).range([200, 1000]);
 	
 	
 	svg.selectAll("rect")
@@ -301,9 +301,9 @@ setTimeout(function() {
 
    	d3.select("h3.sal_x").on("click", function() {
    		durac = 2000;
-	maxx = 38;
-	xScale.domain([0, maxx]);
-	xrScale = d3.scale.linear().domain([6, maxx]).range([160, 650]);
+	maxx = 40;
+	xScale.domain([32, maxx]);
+	xrScale = d3.scale.linear().domain([0, maxx]).range([200, 800]);
 	
 	
 	svg.selectAll("rect")
@@ -341,9 +341,9 @@ setTimeout(function() {
 
    	d3.select("h3.sal_y").on("click", function() {
    		durac = 2000;
-	maxy = 38;
-	yScale.domain([0, maxy]);
-	yrScale=d3.scale.linear().domain([0, maxy]).range([0, 946]);
+	maxy = 40;
+	yScale.domain([32, maxy]);
+	yrScale=d3.scale.linear().domain([0, maxy]).range([200, 800]);
 	
 	svg.selectAll("rect")
 			.data(nodes)
@@ -380,10 +380,10 @@ setTimeout(function() {
 
 d3.select("h3.-depth_y").on("click", function() {
    	durac = 2000;
-	maxy = 1000;
+	maxy = 5000;
 
 	yScale.domain([maxy, 0]);
-	yrScale=d3.scale.linear().domain([0, maxy]).range([0, 946]);
+	yrScale=d3.scale.linear().domain([0, maxy]).range([0, 900]);
 	
 	svg.selectAll("rect")
 			.data(nodes)
@@ -401,7 +401,7 @@ d3.select("h3.-depth_y").on("click", function() {
    	svg.selectAll("text.lab")
 	   		.data(nodes)
 	   		.transition().duration(durac/2).ease("cubic-in-out").delay(100)
-	   		.attr("y", function(d) {return xScale(d.depthmin) + (yrScale(d.depthr))/2;});
+	   		.attr("y", function(d) {return yScale(d.depthmin) + (yrScale(d.depthr))/2;});
 
 
    	yAxis.scale(yScale);
@@ -421,10 +421,10 @@ d3.select("h3.-depth_y").on("click", function() {
 
 d3.select("h3.nit_x").on("click", function() {
    	durac = 2000;
-	maxx = 2;
+	maxx = 45;
 
 	xScale.domain([0, maxx]);
-	xrScale=d3.scale.linear().domain([0, maxx]).range([10, 1000]);
+	xrScale=d3.scale.linear().domain([0, maxx]).range([50, 1000]);
 	
 	svg.selectAll("rect")
 			.data(nodes)
@@ -456,16 +456,16 @@ d3.select("h3.nit_x").on("click", function() {
 
 		svg.selectAll("text.axx")
 			.data(nodes)
-			.text("Surface nitA concentration (mg/l)");
+			.text("Nitrate (ug/l)");
 
 });
 
 d3.select("h3.nit_y").on("click", function() {
    	durac = 2000;
-	maxy = 2;
+	maxy = 45;
 
 	yScale.domain([0, maxy]);
-	yrScale=d3.scale.linear().domain([0, maxy]).range([10, 1000]);
+	yrScale=d3.scale.linear().domain([0, maxy]).range([50, 900]);
 	
 	svg.selectAll("rect")
 			.data(nodes)
@@ -497,7 +497,7 @@ d3.select("h3.nit_y").on("click", function() {
 
 		svg.selectAll("text.axy")
 			.data(nodes)
-			.text("Surface nitA concentration (mg/l)");
+			.text("Nitrate (ug/l)");
 
 });
 

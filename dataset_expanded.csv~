@@ -1,0 +1,51 @@
+{name: Codonophora, istip: false, defx: , defy: , cbl: 249.88, haps: 26.94, hapn: 2517.19, hets: 67.06, hetn: 21.09, rs: 8.83, ps: 0.93 }, 
+{name: Calycophorae, istip: false, defx: , defy: , cbl: 116.25, haps: 24.81, hapn: 184.38, hets: 71.88, hetn: 8.44, rs: 6.59, ps: 0.71 }, 
+{name: Diph-sph, istip: false, defx: , defy: , cbl: 136.50, haps: 19.63, hapn: 168.75, hets: 59.75, hetn: 6.88, rs: 7.19, ps: 0.56 }, 
+{name: Diphyidae, istip: false, defx: , defy: , cbl: 225.00, haps: 27.25, hapn: 287.50, hets: 83.50, hetn: 9.75, rs: 10.38, ps: 0.76 }, 
+{name: Mug-sulc, istip: false, defx: , defy: , cbl: 117.00, haps: 17.50, hapn: 250.00, hets: 41.75, hetn: 7.00, rs: 6.75, ps: 0.47 }, 
+{name: Abyl-disp, istip: false, defx: , defy: , cbl: 333.00, haps: 37.00, hapn: 325.00, hets: 125.25, hetn: 12.50, rs: 14.00, ps: 1.05 }, 
+{name: Physonectae, istip: false, defx: , defy: , cbl: 383.50, haps: 29.06, hapn: 4850.00, hets: 62.25, hetn: 33.75, rs: 11.06, ps: 1.15 }, 
+{name: Agalmatidae, istip: false, defx: , defy: , cbl: 347.00, haps: 28.13, hapn: 6700.00, hets: 86.50, hetn: 37.50, rs: 9.13, ps: 1.13 }, 
+{name: Ath-agal, istip: false, defx: , defy: , cbl: 249.00, haps: 33.75, hapn: 8900.00, hets: 141.00, hetn: 40.00, rs: 7.25, ps: 1.09 }, 
+{name: Diphyes dispar, istip: true, defx: , defy: , cbl: 270.00, haps: 20.00, hapn: 250.00, hets: 97.50, hetn: 12.00, rs: 15.00, ps: 0.99 }, 
+{name: Abyla trigona, istip: true, defx: , defy: , cbl: 396.00, haps: 54.00, hapn: 400.00, hets: 153.00, hetn: 13.00, rs: 13.00, ps: 1.10 }, 
+{name: Sulculeolaria quadrivalvis, istip: true, defx: , defy: , cbl: 114.00, haps: 20.00, hapn: 200.00, hets: 47.50, hetn: 8.00, rs: 7.50, ps: 0.57 }, 
+{name: Muggiaea atlantica, istip: true, defx: , defy: , cbl: 120.00, haps: 15.00, hapn: 300.00, hets: 36.00, hetn: 6.00, rs: 6.00, ps: 0.36 }, 
+{name: Sphaeronectes gracilis, istip: true, defx: , defy: , cbl: 48.00, haps: 12.00, hapn: 50.00, hets: 36.00, hetn: 4.00, rs: 4.00, ps: 0.36 }, 
+{name: Hippopodius hippopus, istip: true, defx: , defy: , cbl: 96.00, haps: 30.00, hapn: 200.00, hets: 84.00, hetn: 10.00, rs: 6.00, ps: 0.86 }, 
+{name: Forskalia edwardsii, istip: true, defx: , defy: , cbl: 420.00, haps: 30.00, hapn: 3000.00, hets: 38.00, hetn: 30.00, rs: 13.00, ps: 1.17 }, 
+{name: Nanomia bijuga, istip: true, defx: , defy: , cbl: 445.00, haps: 22.50, hapn: 4500.00, hets: 32.00, hetn: 35.00, rs: 11.00, ps: 1.18 }, 
+{name: Athorybia rosacea, istip: true, defx: , defy: , cbl: 102.00, haps: 32.50, hapn: 800.00, hets: 102.00, hetn: 50.00, rs: 7.00, ps: 0.84 }, 
+{name: Agalma elegans, istip: true, defx: , defy: , cbl: 396.00, haps: 35.00, hapn: 17000.00, hets: 180.00, hetn: 30.00, rs: 7.50, ps: 1.33 }
+
+edges: [
+
+{ source: 0, target: 1 },
+		{ source: 0, target: 3 },
+		{ source: 2, target: 4 },
+		{ source: 1, target: 2 },
+		{ source: 2, target: 5 },
+		{ source: 1, target: 6 },
+		{ source: 3, target: 7 },
+		{ source: 3, target: 8 }
+	
+0 1
+1 2
+2 3
+3 4
+3 5
+0 6
+6 7
+7 8
+5 9
+5 10
+4 11
+4 12
+2 13
+1 14
+6 15
+7 16
+8 17
+8 18
+
+
