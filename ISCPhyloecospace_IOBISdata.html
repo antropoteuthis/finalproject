@@ -46,9 +46,10 @@ You can click on the niche variable names below to turn it into a PHYLOECOSPACE.
 This allows you to compare comp[onents of the oceanographic niche among these siphonophore species while preserving the topology of phylogenetic relationships (common descent) to interpret the evolutionary history of their ecology.<br><br>
 The phylogenetic relationships are adapted from: Dunn, C. W., Pugh, P. R., & Haddock, S. H. (2005). Molecular phylogenetics of the Siphonophora (Cnidaria), with implications for the evolution of functional specialization. Systematic Biology, 54(6), 916-935.
 <br><br>
-The oceanographic niche data was extracted from: Gonzalez, R., Damian, A., Fuentes, V., Tilves, U., Acevedo, M., Canepa, A., & Ziveri, P. (2015). Cnidarian zooplankton distribution across geographical, vertical, biotic and abiotic gradients in the Mediterranean Sea. ASLO 2015.
+The oceanographic niche data was extracted from: IOBIS Ocean Biogeographic Information System (a COML Census of Marine Life initiative).
 <br><br>
  </p>
+<h3 class = "sp_x" style="color: blue">Species layout -- (X Axis)             |</h3> <h3 class = "evo_y" style="color: red">|         Evolutionary time (arbitrary) -- (Y Axis) </h3><br><br>
 <h3>Temperature (ºC)    </h3><h3 class = "temp_x" style="color:blue;">  -- (X Axis) </h3><h3 class = "temp_y" style="color:red;">  -- (Y Axis) </h3><br>
 <h3>Salinity (PSU)    </h3><h3 class = "sal_x" style="color:blue;">  -- (X Axis) </h3><h3 class = "sal_y" style="color:red;">  -- (Y Axis) </h3><br>
 <h3>-Depth (m)    </h3><h3 class = "-depth_y" style="color:red;">  -- (Y Axis) </h3><br>
@@ -219,11 +220,90 @@ setTimeout(function() {
    		.attr("transform", "rotate(-90 10 500)");
 
 
+  	d3.select("h3.sp_x").on("click", function() {
+   		durac = 2000;
+	maxx = 1200;
+	xScale.domain([0, maxx]);
+	
+	
+	svg.selectAll("rect")
+			.data(nodes)
+			.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+			.attr("x", function(d) {return xScale(d.defx);})
+			.attr("width", 10);
+
+   	svg.selectAll("line")
+	      .data(links)
+	      .transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	      .attr("x1", function(d) { return xScale(d.source.defx) +5; })
+	      .attr("x2", function(d) { return xScale(d.target.defx) +5; });
+   			
+   	svg.selectAll("text.lab")
+	   		.data(nodes)
+	   		.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	   		.attr("x", function(d) {return xScale(d.defx);});
+
+
+   	xAxis.scale(xScale); 
+
+   			//Update x-axis
+		svg.select(".x.axis")
+			.transition()
+			.duration(durac/3)
+			.call(xAxis);
+
+
+		svg.selectAll("text.axx")
+			.data(nodes)
+			.text("Species");
+
+});
+
+  	d3.select("h3.evo_y").on("click", function() {
+   		durac = 2000;
+	maxy = 1000;
+	yScale.domain([0, maxy]);
+	
+	
+	svg.selectAll("rect")
+			.data(nodes)
+			.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+			.attr("y", function(d) {return yScale(d.defy);})
+			.attr("height", 10);
+
+   	svg.selectAll("line")
+	      .data(links)
+	      .transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	      .attr("y1", function(d) { return yScale(d.source.defy) +5; })
+	      .attr("y2", function(d) { return yScale(d.target.defy) +5; });
+   			
+   	svg.selectAll("text.lab")
+	   		.data(nodes)
+	   		.transition().duration(durac/2).ease("cubic-in-out").delay(100)
+	   		.attr("y", function(d) {return yScale(d.defy);});
+
+
+   	yAxis.scale(yScale); 
+
+   			//Update x-axis
+		svg.select(".y.axis")
+			.transition()
+			.duration(durac/3)
+			.call(yAxis);
+
+
+		svg.selectAll("text.axy")
+			.data(nodes)
+			.text("Evolutionary time (arbitrary)");
+
+});
+
+
    	d3.select("h3.temp_x").on("click", function() {
    		durac = 2000;
 	maxx = 25;
 	xScale.domain([0, maxx]);
-	xrScale = d3.scale.linear().domain([6, maxx]).range([50, 1000]);
+	xrScale = d3.scale.linear().domain([6, maxx]).range([150, 1300]);
 	
 	svg.selectAll("rect")
 			.data(nodes)
@@ -262,7 +342,7 @@ setTimeout(function() {
    		durac = 2000;
 	maxy = 25;
 	yScale.domain([0, maxy]);
-	yrScale = d3.scale.linear().domain([6, maxy]).range([200, 1000]);
+	yrScale = d3.scale.linear().domain([6, maxy]).range([200, 890]);
 	
 	
 	svg.selectAll("rect")
@@ -303,7 +383,7 @@ setTimeout(function() {
    		durac = 2000;
 	maxx = 40;
 	xScale.domain([32, maxx]);
-	xrScale = d3.scale.linear().domain([0, maxx]).range([200, 800]);
+	xrScale = d3.scale.linear().domain([0, maxx]).range([500, 1000]);
 	
 	
 	svg.selectAll("rect")
@@ -343,7 +423,7 @@ setTimeout(function() {
    		durac = 2000;
 	maxy = 40;
 	yScale.domain([32, maxy]);
-	yrScale=d3.scale.linear().domain([0, maxy]).range([200, 800]);
+	yrScale=d3.scale.linear().domain([0, maxy]).range([300, 800]);
 	
 	svg.selectAll("rect")
 			.data(nodes)
@@ -424,7 +504,7 @@ d3.select("h3.nit_x").on("click", function() {
 	maxx = 45;
 
 	xScale.domain([0, maxx]);
-	xrScale=d3.scale.linear().domain([0, maxx]).range([50, 1000]);
+	xrScale=d3.scale.linear().domain([0, maxx]).range([350, 1050]);
 	
 	svg.selectAll("rect")
 			.data(nodes)
@@ -465,7 +545,7 @@ d3.select("h3.nit_y").on("click", function() {
 	maxy = 45;
 
 	yScale.domain([0, maxy]);
-	yrScale=d3.scale.linear().domain([0, maxy]).range([50, 900]);
+	yrScale=d3.scale.linear().domain([0, maxy]).range([50, 889]);
 	
 	svg.selectAll("rect")
 			.data(nodes)
