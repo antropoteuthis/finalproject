@@ -133,7 +133,7 @@ Motion serves the purpose of maintaining the continuity of each circle (species)
 
 ### Perspective
 
-In this project the user has total control on the perspective of observation over the hyperspatial multidimensional morphospace, being abl to rotate it to show any 2 variables at a time.
+In this project the user has total control on the perspective of observation over the hyperspatial multidimensional morphospace, being able to rotate it to show any 2 variables at a time.
 
 ## Assessment
 
