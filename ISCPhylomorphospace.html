@@ -97,13 +97,13 @@ var dataset = {
 
 };
 
-var minx = 0;
-var maxx = 1300;
-var miny = 0;
-var maxy = 1000;
-
 var nodes = dataset.nodes;
 var links = dataset.edges;
+
+var minx = 0;
+var maxx = (d3.max(nodes, function(d) {return d.defx;}) + 10);
+var miny = 0;
+var maxy = (d3.max(nodes, function(d) {return d.defy;}) + 250);
 
 var force = d3.layout.force()
     .nodes(nodes)
@@ -219,7 +219,7 @@ setTimeout(function() {
 
    	d3.select("h3.hets_x").on("click", function() {
    		durac = 2000;
-	maxx = 180;
+	maxx = d3.max(nodes, function(d) {return d.hets;});
 	xScale.domain([0, maxx]);
 	
 	
@@ -257,7 +257,7 @@ setTimeout(function() {
 
    	d3.select("h3.hets_y").on("click", function() {
    		durac = 2000;
-	maxy = 180;
+	maxy = d3.max(nodes, function(d) {return d.hets;});
 	yScale.domain([0, maxy]);
 	
 	
@@ -295,7 +295,7 @@ setTimeout(function() {
 
    	d3.select("h3.haps_x").on("click", function() {
    		durac = 2000;
-	maxx = 52.5;
+	maxx = d3.max(nodes, function(d) {return d.haps;});
 	xScale.domain([0, maxx]);
 	
 	
@@ -333,7 +333,7 @@ setTimeout(function() {
 
    	d3.select("h3.haps_y").on("click", function() {
    		durac = 2000;
-	maxy = 52.5;
+	maxy = d3.max(nodes, function(d) {return d.haps;});
 	yScale.domain([0, maxy]);
 	
 	
@@ -371,7 +371,7 @@ setTimeout(function() {
 
     d3.select("h3.rs_x").on("click", function() {
    	durac = 2000;
-	maxx = 23;
+	maxx = d3.max(nodes, function(d) {return d.rs;});
 
 	xScale.domain([0, maxx]);
 	
@@ -410,7 +410,7 @@ setTimeout(function() {
 
     d3.select("h3.rs_y").on("click", function() {
    	durac = 2000;
-	maxy = 23;
+	maxy = d3.max(nodes, function(d) {return d.rs;});
 
 	yScale.domain([0, maxy]);
 	
@@ -449,7 +449,7 @@ setTimeout(function() {
 
 d3.select("h3.hapn_x").on("click", function() {
    	durac = 2000;
-	maxx = 17000;
+	maxx = d3.max(nodes, function(d) {return d.hapn;});
 
 	xScale.domain([0, maxx]);
 	
@@ -488,7 +488,7 @@ d3.select("h3.hapn_x").on("click", function() {
 
 d3.select("h3.hapn_y").on("click", function() {
    	durac = 2000;
-	maxy = 17000;
+	maxy = d3.max(nodes, function(d) {return d.hapn;});
 
 	yScale.domain([0, maxy]);
 	
@@ -527,7 +527,7 @@ d3.select("h3.hapn_y").on("click", function() {
 
 d3.select("h3.hetn_x").on("click", function() {
    	durac = 2000;
-	maxx = 35;
+	maxx = d3.max(nodes, function(d) {return d.hetn;});
 
 	xScale.domain([0, maxx]);
 	
@@ -566,7 +566,7 @@ d3.select("h3.hetn_x").on("click", function() {
 
 d3.select("h3.hetn_y").on("click", function() {
    	durac = 2000;
-	maxy = 35;
+	maxy = d3.max(nodes, function(d) {return d.hetn;});
 
 	yScale.domain([0, maxy]);
 	
@@ -605,7 +605,7 @@ d3.select("h3.hetn_y").on("click", function() {
 
 d3.select("h3.ps_x").on("click", function() {
    	durac = 2000;
-	maxx = 1.33;
+	maxx = d3.max(nodes, function(d) {return d.ps;});
 
 	xScale.domain([0, maxx]);
 	
@@ -644,7 +644,7 @@ d3.select("h3.ps_x").on("click", function() {
 
 d3.select("h3.ps_y").on("click", function() {
    	durac = 2000;
-	maxy = 1.33;
+	maxy = d3.max(nodes, function(d) {return d.ps;});
 
 	yScale.domain([0, maxy]);
 	

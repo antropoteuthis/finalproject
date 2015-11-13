@@ -85,9 +85,11 @@ Software like Mesquite or ggplot allows to trace particular characters, mapped a
 The concept of a phylomorphospace arises for the first time in the R package ['phytools'](http://www.inside-r.org/packages/cran/phytools/docs/phylomorphospace).
 
 
-It allows the plotting of a static scatterplot for two traits as present in a set of species (the dots) connected by branches and nodes of trivial length and position that represent the phylogenetic relationships between those species. If the author wants to add the branch length, a color gradient scale is included.
+It allows the plotting of a static scatterplot for two traits as present in a set of species (the dots) connected by branches and nodes of trivial length and position that represent the phylogenetic relationships between those species (Figure 1). If the author wants to add the branch length, a color gradient scale is included.
 
 ![Alt text](http://4.bp.blogspot.com/-mj1toWvpbjs/Ud3G9IX-XRI/AAAAAAAAChA/CUEOYifsVNY/s1600/time-phylomorphospace-2.png)
+
+Figure 1. Phylomorphospace (Source: [blog.phytools.org](blog.phytools.org). Credit: Liam Revell)
 
 This approach produces a static image, the user (reader of the document containing the figure) has no ability to select what traits to contrast. 
 It would require the utilization of more space in the form of multiple contiguous plots to show all the possible relationships.

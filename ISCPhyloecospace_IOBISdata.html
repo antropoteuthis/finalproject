@@ -301,9 +301,10 @@ setTimeout(function() {
 
    	d3.select("h3.temp_x").on("click", function() {
    		durac = 2000;
-	maxx = 25;
-	xScale.domain([0, maxx]);
-	xrScale = d3.scale.linear().domain([6, maxx]).range([150, 1300]);
+	maxx = d3.max(nodes, function(d) {return d.tempmax;});
+	minx = d3.min(nodes, function(d) {return d.tempmin;});
+	xScale.domain([minx, maxx]);
+	xrScale = d3.scale.linear().domain([minx, maxx]).range([150, 1300]);
 	
 	svg.selectAll("rect")
 			.data(nodes)
@@ -340,9 +341,10 @@ setTimeout(function() {
 
    	d3.select("h3.temp_y").on("click", function() {
    		durac = 2000;
-	maxy = 25;
-	yScale.domain([0, maxy]);
-	yrScale = d3.scale.linear().domain([6, maxy]).range([200, 890]);
+	maxy = d3.max(nodes, function(d) {return d.tempmax;});
+	miny = d3.min(nodes, function(d) {return d.tempmin;});
+	yScale.domain([miny, maxy]);
+	yrScale = d3.scale.linear().domain([miny, maxy]).range([200, 890]);
 	
 	
 	svg.selectAll("rect")
@@ -381,8 +383,9 @@ setTimeout(function() {
 
    	d3.select("h3.sal_x").on("click", function() {
    		durac = 2000;
-	maxx = 40;
-	xScale.domain([32, maxx]);
+	maxx = d3.max(nodes, function(d) {return d.salmax;});
+	minx = d3.min(nodes, function(d) {return d.salmin;});
+	xScale.domain([0, maxx]);
 	xrScale = d3.scale.linear().domain([0, maxx]).range([500, 1000]);
 	
 	
@@ -421,8 +424,9 @@ setTimeout(function() {
 
    	d3.select("h3.sal_y").on("click", function() {
    		durac = 2000;
-	maxy = 40;
-	yScale.domain([32, maxy]);
+	maxy = d3.max(nodes, function(d) {return d.salmax;});
+	miny = d3.min(nodes, function(d) {return d.salmin;});
+	yScale.domain([0, maxy]);
 	yrScale=d3.scale.linear().domain([0, maxy]).range([300, 800]);
 	
 	svg.selectAll("rect")
@@ -501,7 +505,8 @@ d3.select("h3.-depth_y").on("click", function() {
 
 d3.select("h3.nit_x").on("click", function() {
    	durac = 2000;
-	maxx = 45;
+	maxx = d3.max(nodes, function(d) {return d.nitmax;});
+	minx = d3.min(nodes, function(d) {return d.nitmin;});
 
 	xScale.domain([0, maxx]);
 	xrScale=d3.scale.linear().domain([0, maxx]).range([350, 1050]);
@@ -542,7 +547,8 @@ d3.select("h3.nit_x").on("click", function() {
 
 d3.select("h3.nit_y").on("click", function() {
    	durac = 2000;
-	maxy = 45;
+	maxy = d3.max(nodes, function(d) {return d.nitmax;});
+	miny = d3.min(nodes, function(d) {return d.nitmin;});
 
 	yScale.domain([0, maxy]);
 	yrScale=d3.scale.linear().domain([0, maxy]).range([50, 889]);
