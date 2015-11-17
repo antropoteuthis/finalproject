@@ -1,0 +1,124 @@
+{ source: 0 , target: 1 , type: "phylo" , intensity: 50 }
+{ source: 0 , target: 2 , type: "phylo" , intensity: 50 }
+{ source: 2 , target: 3 , type: "phylo" , intensity: 50 }
+{ source: 2 , target: 4 , type: "phylo" , intensity: 50 }
+{ source: 3 , target: 5 , type: "phylo" , intensity: 50 }
+{ source: 3 , target: 6 , type: "phylo" , intensity: 50 }
+{ source: 6 , target: 7 , type: "phylo" , intensity: 50 }
+{ source: 6 , target: 8 , type: "phylo" , intensity: 50 }
+{ source: 8 , target: 9 , type: "phylo" , intensity: 50 }
+{ source: 8 , target: 10 , type: "phylo" , intensity: 50 }
+{ source: 10 , target: 11 , type: "phylo" , intensity: 50 }
+{ source: 10 , target: 12 , type: "phylo" , intensity: 50 }
+{ source: 12 , target: 13 , type: "phylo" , intensity: 50 }
+{ source: 12 , target: 14 , type: "phylo" , intensity: 50 }
+{ source: 1 , target: 15 , type: "phylo" , intensity: 50 }
+{ source: 1 , target: 16 , type: "phylo" , intensity: 50 }
+{ source: 16 , target: 17 , type: "phylo" , intensity: 50 }
+{ source: 16 , target: 18 , type: "phylo" , intensity: 50 }
+{ source: 17 , target: 20 , type: "phylo" , intensity: 50 }
+{ source: 17 , target: 19 , type: "phylo" , intensity: 50 }
+{ source: 19 , target: 21 , type: "phylo" , intensity: 50 }
+{ source: 19 , target: 22 , type: "phylo" , intensity: 50 }
+{ source: 22 , target: 23 , type: "phylo" , intensity: 50 }
+{ source: 22 , target: 24 , type: "phylo" , intensity: 50 }
+{ source: 18 , target: 25 , type: "phylo" , intensity: 50 }
+{ source: 18 , target: 26 , type: "phylo" , intensity: 50 }
+{ source: 26 , target: 27 , type: "phylo" , intensity: 50 }
+{ source: 26 , target: 28 , type: "phylo" , intensity: 50 }
+{ source: 28 , target: 29 , type: "phylo" , intensity: 50 }
+{ source: 28 , target: 30 , type: "phylo" , intensity: 50 }
+{ source: 29 , target: 31 , type: "phylo" , intensity: 50 }
+{ source: 29 , target: 32 , type: "phylo" , intensity: 50 }
+{ source: 30 , target: 33 , type: "phylo" , intensity: 50 }
+{ source: 30 , target: 34 , type: "phylo" , intensity: 50 }
+{ source: 15 , target: 4 , type: "food", intensity: 100 }
+{ source: 20 , target: 13 , type: "food", intensity: 6.7 }
+{ source: 20 , target: 11 , type: "food", intensity: 58.3 }
+{ source: 20 , target: 14 , type: "food", intensity: 25 }
+{ source: 20 , target: 5 , type: "food", intensity: 16.6 }
+{ source: 21 , target: 11 , type: "food", intensity: 25 }
+{ source: 21 , target: 14 , type: "food", intensity: 20 }
+{ source: 21 , target: 5 , type: "food", intensity: 20 }
+{ source: 23 , target: 4 , type: "food", intensity: 17.6 }
+{ source: 23 , target: 11 , type: "food", intensity: 35.3 }
+{ source: 23 , target: 14 , type: "food", intensity: 47.1 }
+{ source: 24 , target: 11 , type: "food", intensity: 33.3 }
+{ source: 24 , target: 14 , type: "food", intensity: 33.3 }
+{ source: 24 , target: 5 , type: "food", intensity: 33.3 }
+{ source: 25 , target: 9 , type: "food", intensity: 100 }
+{ source: 27 , target: 11 , type: "food", intensity: 100 }
+{ source: 31 , target: 11 , type: "food", intensity: 100 }
+{ source: 32 , target: 11 , type: "food", intensity: 62.4 }
+{ source: 32 , target: 13 , type: "food", intensity: 9.8 }
+{ source: 32 , target: 4 , type: "food", intensity: 1.6 }
+{ source: 32 , target: 5 , type: "food", intensity: 1.6 }
+{ source: 32 , target: 7 , type: "food", intensity: 3.3 }
+{ source: 33 , target: 11 , type: "food", intensity: 100 }
+{ source: 34 , target: 11 , type: "food", intensity: 88 }
+{ source: 34 , target: 13 , type: "food", intensity: 4 }
+{ source: 34 , target: 14 , type: "food", intensity: 4 }
+{ source: 34 , target: 7 , type: "food", intensity: 4 }
+        ,,,
+{ source: 30 , target: 11 , type: "food", intensity: 94 }
+{ source: 30 , target: 13 , type: "food", intensity: 2 }
+{ source: 30 , target: 14 , type: "food", intensity: 2 }
+{ source: 30 , target: 7 , type: "food", intensity: 2 }
+{ source: 29 , target: 11 , type: "food", intensity: 81.2 }
+{ source: 29 , target: 13 , type: "food", intensity: 4.9 }
+{ source: 29 , target: 4 , type: "food", intensity: 0.8 }
+{ source: 29 , target: 5 , type: "food", intensity: 0.8 }
+{ source: 29 , target: 7 , type: "food", intensity: 1.65 }
+{ source: 22 , target: 4 , type: "food", intensity: 8.8 }
+{ source: 22 , target: 11 , type: "food", intensity: 34.3 }
+{ source: 22 , target: 14 , type: "food", intensity: 40.2 }
+{ source: 22 , target: 5 , type: "food", intensity: 16.65 }
+        ,,,
+{ source: 28 , target: 11 , type: "food", intensity: 87.6 }
+{ source: 28 , target: 13 , type: "food", intensity: 3.45 }
+{ source: 28 , target: 14 , type: "food", intensity: 1 }
+{ source: 28 , target: 7 , type: "food", intensity: 1.825 }
+{ source: 28 , target: 4 , type: "food", intensity: 0.4 }
+{ source: 28 , target: 5 , type: "food", intensity: 0.4 }
+        ,,,
+{ source: 26 , target: 11 , type: "food", intensity: 93.8 }
+{ source: 26 , target: 13 , type: "food", intensity: 1.725 }
+{ source: 26 , target: 14 , type: "food", intensity: 0.5 }
+{ source: 26 , target: 7 , type: "food", intensity: 0.9125 }
+{ source: 26 , target: 4 , type: "food", intensity: 0.2 }
+{ source: 26 , target: 5 , type: "food", intensity: 0.2 }
+{ source: 19 , target: 4 , type: "food", intensity: 4.4 }
+{ source: 19 , target: 11 , type: "food", intensity: 29.65 }
+{ source: 19 , target: 14 , type: "food", intensity: 30.1 }
+{ source: 19 , target: 5 , type: "food", intensity: 18.315 }
+        ,,,
+{ source: 17 , target: 4 , type: "food", intensity: 2.2 }
+{ source: 17 , target: 11 , type: "food", intensity: 43.975 }
+{ source: 17 , target: 14 , type: "food", intensity: 27.55 }
+{ source: 17 , target: 5 , type: "food", intensity: 17.4575 }
+{ source: 17 , target: 13 , type: "food", intensity: 3.35 }
+{ source: 18 , target: 11 , type: "food", intensity: 46.9 }
+{ source: 18 , target: 13 , type: "food", intensity: 0.8625 }
+{ source: 18 , target: 14 , type: "food", intensity: 0.25 }
+{ source: 18 , target: 7 , type: "food", intensity: 0.45625 }
+{ source: 18 , target: 4 , type: "food", intensity: 0.1 }
+{ source: 18 , target: 5 , type: "food", intensity: 0.1 }
+{ source: 18 , target: 9 , type: "food", intensity: 50 }
+        ,,,
+{ source: 16 , target: 4 , type: "food", intensity: 1.15 }
+{ source: 16 , target: 11 , type: "food", intensity: 45.4375 }
+{ source: 16 , target: 14 , type: "food", intensity: 13.9 }
+{ source: 16 , target: 5 , type: "food", intensity: 8.77875 }
+{ source: 16 , target: 13 , type: "food", intensity: 0.43125 }
+{ source: 16 , target: 7 , type: "food", intensity: 0.2281 }
+{ source: 16 , target: 9 , type: "food", intensity: 25 }
+,,,
+{ source: 1 , target: 4 , type: "food", intensity: 50.57 }
+{ source: 1 , target: 11 , type: "food", intensity: 22.72 }
+{ source: 1 , target: 14 , type: "food", intensity: 6.95 }
+{ source: 1 , target: 5 , type: "food", intensity: 4.389 }
+{ source: 1 , target: 13 , type: "food", intensity: 0.2156 }
+{ source: 1 , target: 7 , type: "food", intensity: 0.114 }
+{ source: 1 , target: 9 , type: "food", intensity: 12.5 }
+
+

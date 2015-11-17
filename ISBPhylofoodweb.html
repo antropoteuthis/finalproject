@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Interactive Siphonophore-Bilaterian Phylogenetic Planktonic Food Web</title>
+<style type="text/css">
+
+text {
+  font: 10px sans-serif;
+}
+
+line {
+  stroke: #999;
+  stroke-width: 1.5px
+  stroke-opacity: 0.7;
+}
+
+circle {
+  stroke: #999;
+  stroke-width: 1.5px;
+}
+
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+</head>
+<body>
+<h2>Interactive Siphonophore-Bilaterian Phylogenetic Planktonic Food Web </h2>
+<p>Alejandro Damian Serrano</p>
+<br>
+<p> This is a phylogeny with 11 siphonophore species and 7 planktonic bilaterian clades. Their phylogenetic relationships are shown in grey and the siphonophore -> bilaterian predatory trophic links are shown in orange. You can click the buttons below to recontruct the trophic relationships of ancestral siphonophore nodes (Reconstruction model: Arithmetic means).<br>
+<br>
+The phylogenetic relationships for siphonophores are adapted from: Dunn, C. W., Pugh, P. R., & Haddock, S. H. (2005). Molecular phylogenetics of the Siphonophora (Cnidaria), with implications for the evolution of functional specialization. Systematic Biology, 54(6), 916-935.
+<br><br>
+The phylogenetic relationships for bilaterian plankton are adapted from: <br>
+-Dunn, C. W., Hejnol, A., Matus, D. Q., Pang, K., Browne, W. E., Smith, S. A., ... & Giribet, G. (2008). Broad phylogenomic sampling improves resolution of the animal tree of life. Nature, 452(7188), 745-749.
+<br>
+-Regier, J. C., Shultz, J. W., & Kambic, R. E. (2005). Pancrustacean phylogeny: hexapods are terrestrial crustaceans and maxillopods are not monophyletic. Proceedings of the Royal Society of London B: Biological Sciences, 272(1561), 395-401.
+
+<br><br>
+The predator-prey relationships are adapted from: <br> 
+Purcell, J. E. (1981). Dietary composition and diel feeding patterns of epipelagic siphonophores. Marine Biology, 65(1), 83-90.
+<br>
+ </p>
+
+ <h3 class = "sp" style="color: blue">Current food web  </h3>
+ <h3 class = "n1" style="color: blue">Level 1  </h3>
+ <h3 class = "n2" style="color: blue">Level 2  </h3>
+ <h3 class = "n3" style="color: blue">Level 3  </h3>
+ <h3 class = "n4" style="color: blue">Level 4  </h3>
+ <h3 class = "n5" style="color: blue">MRCA of the Codonophora </h3>
+ <h3 class = "mrca" style="color: blue">MRCA of the Siphonophora </h3>
+
+ <script>
+
+var w = 1000,
+    h = 1000;
+var padding = 50;
+var colors = {"node":"darkgrey", "siph":"lightblue", "prey":"magenta"};
+
+var dataset = {
+
+	nodes: [
+			{ name: "Planulozoa" , type: "node" , defx: 500 , defy: 100 },
+			{ name: "Siphonophora" , type: "node" , defx: 20 , defy: 471.5 },
+			{ name: "Bilateria" , type: "node" , defx: 1000 , defy: 481.41 },
+			{ name: "Protostomia" , type: "node" , defx: 866.66 , defy: 653.85 },
+			{ name: "Actinopterygii" , type: "prey" , defx: 700 , defy: 309 },
+			{ name: "Chaetognatha" , type: "prey" , defx: 700 , defy: 407.7 },
+			{ name: " " , type: "node" , defx: 833.33 , defy: 703.2 },
+			{ name: "Mollusca" , type: "prey" , defx: 700 , defy: 506.4 },
+			{ name: "Crustacea" , type: "node" , defx: 800 , defy: 752.55 },
+			{ name: "Ostracoda" , type: "prey" , defx: 700 , defy: 605.1 },
+			{ name: " " , type: "node" , defx: 766.66 , defy: 801.9 },
+			{ name: "Copepoda" , type: "prey" , defx: 700 , defy: 703.8 },
+			{ name: "Malacostraca" , type: "node" , defx: 733.33 , defy: 851.25 },
+			{ name: "Amphipoda" , type: "prey" , defx: 700 , defy: 802.5 },
+			{ name: "Decapoda" , type: "prey" , defx: 700 , defy: 900 },
+			{ name: "Rhizophysa eyesenhardti" , type: "siph" , defx: 300 , defy: 309 },
+			{ name: "Codonophora" , type: "node" , defx: 133.33 , defy: 634.05 },
+			{ name: "Physonectae" , type: "node" , defx: 166.66 , defy: 811.35 },
+			{ name: "Calycophorae" , type: "node" , defx: 166.66 , defy: 515.85 },
+			{ name: "Agalmatidae" , type: "node" , defx: 200 , defy: 781.8 },
+			{ name: "Forskalia edwardsii" , type: "siph" , defx: 300 , defy: 900 },
+			{ name: "Nanomia bijuga" , type: "siph" , defx: 300 , defy: 840.9 },
+			{ name: " " , type: "node" , defx: 266.66 , defy: 752.25 },
+			{ name: "Agalma elegans" , type: "siph" , defx: 300 , defy: 781.8 },
+			{ name: "Athorybia rosacea" , type: "siph" , defx: 300 , defy: 722.7 },
+			{ name: "Hippopodius hippopus" , type: "siph" , defx: 300 , defy: 663.6 },
+			{ name: " " , type: "node" , defx: 200 , defy: 486.3 },
+			{ name: "Sphaeronectes gracilis" , type: "siph" , defx: 300 , defy: 604.5 },
+			{ name: "Diphyidae" , type: "node" , defx: 233.33 , defy: 456.75 },
+			{ name: " " , type: "node" , defx: 266.66 , defy: 515.85 },
+			{ name: " " , type: "node" , defx: 266.66 , defy: 397.65 },
+			{ name: "Muggiaea atlantica" , type: "siph" , defx: 300 , defy: 545.4 },
+			{ name: "Sulculeolaria quadrivalvis" , type: "siph" , defx: 300 , defy: 486.3 },
+			{ name: "Abyla trigona" , type: "siph" , defx: 300 , defy: 427.2 },
+			{ name: "Diphyes dispar" , type: "siph" , defx: 300 , defy: 368.1 }
+		    ],
+
+	edges: [
+			{ source: 0 , target: 1 , type: "phylo" , intensity: 50 },
+			{ source: 0 , target: 2 , type: "phylo" , intensity: 50 },
+			{ source: 2 , target: 3 , type: "phylo" , intensity: 50 },
+			{ source: 2 , target: 4 , type: "phylo" , intensity: 50 },
+			{ source: 3 , target: 5 , type: "phylo" , intensity: 50 },
+			{ source: 3 , target: 6 , type: "phylo" , intensity: 50 },
+			{ source: 6 , target: 7 , type: "phylo" , intensity: 50 },
+			{ source: 6 , target: 8 , type: "phylo" , intensity: 50 },
+			{ source: 8 , target: 9 , type: "phylo" , intensity: 50 },
+			{ source: 8 , target: 10 , type: "phylo" , intensity: 50 },
+			{ source: 10 , target: 11 , type: "phylo" , intensity: 50 },
+			{ source: 10 , target: 12 , type: "phylo" , intensity: 50 },
+			{ source: 12 , target: 13 , type: "phylo" , intensity: 50 },
+			{ source: 12 , target: 14 , type: "phylo" , intensity: 50 },
+			{ source: 1 , target: 15 , type: "phylo" , intensity: 50 },
+			{ source: 1 , target: 16 , type: "phylo" , intensity: 50 },
+			{ source: 16 , target: 17 , type: "phylo" , intensity: 50 },
+			{ source: 16 , target: 18 , type: "phylo" , intensity: 50 },
+			{ source: 17 , target: 20 , type: "phylo" , intensity: 50 },
+			{ source: 17 , target: 19 , type: "phylo" , intensity: 50 },
+			{ source: 19 , target: 21 , type: "phylo" , intensity: 50 },
+			{ source: 19 , target: 22 , type: "phylo" , intensity: 50 },
+			{ source: 22 , target: 23 , type: "phylo" , intensity: 50 },
+			{ source: 22 , target: 24 , type: "phylo" , intensity: 50 },
+			{ source: 18 , target: 25 , type: "phylo" , intensity: 50 },
+			{ source: 18 , target: 26 , type: "phylo" , intensity: 50 },
+			{ source: 26 , target: 27 , type: "phylo" , intensity: 50 },
+			{ source: 26 , target: 28 , type: "phylo" , intensity: 50 },
+			{ source: 28 , target: 29 , type: "phylo" , intensity: 50 },
+			{ source: 28 , target: 30 , type: "phylo" , intensity: 50 },
+			{ source: 29 , target: 31 , type: "phylo" , intensity: 50 },
+			{ source: 29 , target: 32 , type: "phylo" , intensity: 50 },
+			{ source: 30 , target: 33 , type: "phylo" , intensity: 50 },
+			{ source: 30 , target: 34 , type: "phylo" , intensity: 50 },
+			{ source: 15 , target: 4 , type: "food" , intensity: 100 },
+			{ source: 20 , target: 13 , type: "food" , intensity: 6.7 },
+			{ source: 20 , target: 11 , type: "food" , intensity: 58.3 },
+			{ source: 20 , target: 14 , type: "food" , intensity: 25 },
+			{ source: 20 , target: 5 , type: "food" , intensity: 16.6 },
+			{ source: 21 , target: 11 , type: "food" , intensity: 25 },
+			{ source: 21 , target: 14 , type: "food" , intensity: 20 },
+			{ source: 21 , target: 5 , type: "food" , intensity: 20 },
+			{ source: 23 , target: 4 , type: "food" , intensity: 17.6 },
+			{ source: 23 , target: 11 , type: "food" , intensity: 35.3 },
+			{ source: 23 , target: 14 , type: "food" , intensity: 47.1 },
+			{ source: 24 , target: 11 , type: "food" , intensity: 33.3 },
+			{ source: 24 , target: 14 , type: "food" , intensity: 33.3 },
+			{ source: 24 , target: 5 , type: "food" , intensity: 33.3 },
+			{ source: 25 , target: 9 , type: "food" , intensity: 100 },
+			{ source: 27 , target: 11 , type: "food" , intensity: 100 },
+			{ source: 31 , target: 11 , type: "food" , intensity: 100 },
+			{ source: 32 , target: 11 , type: "food" , intensity: 62.4 },
+			{ source: 32 , target: 13 , type: "food" , intensity: 9.8 },
+			{ source: 32 , target: 4 , type: "food" , intensity: 1.6 },
+			{ source: 32 , target: 5 , type: "food" , intensity: 1.6 },
+			{ source: 32 , target: 7 , type: "food" , intensity: 3.3 },
+			{ source: 33 , target: 11 , type: "food" , intensity: 100 },
+			{ source: 34 , target: 11 , type: "food" , intensity: 88 },
+			{ source: 34 , target: 13 , type: "food" , intensity: 4 },
+			{ source: 34 , target: 14 , type: "food" , intensity: 4 },
+			{ source: 34 , target: 7 , type: "food" , intensity: 4 }
+			]
+
+};
+
+var nodes = dataset.nodes;
+var links = dataset.edges;
+
+var minx = 0;
+var maxx = d3.max(nodes, function(d) {return d.defx;});
+var miny = 0;
+var maxy = d3.max(nodes, function(d) {return d.defy;});
+var minint = 1.6;
+var maxint = d3.max(links, function(d) {return d.intensity;});
+
+var force = d3.layout.force()
+    .nodes(nodes)
+    .links(links)
+    .size([w, h]);
+
+var xScale = d3.scale.linear()
+				.domain([minx, maxx])
+				.range([0, w-100]);
+
+var yScale = d3.scale.linear()
+				.domain([miny, maxy])
+				.range([h - padding, padding]);
+
+var lineScale = d3.scale.linear()
+				.domain([minint, maxint])
+				.range([0.5, 4]);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", w) 
+    .attr("height", h);
+
+var loading = svg.append("text")
+    .attr("x", w / 2)
+    .attr("y", h / 2)
+    .attr("dy", ".35em")
+    .style("text-anchor", "middle")
+    .text("ERROR -- Debugging required");
+
+// Use a timeout to allow the rest of the page to load first.
+setTimeout(function() {
+
+  // Run the layout a fixed number of times.
+  // The ideal number of times scales with graph complexity.
+  // Of course, don't run too long—you'll hang the page!
+  force.start();
+  for (var i = 18; i > 0; --i) force.tick();
+  force.stop();
+
+	svg.selectAll("line")
+	      .data(links)
+	    .enter().append("line")
+	      .attr("x1", function(d) { return xScale(d.source.defx); })
+	      .attr("y1", function(d) { return yScale(d.source.defy); })
+	      .attr("x2", function(d) { return xScale(d.target.defx); })
+	      .attr("y2", function(d) { return yScale(d.target.defy); })
+	      .style("stroke", function(d) { if (d.type == "food") {return "orange";} else {return "grey";}})
+	      .style("stroke-width", function(d) { return lineScale(d.intensity);});
+
+	svg.selectAll("circle")
+      .data(nodes)
+    .enter().append("circle")
+      .attr("cx", function(d) { return xScale(d.defx); })
+      .attr("cy", function(d) { return yScale(d.defy); })
+      .attr("r", function(d) {if (d.type == "node") {return 4;} else {return 10;}})
+      .attr("fill", function(d) { return colors[d.type]; })
+      .attr("opacity", 0.9);
+
+    svg.selectAll("text.lab")
+   		.data(nodes)
+   		.enter()
+   		.append("text")
+		.text(function(d) {return d.name;})
+		.attr("class", "lab")
+		.attr("x", function(d) {return xScale(d.defx);})
+   		.attr("y", function(d) {return yScale(d.defy);})
+		.attr("font-family", "arial-black")
+   		.style("font-size", function(d) {if (d.type == "node") {return "10px";} else {return "14px";}})
+   		.attr("fill", function(d) {if (d.type == "node") {return "grey";} else {return "black";}});
+
+
+ d3.select("h3.sp").on("click", function() {
+
+	links0 = [
+			{ source: 0 , target: 1 , type: "phylo" , intensity: 50 },
+			{ source: 0 , target: 2 , type: "phylo" , intensity: 50 },
+			{ source: 2 , target: 3 , type: "phylo" , intensity: 50 },
+			{ source: 2 , target: 4 , type: "phylo" , intensity: 50 },
+			{ source: 3 , target: 5 , type: "phylo" , intensity: 50 },
+			{ source: 3 , target: 6 , type: "phylo" , intensity: 50 },
+			{ source: 6 , target: 7 , type: "phylo" , intensity: 50 },
+			{ source: 6 , target: 8 , type: "phylo" , intensity: 50 },
+			{ source: 8 , target: 9 , type: "phylo" , intensity: 50 },
+			{ source: 8 , target: 10 , type: "phylo" , intensity: 50 },
+			{ source: 10 , target: 11 , type: "phylo" , intensity: 50 },
+			{ source: 10 , target: 12 , type: "phylo" , intensity: 50 },
+			{ source: 12 , target: 13 , type: "phylo" , intensity: 50 },
+			{ source: 12 , target: 14 , type: "phylo" , intensity: 50 },
+			{ source: 1 , target: 15 , type: "phylo" , intensity: 50 },
+			{ source: 1 , target: 16 , type: "phylo" , intensity: 50 },
+			{ source: 16 , target: 17 , type: "phylo" , intensity: 50 },
+			{ source: 16 , target: 18 , type: "phylo" , intensity: 50 },
+			{ source: 17 , target: 20 , type: "phylo" , intensity: 50 },
+			{ source: 17 , target: 19 , type: "phylo" , intensity: 50 },
+			{ source: 19 , target: 21 , type: "phylo" , intensity: 50 },
+			{ source: 19 , target: 22 , type: "phylo" , intensity: 50 },
+			{ source: 22 , target: 23 , type: "phylo" , intensity: 50 },
+			{ source: 22 , target: 24 , type: "phylo" , intensity: 50 },
+			{ source: 18 , target: 25 , type: "phylo" , intensity: 50 },
+			{ source: 18 , target: 26 , type: "phylo" , intensity: 50 },
+			{ source: 26 , target: 27 , type: "phylo" , intensity: 50 },
+			{ source: 26 , target: 28 , type: "phylo" , intensity: 50 },
+			{ source: 28 , target: 29 , type: "phylo" , intensity: 50 },
+			{ source: 28 , target: 30 , type: "phylo" , intensity: 50 },
+			{ source: 29 , target: 31 , type: "phylo" , intensity: 50 },
+			{ source: 29 , target: 32 , type: "phylo" , intensity: 50 },
+			{ source: 30 , target: 33 , type: "phylo" , intensity: 50 },
+			{ source: 30 , target: 34 , type: "phylo" , intensity: 50 },
+			{ source: 15 , target: 4 , type: "food" , intensity: 100 },
+			{ source: 20 , target: 13 , type: "food" , intensity: 6.7 },
+			{ source: 20 , target: 11 , type: "food" , intensity: 58.3 },
+			{ source: 20 , target: 14 , type: "food" , intensity: 25 },
+			{ source: 20 , target: 5 , type: "food" , intensity: 16.6 },
+			{ source: 21 , target: 11 , type: "food" , intensity: 25 },
+			{ source: 21 , target: 14 , type: "food" , intensity: 20 },
+			{ source: 21 , target: 5 , type: "food" , intensity: 20 },
+			{ source: 23 , target: 4 , type: "food" , intensity: 17.6 },
+			{ source: 23 , target: 11 , type: "food" , intensity: 35.3 },
+			{ source: 23 , target: 14 , type: "food" , intensity: 47.1 },
+			{ source: 24 , target: 11 , type: "food" , intensity: 33.3 },
+			{ source: 24 , target: 14 , type: "food" , intensity: 33.3 },
+			{ source: 24 , target: 5 , type: "food" , intensity: 33.3 },
+			{ source: 25 , target: 9 , type: "food" , intensity: 100 },
+			{ source: 27 , target: 11 , type: "food" , intensity: 100 },
+			{ source: 31 , target: 11 , type: "food" , intensity: 100 },
+			{ source: 32 , target: 11 , type: "food" , intensity: 62.4 },
+			{ source: 32 , target: 13 , type: "food" , intensity: 9.8 },
+			{ source: 32 , target: 4 , type: "food" , intensity: 1.6 },
+			{ source: 32 , target: 5 , type: "food" , intensity: 1.6 },
+			{ source: 32 , target: 7 , type: "food" , intensity: 3.3 },
+			{ source: 33 , target: 11 , type: "food" , intensity: 100 },
+			{ source: 34 , target: 11 , type: "food" , intensity: 88 },
+			{ source: 34 , target: 13 , type: "food" , intensity: 4 },
+			{ source: 34 , target: 14 , type: "food" , intensity: 4 },
+			{ source: 34 , target: 7 , type: "food" , intensity: 4 }
+			];
+
+minint = 1.6;
+maxint = d3.max(links0, function(d) {return d.intensity;});
+lineScale.domain([minint, maxint]);
+force.nodes(nodes).links(links0);
+force.start();
+
+		  svg.selectAll("line").data(links0)
+		  .attr("x1", function(d) { return xScale(d.source.defx); })
+	      .attr("y1", function(d) { return yScale(d.source.defy); })
+	      .attr("x2", function(d) { return xScale(d.target.defx); })
+	      .attr("y2", function(d) { return yScale(d.target.defy); })
+	      .style("stroke", function(d) { if (d.type == "food") {return "orange";} else {return "grey";}})
+	      .style("stroke-width", function(d) { return lineScale(d.intensity);});
+
+});
+
+d3.select("h3.n1").on("click", function() {
+   	
+links1 = [
+			{ source: 0 , target: 1 , type: "phylo" , intensity: 50 },
+			{ source: 0 , target: 2 , type: "phylo" , intensity: 50 },
+			{ source: 2 , target: 3 , type: "phylo" , intensity: 50 },
+			{ source: 2 , target: 4 , type: "phylo" , intensity: 50 },
+			{ source: 3 , target: 5 , type: "phylo" , intensity: 50 },
+			{ source: 3 , target: 6 , type: "phylo" , intensity: 50 },
+			{ source: 6 , target: 7 , type: "phylo" , intensity: 50 },
+			{ source: 6 , target: 8 , type: "phylo" , intensity: 50 },
+			{ source: 8 , target: 9 , type: "phylo" , intensity: 50 },
+			{ source: 8 , target: 10 , type: "phylo" , intensity: 50 },
+			{ source: 10 , target: 11 , type: "phylo" , intensity: 50 },
+			{ source: 10 , target: 12 , type: "phylo" , intensity: 50 },
+			{ source: 12 , target: 13 , type: "phylo" , intensity: 50 },
+			{ source: 12 , target: 14 , type: "phylo" , intensity: 50 },
+			{ source: 1 , target: 15 , type: "phylo" , intensity: 50 },
+			{ source: 1 , target: 16 , type: "phylo" , intensity: 50 },
+			{ source: 16 , target: 17 , type: "phylo" , intensity: 50 },
+			{ source: 16 , target: 18 , type: "phylo" , intensity: 50 },
+			{ source: 17 , target: 20 , type: "phylo" , intensity: 50 },
+			{ source: 17 , target: 19 , type: "phylo" , intensity: 50 },
+			{ source: 19 , target: 21 , type: "phylo" , intensity: 50 },
+			{ source: 19 , target: 22 , type: "phylo" , intensity: 50 },
+			{ source: 22 , target: 23 , type: "phylo" , intensity: 50 },
+			{ source: 22 , target: 24 , type: "phylo" , intensity: 50 },
+			{ source: 18 , target: 25 , type: "phylo" , intensity: 50 },
+			{ source: 18 , target: 26 , type: "phylo" , intensity: 50 },
+			{ source: 26 , target: 27 , type: "phylo" , intensity: 50 },
+			{ source: 26 , target: 28 , type: "phylo" , intensity: 50 },
+			{ source: 28 , target: 29 , type: "phylo" , intensity: 50 },
+			{ source: 28 , target: 30 , type: "phylo" , intensity: 50 },
+			{ source: 29 , target: 31 , type: "phylo" , intensity: 50 },
+			{ source: 29 , target: 32 , type: "phylo" , intensity: 50 },
+			{ source: 30 , target: 33 , type: "phylo" , intensity: 50 },
+			{ source: 30 , target: 34 , type: "phylo" , intensity: 50 },
+			{ source: 30 , target: 11 , type: "food" , intensity: 94 },
+			{ source: 30 , target: 13 , type: "food" , intensity: 2 },
+			{ source: 30 , target: 14 , type: "food" , intensity: 2 },
+			{ source: 30 , target: 7 , type: "food" , intensity: 2 },
+			{ source: 29 , target: 11 , type: "food" , intensity: 81.2 },
+			{ source: 29 , target: 13 , type: "food" , intensity: 4.9 },
+			{ source: 29 , target: 4 , type: "food" , intensity: 0.8 },
+			{ source: 29 , target: 5 , type: "food" , intensity: 0.8 },
+			{ source: 29 , target: 7 , type: "food" , intensity: 1.65 },
+			{ source: 22 , target: 4 , type: "food" , intensity: 8.8 },
+			{ source: 22 , target: 11 , type: "food" , intensity: 34.3 },
+			{ source: 22 , target: 14 , type: "food" , intensity: 40.2 },
+			{ source: 22 , target: 5 , type: "food" , intensity: 16.65 }
+			];
+
+minint = 0.8;
+maxint = d3.max(links1, function(d) {return d.intensity;});
+lineScale.domain([minint, maxint]);
+force.nodes(nodes).links(links1);
+force.start();
+
+		  svg.selectAll("line").data(links1) 
+		  .attr("x1", function(d) { return xScale(d.source.defx); })
+	      .attr("y1", function(d) { return yScale(d.source.defy); })
+	      .attr("x2", function(d) { return xScale(d.target.defx); })
+	      .attr("y2", function(d) { return yScale(d.target.defy); })
+	      .style("stroke", function(d) { if (d.type == "food") {return "red";} else {return "grey";}})
+	      .style("stroke-width", function(d) { return lineScale(d.intensity);});
+
+
+});
+
+d3.select("h3.n2").on("click", function() {
+
+	links2 = [
+			{ source: 0 , target: 1 , type: "phylo" , intensity: 50 },
+			{ source: 0 , target: 2 , type: "phylo" , intensity: 50 },
+			{ source: 2 , target: 3 , type: "phylo" , intensity: 50 },
+			{ source: 2 , target: 4 , type: "phylo" , intensity: 50 },
+			{ source: 3 , target: 5 , type: "phylo" , intensity: 50 },
+			{ source: 3 , target: 6 , type: "phylo" , intensity: 50 },
+			{ source: 6 , target: 7 , type: "phylo" , intensity: 50 },
+			{ source: 6 , target: 8 , type: "phylo" , intensity: 50 },
+			{ source: 8 , target: 9 , type: "phylo" , intensity: 50 },
+			{ source: 8 , target: 10 , type: "phylo" , intensity: 50 },
+			{ source: 10 , target: 11 , type: "phylo" , intensity: 50 },
+			{ source: 10 , target: 12 , type: "phylo" , intensity: 50 },
+			{ source: 12 , target: 13 , type: "phylo" , intensity: 50 },
+			{ source: 12 , target: 14 , type: "phylo" , intensity: 50 },
+			{ source: 1 , target: 15 , type: "phylo" , intensity: 50 },
+			{ source: 1 , target: 16 , type: "phylo" , intensity: 50 },
+			{ source: 16 , target: 17 , type: "phylo" , intensity: 50 },
+			{ source: 16 , target: 18 , type: "phylo" , intensity: 50 },
+			{ source: 17 , target: 20 , type: "phylo" , intensity: 50 },
+			{ source: 17 , target: 19 , type: "phylo" , intensity: 50 },
+			{ source: 19 , target: 21 , type: "phylo" , intensity: 50 },
+			{ source: 19 , target: 22 , type: "phylo" , intensity: 50 },
+			{ source: 22 , target: 23 , type: "phylo" , intensity: 50 },
+			{ source: 22 , target: 24 , type: "phylo" , intensity: 50 },
+			{ source: 18 , target: 25 , type: "phylo" , intensity: 50 },
+			{ source: 18 , target: 26 , type: "phylo" , intensity: 50 },
+			{ source: 26 , target: 27 , type: "phylo" , intensity: 50 },
+			{ source: 26 , target: 28 , type: "phylo" , intensity: 50 },
+			{ source: 28 , target: 29 , type: "phylo" , intensity: 50 },
+			{ source: 28 , target: 30 , type: "phylo" , intensity: 50 },
+			{ source: 29 , target: 31 , type: "phylo" , intensity: 50 },
+			{ source: 29 , target: 32 , type: "phylo" , intensity: 50 },
+			{ source: 30 , target: 33 , type: "phylo" , intensity: 50 },
+			{ source: 30 , target: 34 , type: "phylo" , intensity: 50 },
+			{ source: 28 , target: 11 , type: "food" , intensity: 87.6 },
+			{ source: 28 , target: 13 , type: "food" , intensity: 3.45 },
+			{ source: 28 , target: 14 , type: "food" , intensity: 1 },
+			{ source: 28 , target: 7 , type: "food" , intensity: 1.825 },
+			{ source: 28 , target: 4 , type: "food" , intensity: 0.4 },
+			{ source: 28 , target: 5 , type: "food" , intensity: 0.4 }];
+
+minint = 0.4;
+maxint = d3.max(links2, function(d) {return d.intensity;});
+lineScale.domain([minint, maxint]);
+force.nodes(nodes).links(links2);
+force.start();
+
+		  svg.selectAll("line").data(links2) 
+		  .attr("x1", function(d) { return xScale(d.source.defx); })
+	      .attr("y1", function(d) { return yScale(d.source.defy); })
+	      .attr("x2", function(d) { return xScale(d.target.defx); })
+	      .attr("y2", function(d) { return yScale(d.target.defy); })
+	      .style("stroke", function(d) { if (d.type == "food") {return "red";} else {return "grey";}})
+	      .style("stroke-width", function(d) { return lineScale(d.intensity);});
+
+});
+
+d3.select("h3.n3").on("click", function() {
+
+	links3 = [
+			{ source: 0 , target: 1 , type: "phylo" , intensity: 50 },
+			{ source: 0 , target: 2 , type: "phylo" , intensity: 50 },
+			{ source: 2 , target: 3 , type: "phylo" , intensity: 50 },
+			{ source: 2 , target: 4 , type: "phylo" , intensity: 50 },
+			{ source: 3 , target: 5 , type: "phylo" , intensity: 50 },
+			{ source: 3 , target: 6 , type: "phylo" , intensity: 50 },
+			{ source: 6 , target: 7 , type: "phylo" , intensity: 50 },
+			{ source: 6 , target: 8 , type: "phylo" , intensity: 50 },
+			{ source: 8 , target: 9 , type: "phylo" , intensity: 50 },
+			{ source: 8 , target: 10 , type: "phylo" , intensity: 50 },
+			{ source: 10 , target: 11 , type: "phylo" , intensity: 50 },
+			{ source: 10 , target: 12 , type: "phylo" , intensity: 50 },
+			{ source: 12 , target: 13 , type: "phylo" , intensity: 50 },
+			{ source: 12 , target: 14 , type: "phylo" , intensity: 50 },
+			{ source: 1 , target: 15 , type: "phylo" , intensity: 50 },
+			{ source: 1 , target: 16 , type: "phylo" , intensity: 50 },
+			{ source: 16 , target: 17 , type: "phylo" , intensity: 50 },
+			{ source: 16 , target: 18 , type: "phylo" , intensity: 50 },
+			{ source: 17 , target: 20 , type: "phylo" , intensity: 50 },
+			{ source: 17 , target: 19 , type: "phylo" , intensity: 50 },
+			{ source: 19 , target: 21 , type: "phylo" , intensity: 50 },
+			{ source: 19 , target: 22 , type: "phylo" , intensity: 50 },
+			{ source: 22 , target: 23 , type: "phylo" , intensity: 50 },
+			{ source: 22 , target: 24 , type: "phylo" , intensity: 50 },
+			{ source: 18 , target: 25 , type: "phylo" , intensity: 50 },
+			{ source: 18 , target: 26 , type: "phylo" , intensity: 50 },
+			{ source: 26 , target: 27 , type: "phylo" , intensity: 50 },
+			{ source: 26 , target: 28 , type: "phylo" , intensity: 50 },
+			{ source: 28 , target: 29 , type: "phylo" , intensity: 50 },
+			{ source: 28 , target: 30 , type: "phylo" , intensity: 50 },
+			{ source: 29 , target: 31 , type: "phylo" , intensity: 50 },
+			{ source: 29 , target: 32 , type: "phylo" , intensity: 50 },
+			{ source: 30 , target: 33 , type: "phylo" , intensity: 50 },
+			{ source: 30 , target: 34 , type: "phylo" , intensity: 50 },
+			{ source: 26 , target: 11 , type: "food" , intensity: 93.8 },
+			{ source: 26 , target: 13 , type: "food" , intensity: 1.725 },
+			{ source: 26 , target: 14 , type: "food" , intensity: 0.5 },
+			{ source: 26 , target: 7 , type: "food" , intensity: 0.9125 },
+			{ source: 26 , target: 4 , type: "food" , intensity: 0.2 },
+			{ source: 26 , target: 5 , type: "food" , intensity: 0.2 },
+			{ source: 19 , target: 4 , type: "food" , intensity: 4.4 },
+			{ source: 19 , target: 11 , type: "food" , intensity: 29.65 },
+			{ source: 19 , target: 14 , type: "food" , intensity: 30.1 },
+			{ source: 19 , target: 5 , type: "food" , intensity: 18.315 }
+				];
+
+minint = 0.4;
+maxint = d3.max(links3, function(d) {return d.intensity;});
+lineScale.domain([minint, maxint]);
+force.nodes(nodes).links(links3);
+force.start();
+
+		  svg.selectAll("line").data(links3) 
+		  .attr("x1", function(d) { return xScale(d.source.defx); })
+	      .attr("y1", function(d) { return yScale(d.source.defy); })
+	      .attr("x2", function(d) { return xScale(d.target.defx); })
+	      .attr("y2", function(d) { return yScale(d.target.defy); })
+	      .style("stroke", function(d) { if (d.type == "food") {return "red";} else {return "grey";}})
+	      .style("stroke-width", function(d) { return lineScale(d.intensity);});
+
+});
+
+d3.select("h3.n4").on("click", function() {
+
+	links4 = [
+			{ source: 0 , target: 1 , type: "phylo" , intensity: 50 },
+			{ source: 0 , target: 2 , type: "phylo" , intensity: 50 },
+			{ source: 2 , target: 3 , type: "phylo" , intensity: 50 },
+			{ source: 2 , target: 4 , type: "phylo" , intensity: 50 },
+			{ source: 3 , target: 5 , type: "phylo" , intensity: 50 },
+			{ source: 3 , target: 6 , type: "phylo" , intensity: 50 },
+			{ source: 6 , target: 7 , type: "phylo" , intensity: 50 },
+			{ source: 6 , target: 8 , type: "phylo" , intensity: 50 },
+			{ source: 8 , target: 9 , type: "phylo" , intensity: 50 },
+			{ source: 8 , target: 10 , type: "phylo" , intensity: 50 },
+			{ source: 10 , target: 11 , type: "phylo" , intensity: 50 },
+			{ source: 10 , target: 12 , type: "phylo" , intensity: 50 },
+			{ source: 12 , target: 13 , type: "phylo" , intensity: 50 },
+			{ source: 12 , target: 14 , type: "phylo" , intensity: 50 },
+			{ source: 1 , target: 15 , type: "phylo" , intensity: 50 },
+			{ source: 1 , target: 16 , type: "phylo" , intensity: 50 },
+			{ source: 16 , target: 17 , type: "phylo" , intensity: 50 },
+			{ source: 16 , target: 18 , type: "phylo" , intensity: 50 },
+			{ source: 17 , target: 20 , type: "phylo" , intensity: 50 },
+			{ source: 17 , target: 19 , type: "phylo" , intensity: 50 },
+			{ source: 19 , target: 21 , type: "phylo" , intensity: 50 },
+			{ source: 19 , target: 22 , type: "phylo" , intensity: 50 },
+			{ source: 22 , target: 23 , type: "phylo" , intensity: 50 },
+			{ source: 22 , target: 24 , type: "phylo" , intensity: 50 },
+			{ source: 18 , target: 25 , type: "phylo" , intensity: 50 },
+			{ source: 18 , target: 26 , type: "phylo" , intensity: 50 },
+			{ source: 26 , target: 27 , type: "phylo" , intensity: 50 },
+			{ source: 26 , target: 28 , type: "phylo" , intensity: 50 },
+			{ source: 28 , target: 29 , type: "phylo" , intensity: 50 },
+			{ source: 28 , target: 30 , type: "phylo" , intensity: 50 },
+			{ source: 29 , target: 31 , type: "phylo" , intensity: 50 },
+			{ source: 29 , target: 32 , type: "phylo" , intensity: 50 },
+			{ source: 30 , target: 33 , type: "phylo" , intensity: 50 },
+			{ source: 30 , target: 34 , type: "phylo" , intensity: 50 },
+			{ source: 17 , target: 4 , type: "food" , intensity: 2.2 },
+			{ source: 17 , target: 11 , type: "food" , intensity: 43.975 },
+			{ source: 17 , target: 14 , type: "food" , intensity: 27.55 },
+			{ source: 17 , target: 5 , type: "food" , intensity: 17.4575 },
+			{ source: 17 , target: 13 , type: "food" , intensity: 3.35 },
+			{ source: 18 , target: 11 , type: "food" , intensity: 46.9 },
+			{ source: 18 , target: 13 , type: "food" , intensity: 0.8625 },
+			{ source: 18 , target: 14 , type: "food" , intensity: 0.25 },
+			{ source: 18 , target: 7 , type: "food" , intensity: 0.45625 },
+			{ source: 18 , target: 4 , type: "food" , intensity: 0.1 },
+			{ source: 18 , target: 5 , type: "food" , intensity: 0.1 },
+			{ source: 18 , target: 9 , type: "food" , intensity: 50 }
+				];
+
+minint = 0.4;
+maxint = d3.max(links4, function(d) {return d.intensity;});
+lineScale.domain([minint, maxint]);
+force.nodes(nodes).links(links4);
+force.start();
+
+		  svg.selectAll("line").data(links4) 
+		  .attr("x1", function(d) { return xScale(d.source.defx); })
+	      .attr("y1", function(d) { return yScale(d.source.defy); })
+	      .attr("x2", function(d) { return xScale(d.target.defx); })
+	      .attr("y2", function(d) { return yScale(d.target.defy); })
+	      .style("stroke", function(d) { if (d.type == "food") {return "red";} else {return "grey";}})
+	      .style("stroke-width", function(d) { return lineScale(d.intensity);});
+
+});
+
+d3.select("h3.n5").on("click", function() {
+
+	links5 = [
+			{ source: 0 , target: 1 , type: "phylo" , intensity: 50 },
+			{ source: 0 , target: 2 , type: "phylo" , intensity: 50 },
+			{ source: 2 , target: 3 , type: "phylo" , intensity: 50 },
+			{ source: 2 , target: 4 , type: "phylo" , intensity: 50 },
+			{ source: 3 , target: 5 , type: "phylo" , intensity: 50 },
+			{ source: 3 , target: 6 , type: "phylo" , intensity: 50 },
+			{ source: 6 , target: 7 , type: "phylo" , intensity: 50 },
+			{ source: 6 , target: 8 , type: "phylo" , intensity: 50 },
+			{ source: 8 , target: 9 , type: "phylo" , intensity: 50 },
+			{ source: 8 , target: 10 , type: "phylo" , intensity: 50 },
+			{ source: 10 , target: 11 , type: "phylo" , intensity: 50 },
+			{ source: 10 , target: 12 , type: "phylo" , intensity: 50 },
+			{ source: 12 , target: 13 , type: "phylo" , intensity: 50 },
+			{ source: 12 , target: 14 , type: "phylo" , intensity: 50 },
+			{ source: 1 , target: 15 , type: "phylo" , intensity: 50 },
+			{ source: 1 , target: 16 , type: "phylo" , intensity: 50 },
+			{ source: 16 , target: 17 , type: "phylo" , intensity: 50 },
+			{ source: 16 , target: 18 , type: "phylo" , intensity: 50 },
+			{ source: 17 , target: 20 , type: "phylo" , intensity: 50 },
+			{ source: 17 , target: 19 , type: "phylo" , intensity: 50 },
+			{ source: 19 , target: 21 , type: "phylo" , intensity: 50 },
+			{ source: 19 , target: 22 , type: "phylo" , intensity: 50 },
+			{ source: 22 , target: 23 , type: "phylo" , intensity: 50 },
+			{ source: 22 , target: 24 , type: "phylo" , intensity: 50 },
+			{ source: 18 , target: 25 , type: "phylo" , intensity: 50 },
+			{ source: 18 , target: 26 , type: "phylo" , intensity: 50 },
+			{ source: 26 , target: 27 , type: "phylo" , intensity: 50 },
+			{ source: 26 , target: 28 , type: "phylo" , intensity: 50 },
+			{ source: 28 , target: 29 , type: "phylo" , intensity: 50 },
+			{ source: 28 , target: 30 , type: "phylo" , intensity: 50 },
+			{ source: 29 , target: 31 , type: "phylo" , intensity: 50 },
+			{ source: 29 , target: 32 , type: "phylo" , intensity: 50 },
+			{ source: 30 , target: 33 , type: "phylo" , intensity: 50 },
+			{ source: 30 , target: 34 , type: "phylo" , intensity: 50 },
+			{ source: 16 , target: 4 , type: "food" , intensity: 1.15 },
+			{ source: 16 , target: 11 , type: "food" , intensity: 45.4375 },
+			{ source: 16 , target: 14 , type: "food" , intensity: 13.9 },
+			{ source: 16 , target: 5 , type: "food" , intensity: 8.77875 },
+			{ source: 16 , target: 13 , type: "food" , intensity: 0.43125 },
+			{ source: 16 , target: 7 , type: "food" , intensity: 0.2281 },
+			{ source: 16 , target: 9 , type: "food" , intensity: 25 }
+				];
+
+minint = 0.4;
+maxint = d3.max(links5, function(d) {return d.intensity;});
+lineScale.domain([minint, maxint]);
+force.nodes(nodes).links(links5);
+force.start();
+
+		  svg.selectAll("line").data(links5) 
+		  .attr("x1", function(d) { return xScale(d.source.defx); })
+	      .attr("y1", function(d) { return yScale(d.source.defy); })
+	      .attr("x2", function(d) { return xScale(d.target.defx); })
+	      .attr("y2", function(d) { return yScale(d.target.defy); })
+	      .style("stroke", function(d) { if (d.type == "food") {return "red";} else {return "grey";}})
+	      .style("stroke-width", function(d) { return lineScale(d.intensity);});
+
+});
+
+d3.select("h3.mrca").on("click", function() {
+
+	links6 = [
+			{ source: 0 , target: 1 , type: "phylo" , intensity: 50 },
+			{ source: 0 , target: 2 , type: "phylo" , intensity: 50 },
+			{ source: 2 , target: 3 , type: "phylo" , intensity: 50 },
+			{ source: 2 , target: 4 , type: "phylo" , intensity: 50 },
+			{ source: 3 , target: 5 , type: "phylo" , intensity: 50 },
+			{ source: 3 , target: 6 , type: "phylo" , intensity: 50 },
+			{ source: 6 , target: 7 , type: "phylo" , intensity: 50 },
+			{ source: 6 , target: 8 , type: "phylo" , intensity: 50 },
+			{ source: 8 , target: 9 , type: "phylo" , intensity: 50 },
+			{ source: 8 , target: 10 , type: "phylo" , intensity: 50 },
+			{ source: 10 , target: 11 , type: "phylo" , intensity: 50 },
+			{ source: 10 , target: 12 , type: "phylo" , intensity: 50 },
+			{ source: 12 , target: 13 , type: "phylo" , intensity: 50 },
+			{ source: 12 , target: 14 , type: "phylo" , intensity: 50 },
+			{ source: 1 , target: 15 , type: "phylo" , intensity: 50 },
+			{ source: 1 , target: 16 , type: "phylo" , intensity: 50 },
+			{ source: 16 , target: 17 , type: "phylo" , intensity: 50 },
+			{ source: 16 , target: 18 , type: "phylo" , intensity: 50 },
+			{ source: 17 , target: 20 , type: "phylo" , intensity: 50 },
+			{ source: 17 , target: 19 , type: "phylo" , intensity: 50 },
+			{ source: 19 , target: 21 , type: "phylo" , intensity: 50 },
+			{ source: 19 , target: 22 , type: "phylo" , intensity: 50 },
+			{ source: 22 , target: 23 , type: "phylo" , intensity: 50 },
+			{ source: 22 , target: 24 , type: "phylo" , intensity: 50 },
+			{ source: 18 , target: 25 , type: "phylo" , intensity: 50 },
+			{ source: 18 , target: 26 , type: "phylo" , intensity: 50 },
+			{ source: 26 , target: 27 , type: "phylo" , intensity: 50 },
+			{ source: 26 , target: 28 , type: "phylo" , intensity: 50 },
+			{ source: 28 , target: 29 , type: "phylo" , intensity: 50 },
+			{ source: 28 , target: 30 , type: "phylo" , intensity: 50 },
+			{ source: 29 , target: 31 , type: "phylo" , intensity: 50 },
+			{ source: 29 , target: 32 , type: "phylo" , intensity: 50 },
+			{ source: 30 , target: 33 , type: "phylo" , intensity: 50 },
+			{ source: 30 , target: 34 , type: "phylo" , intensity: 50 },
+			{ source: 1 , target: 4 , type: "food", intensity: 50.57 },
+			{ source: 1 , target: 11 , type: "food", intensity: 22.72 },
+			{ source: 1 , target: 14 , type: "food", intensity: 6.95 },
+			{ source: 1 , target: 5 , type: "food", intensity: 4.389 },
+			{ source: 1 , target: 13 , type: "food", intensity: 0.2156 },
+			{ source: 1 , target: 7 , type: "food", intensity: 0.114 },
+			{ source: 1 , target: 9 , type: "food", intensity: 12.5 }
+				];
+
+minint = 0.4;
+maxint = d3.max(links6, function(d) {return d.intensity;});
+lineScale.domain([minint, maxint]);
+force.nodes(nodes).links(links6);
+force.start();
+
+		  svg.selectAll("line").data(links6) 
+		  .attr("x1", function(d) { return xScale(d.source.defx); })
+	      .attr("y1", function(d) { return yScale(d.source.defy); })
+	      .attr("x2", function(d) { return xScale(d.target.defx); })
+	      .attr("y2", function(d) { return yScale(d.target.defy); })
+	      .style("stroke", function(d) { if (d.type == "food") {return "red";} else {return "grey";}})
+	      .style("stroke-width", function(d) { return lineScale(d.intensity);});
+
+});
+
+
+  loading.remove();
+}, 10);
+
+</script>
+</body>
+</html>
