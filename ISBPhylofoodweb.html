@@ -27,7 +27,8 @@ circle {
 <h2>Interactive Siphonophore-Bilaterian Phylogenetic Planktonic Food Web </h2>
 <p>Alejandro Damian Serrano</p>
 <br>
-<p> This is a phylogeny with 11 siphonophore species and 7 planktonic bilaterian clades. Their phylogenetic relationships are shown in grey and the siphonophore -> bilaterian predatory trophic links are shown in orange. You can click the buttons below to recontruct the trophic relationships of ancestral siphonophore nodes (Reconstruction model: Arithmetic means).<br>
+<p> This is a phylogeny with 11 siphonophore species and 7 planktonic bilaterian clades. Their phylogenetic relationships are shown in grey and the siphonophore -> bilaterian predatory trophic links are shown in orange. 
+<br> You can click the buttons below to recontruct the trophic relationships of ancestral siphonophore nodes (Reconstruction model: Arithmetic means).<br>
 <br>
 The phylogenetic relationships for siphonophores are adapted from: Dunn, C. W., Pugh, P. R., & Haddock, S. H. (2005). Molecular phylogenetics of the Siphonophora (Cnidaria), with implications for the evolution of functional specialization. Systematic Biology, 54(6), 916-935.
 <br><br>
@@ -211,15 +212,16 @@ setTimeout(function() {
   for (var i = 18; i > 0; --i) force.tick();
   force.stop();
 
-	svg.selectAll("line")
+	svg.selectAll("line.default")
 	      .data(links)
 	    .enter().append("line")
+	    .attr("class", "default")
 	      .attr("x1", function(d) { return xScale(d.source.defx); })
 	      .attr("y1", function(d) { return yScale(d.source.defy); })
 	      .attr("x2", function(d) { return xScale(d.target.defx); })
 	      .attr("y2", function(d) { return yScale(d.target.defy); })
 	      .style("stroke", function(d) { if (d.type == "food") {return "orange";} else {return "grey";}})
-	      .style("stroke-width", function(d) { return lineScale(d.intensity);});
+	      .style("stroke-width", function(d) { if (d.type == "phylo") {return 3;} else{return lineScale(d.intensity);}});
 
 	svg.selectAll("circle")
       .data(nodes)
@@ -241,7 +243,8 @@ setTimeout(function() {
 		.attr("font-family", "arial-black")
    		.style("font-size", function(d) {if (d.type == "node") {return "10px";} else {return "14px";}})
    		.attr("fill", function(d) {if (d.type == "node") {return "grey";} else {return "black";}});
-
+  loading.remove();
+}, 10);
 
  d3.select("h3.sp").on("click", function() {
 
@@ -313,7 +316,14 @@ minint = 1.6;
 maxint = d3.max(links0, function(d) {return d.intensity;});
 lineScale.domain([minint, maxint]);
 force.nodes(nodes).links(links0);
-force.start();
+setTimeout(function() {
+
+  // Run the layout a fixed number of times.
+  // The ideal number of times scales with graph complexity.
+  // Of course, don't run too long—you'll hang the page!
+  force.start();
+  for (var i = 18; i > 0; --i) force.tick();
+  force.stop();
 
 		  svg.selectAll("line").data(links0)
 		  .attr("x1", function(d) { return xScale(d.source.defx); })
@@ -321,12 +331,13 @@ force.start();
 	      .attr("x2", function(d) { return xScale(d.target.defx); })
 	      .attr("y2", function(d) { return yScale(d.target.defy); })
 	      .style("stroke", function(d) { if (d.type == "food") {return "orange";} else {return "grey";}})
-	      .style("stroke-width", function(d) { return lineScale(d.intensity);});
-
+	      .style("stroke-width", function(d) { if (d.type == "phylo") {return 3;} else{return lineScale(d.intensity);}});
+  loading.remove();
+}, 10);
 });
 
 d3.select("h3.n1").on("click", function() {
-   	
+
 links1 = [
 			{ source: 0 , target: 1 , type: "phylo" , intensity: 50 },
 			{ source: 0 , target: 2 , type: "phylo" , intensity: 50 },
@@ -374,12 +385,39 @@ links1 = [
 			{ source: 22 , target: 4 , type: "food" , intensity: 8.8 },
 			{ source: 22 , target: 11 , type: "food" , intensity: 34.3 },
 			{ source: 22 , target: 14 , type: "food" , intensity: 40.2 },
-			{ source: 22 , target: 5 , type: "food" , intensity: 16.65 }
+			{ source: 22 , target: 5 , type: "food" , intensity: 16.65 },
+			{ source: 15 , target: 4 , type: "food" , intensity: 0 },
+			{ source: 20 , target: 13 , type: "food" , intensity: 0 },
+			{ source: 20 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 20 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 20 , target: 5 , type: "food" , intensity: 0 },
+			{ source: 21 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 21 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 21 , target: 5 , type: "food" , intensity: 0 },
+			{ source: 23 , target: 4 , type: "food" , intensity: 0 },
+			{ source: 23 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 23 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 24 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 24 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 24 , target: 5 , type: "food" , intensity: 0 },
+			{ source: 25 , target: 9 , type: "food" , intensity: 0 },
+			{ source: 27 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 31 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 13 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 4 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 5 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 7 , type: "food" , intensity: 0 },
+			{ source: 33 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 34 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 34 , target: 13 , type: "food" , intensity: 0 },
+			{ source: 34 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 34 , target: 7 , type: "food" , intensity: 0 }
 			];
 
-minint = 0.8;
+minint = 0;
 maxint = d3.max(links1, function(d) {return d.intensity;});
-lineScale.domain([minint, maxint]);
+lineScale.domain([minint, maxint]).range([0,4]);
 force.nodes(nodes).links(links1);
 force.start();
 
@@ -389,7 +427,8 @@ force.start();
 	      .attr("x2", function(d) { return xScale(d.target.defx); })
 	      .attr("y2", function(d) { return yScale(d.target.defy); })
 	      .style("stroke", function(d) { if (d.type == "food") {return "red";} else {return "grey";}})
-	      .style("stroke-width", function(d) { return lineScale(d.intensity);});
+	      .style("stroke-width", function(d) { if (d.type == "phylo") {return 3;} else{return lineScale(d.intensity);}});
+	      
 
 
 });
@@ -436,13 +475,49 @@ d3.select("h3.n2").on("click", function() {
 			{ source: 28 , target: 14 , type: "food" , intensity: 1 },
 			{ source: 28 , target: 7 , type: "food" , intensity: 1.825 },
 			{ source: 28 , target: 4 , type: "food" , intensity: 0.4 },
-			{ source: 28 , target: 5 , type: "food" , intensity: 0.4 }];
+			{ source: 28 , target: 5 , type: "food" , intensity: 0.4 },
+			{ source: 15 , target: 4 , type: "food" , intensity: 0 },
+			{ source: 20 , target: 13 , type: "food" , intensity: 0 },
+			{ source: 20 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 20 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 20 , target: 5 , type: "food" , intensity: 0 },
+			{ source: 21 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 21 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 21 , target: 5 , type: "food" , intensity: 0 },
+			{ source: 23 , target: 4 , type: "food" , intensity: 0 },
+			{ source: 23 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 23 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 24 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 24 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 24 , target: 5 , type: "food" , intensity: 0 },
+			{ source: 25 , target: 9 , type: "food" , intensity: 0 },
+			{ source: 27 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 31 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 13 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 4 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 5 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 7 , type: "food" , intensity: 0 },
+			{ source: 33 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 34 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 34 , target: 13 , type: "food" , intensity: 0 },
+			{ source: 34 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 34 , target: 7 , type: "food" , intensity: 0 }
+			
+			];
 
-minint = 0.4;
+minint = 0;
 maxint = d3.max(links2, function(d) {return d.intensity;});
-lineScale.domain([minint, maxint]);
+lineScale.domain([minint, maxint]).range([0,4]);
 force.nodes(nodes).links(links2);
-force.start();
+setTimeout(function() {
+
+  // Run the layout a fixed number of times.
+  // The ideal number of times scales with graph complexity.
+  // Of course, don't run too long—you'll hang the page!
+  force.start();
+  for (var i = 18; i > 0; --i) force.tick();
+  force.stop();
 
 		  svg.selectAll("line").data(links2) 
 		  .attr("x1", function(d) { return xScale(d.source.defx); })
@@ -450,8 +525,9 @@ force.start();
 	      .attr("x2", function(d) { return xScale(d.target.defx); })
 	      .attr("y2", function(d) { return yScale(d.target.defy); })
 	      .style("stroke", function(d) { if (d.type == "food") {return "red";} else {return "grey";}})
-	      .style("stroke-width", function(d) { return lineScale(d.intensity);});
-
+	      .style("stroke-width", function(d) { if (d.type == "phylo") {return 3;} else{return lineScale(d.intensity);}});
+  loading.remove();
+}, 10);
 });
 
 d3.select("h3.n3").on("click", function() {
@@ -500,14 +576,48 @@ d3.select("h3.n3").on("click", function() {
 			{ source: 19 , target: 4 , type: "food" , intensity: 4.4 },
 			{ source: 19 , target: 11 , type: "food" , intensity: 29.65 },
 			{ source: 19 , target: 14 , type: "food" , intensity: 30.1 },
-			{ source: 19 , target: 5 , type: "food" , intensity: 18.315 }
+			{ source: 19 , target: 5 , type: "food" , intensity: 18.315 },
+			{ source: 15 , target: 4 , type: "food" , intensity: 0 },
+			{ source: 20 , target: 13 , type: "food" , intensity: 0 },
+			{ source: 20 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 20 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 20 , target: 5 , type: "food" , intensity: 0 },
+			{ source: 21 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 21 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 21 , target: 5 , type: "food" , intensity: 0 },
+			{ source: 23 , target: 4 , type: "food" , intensity: 0 },
+			{ source: 23 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 23 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 24 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 24 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 24 , target: 5 , type: "food" , intensity: 0 },
+			{ source: 25 , target: 9 , type: "food" , intensity: 0 },
+			{ source: 27 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 31 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 13 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 4 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 5 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 7 , type: "food" , intensity: 0 },
+			{ source: 33 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 34 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 34 , target: 13 , type: "food" , intensity: 0 },
+			{ source: 34 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 34 , target: 7 , type: "food" , intensity: 0 }
 				];
 
-minint = 0.4;
+minint = 0;
 maxint = d3.max(links3, function(d) {return d.intensity;});
-lineScale.domain([minint, maxint]);
+lineScale.domain([minint, maxint]).range([0,4]);
 force.nodes(nodes).links(links3);
-force.start();
+setTimeout(function() {
+
+  // Run the layout a fixed number of times.
+  // The ideal number of times scales with graph complexity.
+  // Of course, don't run too long—you'll hang the page!
+  force.start();
+  for (var i = 18; i > 0; --i) force.tick();
+  force.stop();
 
 		  svg.selectAll("line").data(links3) 
 		  .attr("x1", function(d) { return xScale(d.source.defx); })
@@ -515,8 +625,9 @@ force.start();
 	      .attr("x2", function(d) { return xScale(d.target.defx); })
 	      .attr("y2", function(d) { return yScale(d.target.defy); })
 	      .style("stroke", function(d) { if (d.type == "food") {return "red";} else {return "grey";}})
-	      .style("stroke-width", function(d) { return lineScale(d.intensity);});
-
+	      .style("stroke-width", function(d) { if (d.type == "phylo") {return 3;} else{return lineScale(d.intensity);}});
+  loading.remove();
+}, 10);
 });
 
 d3.select("h3.n4").on("click", function() {
@@ -567,14 +678,48 @@ d3.select("h3.n4").on("click", function() {
 			{ source: 18 , target: 7 , type: "food" , intensity: 0.45625 },
 			{ source: 18 , target: 4 , type: "food" , intensity: 0.1 },
 			{ source: 18 , target: 5 , type: "food" , intensity: 0.1 },
-			{ source: 18 , target: 9 , type: "food" , intensity: 50 }
+			{ source: 18 , target: 9 , type: "food" , intensity: 50 },
+			{ source: 15 , target: 4 , type: "food" , intensity: 0 },
+			{ source: 20 , target: 13 , type: "food" , intensity: 0 },
+			{ source: 20 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 20 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 20 , target: 5 , type: "food" , intensity: 0 },
+			{ source: 21 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 21 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 21 , target: 5 , type: "food" , intensity: 0 },
+			{ source: 23 , target: 4 , type: "food" , intensity: 0 },
+			{ source: 23 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 23 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 24 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 24 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 24 , target: 5 , type: "food" , intensity: 0 },
+			{ source: 25 , target: 9 , type: "food" , intensity: 0 },
+			{ source: 27 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 31 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 13 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 4 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 5 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 7 , type: "food" , intensity: 0 },
+			{ source: 33 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 34 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 34 , target: 13 , type: "food" , intensity: 0 },
+			{ source: 34 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 34 , target: 7 , type: "food" , intensity: 0 }
 				];
 
-minint = 0.4;
+minint = 0;
 maxint = d3.max(links4, function(d) {return d.intensity;});
-lineScale.domain([minint, maxint]);
+lineScale.domain([minint, maxint]).range([0,4]);
 force.nodes(nodes).links(links4);
-force.start();
+setTimeout(function() {
+
+  // Run the layout a fixed number of times.
+  // The ideal number of times scales with graph complexity.
+  // Of course, don't run too long—you'll hang the page!
+  force.start();
+  for (var i = 18; i > 0; --i) force.tick();
+  force.stop();
 
 		  svg.selectAll("line").data(links4) 
 		  .attr("x1", function(d) { return xScale(d.source.defx); })
@@ -582,8 +727,9 @@ force.start();
 	      .attr("x2", function(d) { return xScale(d.target.defx); })
 	      .attr("y2", function(d) { return yScale(d.target.defy); })
 	      .style("stroke", function(d) { if (d.type == "food") {return "red";} else {return "grey";}})
-	      .style("stroke-width", function(d) { return lineScale(d.intensity);});
-
+	      .style("stroke-width", function(d) { if (d.type == "phylo") {return 3;} else{return lineScale(d.intensity);}});
+  loading.remove();
+}, 10);
 });
 
 d3.select("h3.n5").on("click", function() {
@@ -629,14 +775,48 @@ d3.select("h3.n5").on("click", function() {
 			{ source: 16 , target: 5 , type: "food" , intensity: 8.77875 },
 			{ source: 16 , target: 13 , type: "food" , intensity: 0.43125 },
 			{ source: 16 , target: 7 , type: "food" , intensity: 0.2281 },
-			{ source: 16 , target: 9 , type: "food" , intensity: 25 }
+			{ source: 16 , target: 9 , type: "food" , intensity: 25 },
+			{ source: 15 , target: 4 , type: "food" , intensity: 0 },
+			{ source: 20 , target: 13 , type: "food" , intensity: 0 },
+			{ source: 20 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 20 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 20 , target: 5 , type: "food" , intensity: 0 },
+			{ source: 21 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 21 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 21 , target: 5 , type: "food" , intensity: 0 },
+			{ source: 23 , target: 4 , type: "food" , intensity: 0 },
+			{ source: 23 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 23 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 24 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 24 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 24 , target: 5 , type: "food" , intensity: 0 },
+			{ source: 25 , target: 9 , type: "food" , intensity: 0 },
+			{ source: 27 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 31 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 13 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 4 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 5 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 7 , type: "food" , intensity: 0 },
+			{ source: 33 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 34 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 34 , target: 13 , type: "food" , intensity: 0 },
+			{ source: 34 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 34 , target: 7 , type: "food" , intensity: 0 }
 				];
 
-minint = 0.4;
+minint = 0;
 maxint = d3.max(links5, function(d) {return d.intensity;});
-lineScale.domain([minint, maxint]);
+lineScale.domain([minint, maxint]).range([0,4]);
 force.nodes(nodes).links(links5);
-force.start();
+setTimeout(function() {
+
+  // Run the layout a fixed number of times.
+  // The ideal number of times scales with graph complexity.
+  // Of course, don't run too long—you'll hang the page!
+  force.start();
+  for (var i = 18; i > 0; --i) force.tick();
+  force.stop();
 
 		  svg.selectAll("line").data(links5) 
 		  .attr("x1", function(d) { return xScale(d.source.defx); })
@@ -644,8 +824,9 @@ force.start();
 	      .attr("x2", function(d) { return xScale(d.target.defx); })
 	      .attr("y2", function(d) { return yScale(d.target.defy); })
 	      .style("stroke", function(d) { if (d.type == "food") {return "red";} else {return "grey";}})
-	      .style("stroke-width", function(d) { return lineScale(d.intensity);});
-
+	      .style("stroke-width", function(d) { if (d.type == "phylo") {return 3;} else{return lineScale(d.intensity);}});
+  loading.remove();
+}, 10);
 });
 
 d3.select("h3.mrca").on("click", function() {
@@ -691,14 +872,48 @@ d3.select("h3.mrca").on("click", function() {
 			{ source: 1 , target: 5 , type: "food", intensity: 4.389 },
 			{ source: 1 , target: 13 , type: "food", intensity: 0.2156 },
 			{ source: 1 , target: 7 , type: "food", intensity: 0.114 },
-			{ source: 1 , target: 9 , type: "food", intensity: 12.5 }
+			{ source: 1 , target: 9 , type: "food", intensity: 12.5 },
+			{ source: 15 , target: 4 , type: "food" , intensity: 0 },
+			{ source: 20 , target: 13 , type: "food" , intensity: 0 },
+			{ source: 20 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 20 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 20 , target: 5 , type: "food" , intensity: 0 },
+			{ source: 21 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 21 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 21 , target: 5 , type: "food" , intensity: 0 },
+			{ source: 23 , target: 4 , type: "food" , intensity: 0 },
+			{ source: 23 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 23 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 24 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 24 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 24 , target: 5 , type: "food" , intensity: 0 },
+			{ source: 25 , target: 9 , type: "food" , intensity: 0 },
+			{ source: 27 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 31 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 13 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 4 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 5 , type: "food" , intensity: 0 },
+			{ source: 32 , target: 7 , type: "food" , intensity: 0 },
+			{ source: 33 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 34 , target: 11 , type: "food" , intensity: 0 },
+			{ source: 34 , target: 13 , type: "food" , intensity: 0 },
+			{ source: 34 , target: 14 , type: "food" , intensity: 0 },
+			{ source: 34 , target: 7 , type: "food" , intensity: 0 }
 				];
 
-minint = 0.4;
+minint = 0;
 maxint = d3.max(links6, function(d) {return d.intensity;});
-lineScale.domain([minint, maxint]);
+lineScale.domain([minint, maxint]).range([0,4]);
 force.nodes(nodes).links(links6);
-force.start();
+setTimeout(function() {
+
+  // Run the layout a fixed number of times.
+  // The ideal number of times scales with graph complexity.
+  // Of course, don't run too long—you'll hang the page!
+  force.start();
+  for (var i = 18; i > 0; --i) force.tick();
+  force.stop();
 
 		  svg.selectAll("line").data(links6) 
 		  .attr("x1", function(d) { return xScale(d.source.defx); })
@@ -706,7 +921,7 @@ force.start();
 	      .attr("x2", function(d) { return xScale(d.target.defx); })
 	      .attr("y2", function(d) { return yScale(d.target.defy); })
 	      .style("stroke", function(d) { if (d.type == "food") {return "red";} else {return "grey";}})
-	      .style("stroke-width", function(d) { return lineScale(d.intensity);});
+	      .style("stroke-width", function(d) { if (d.type == "phylo") {return 3;} else{return lineScale(d.intensity);}});
 
 });
 
