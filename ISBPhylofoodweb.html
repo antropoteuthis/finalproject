@@ -28,7 +28,7 @@ circle {
 <p>Alejandro Damian Serrano</p>
 <br>
 <p> This is a phylogeny with 11 siphonophore species and 7 planktonic bilaterian clades. Their phylogenetic relationships are shown in grey and the siphonophore -> bilaterian predatory trophic links are shown in orange. 
-<br> You can click the buttons below to recontruct the trophic relationships of ancestral siphonophore nodes (Reconstruction model: Arithmetic means).<br>
+<br> You can click the buttons below to recontruct the trophic relationships of ancestral siphonophore nodes (Reconstruction model: Arithmetic means).<br>w
 <br>
 The phylogenetic relationships for siphonophores are adapted from: Dunn, C. W., Pugh, P. R., & Haddock, S. H. (2005). Molecular phylogenetics of the Siphonophora (Cnidaria), with implications for the evolution of functional specialization. Systematic Biology, 54(6), 916-935.
 <br><br>
@@ -43,13 +43,13 @@ Purcell, J. E. (1981). Dietary composition and diel feeding patterns of epipelag
 <br>
  </p>
 
- <h3 class = "sp" style="color: blue">Current food web  </h3>
+<!--  <h3 class = "sp" style="color: blue">Current food web  </h3>
  <h3 class = "n1" style="color: blue">Level 1  </h3>
  <h3 class = "n2" style="color: blue">Level 2  </h3>
  <h3 class = "n3" style="color: blue">Level 3  </h3>
  <h3 class = "n4" style="color: blue">Level 4  </h3>
  <h3 class = "n5" style="color: blue">MRCA of the Codonophora </h3>
- <h3 class = "mrca" style="color: blue">MRCA of the Siphonophora </h3>
+ <h3 class = "mrca" style="color: blue">MRCA of the Siphonophora </h3> -->
 
  <script>
 
@@ -61,41 +61,41 @@ var colors = {"node":"darkgrey", "siph":"lightblue", "prey":"magenta"};
 var dataset = {
 
 	nodes: [
-			{ name: "Planulozoa" , type: "node" , defx: 500 , defy: 100 },
-			{ name: "Siphonophora" , type: "node" , defx: 20 , defy: 471.5 },
-			{ name: "Bilateria" , type: "node" , defx: 1000 , defy: 481.41 },
-			{ name: "Protostomia" , type: "node" , defx: 866.66 , defy: 653.85 },
-			{ name: "Actinopterygii" , type: "prey" , defx: 700 , defy: 309 },
-			{ name: "Chaetognatha" , type: "prey" , defx: 700 , defy: 407.7 },
-			{ name: " " , type: "node" , defx: 833.33 , defy: 703.2 },
-			{ name: "Mollusca" , type: "prey" , defx: 700 , defy: 506.4 },
-			{ name: "Crustacea" , type: "node" , defx: 800 , defy: 752.55 },
-			{ name: "Ostracoda" , type: "prey" , defx: 700 , defy: 605.1 },
-			{ name: " " , type: "node" , defx: 766.66 , defy: 801.9 },
-			{ name: "Copepoda" , type: "prey" , defx: 700 , defy: 703.8 },
-			{ name: "Malacostraca" , type: "node" , defx: 733.33 , defy: 851.25 },
-			{ name: "Amphipoda" , type: "prey" , defx: 700 , defy: 802.5 },
-			{ name: "Decapoda" , type: "prey" , defx: 700 , defy: 900 },
-			{ name: "Rhizophysa eyesenhardti" , type: "siph" , defx: 300 , defy: 309 },
-			{ name: "Codonophora" , type: "node" , defx: 133.33 , defy: 634.05 },
-			{ name: "Physonectae" , type: "node" , defx: 166.66 , defy: 811.35 },
-			{ name: "Calycophorae" , type: "node" , defx: 166.66 , defy: 515.85 },
-			{ name: "Agalmatidae" , type: "node" , defx: 200 , defy: 781.8 },
-			{ name: "Forskalia edwardsii" , type: "siph" , defx: 300 , defy: 900 },
-			{ name: "Nanomia bijuga" , type: "siph" , defx: 300 , defy: 840.9 },
-			{ name: " " , type: "node" , defx: 266.66 , defy: 752.25 },
-			{ name: "Agalma elegans" , type: "siph" , defx: 300 , defy: 781.8 },
-			{ name: "Athorybia rosacea" , type: "siph" , defx: 300 , defy: 722.7 },
-			{ name: "Hippopodius hippopus" , type: "siph" , defx: 300 , defy: 663.6 },
-			{ name: " " , type: "node" , defx: 200 , defy: 486.3 },
-			{ name: "Sphaeronectes gracilis" , type: "siph" , defx: 300 , defy: 604.5 },
-			{ name: "Diphyidae" , type: "node" , defx: 233.33 , defy: 456.75 },
-			{ name: " " , type: "node" , defx: 266.66 , defy: 515.85 },
-			{ name: " " , type: "node" , defx: 266.66 , defy: 397.65 },
-			{ name: "Muggiaea atlantica" , type: "siph" , defx: 300 , defy: 545.4 },
-			{ name: "Sulculeolaria quadrivalvis" , type: "siph" , defx: 300 , defy: 486.3 },
-			{ name: "Abyla trigona" , type: "siph" , defx: 300 , defy: 427.2 },
-			{ name: "Diphyes dispar" , type: "siph" , defx: 300 , defy: 368.1 }
+			{ name: "Planulozoa" , type: "node" , defx: 500 , defy: 100, level: "L99" },
+			{ name: "Siphonophora" , type: "node" , defx: 20 , defy: 471.5, level: "L6" },
+			{ name: "Bilateria" , type: "node" , defx: 1000 , defy: 481.41, level: "L99" },
+			{ name: "Protostomia" , type: "node" , defx: 866.66 , defy: 653.85, level: "L99" },
+			{ name: "Actinopterygii" , type: "prey" , defx: 700 , defy: 309, level: "L99" },
+			{ name: "Chaetognatha" , type: "prey" , defx: 700 , defy: 407.7, level: "L99" },
+			{ name: " " , type: "node" , defx: 833.33 , defy: 703.2, level: "L99" },
+			{ name: "Mollusca" , type: "prey" , defx: 700 , defy: 506.4, level: "L99" },
+			{ name: "Crustacea" , type: "node" , defx: 800 , defy: 752.55, level: "L99" },
+			{ name: "Ostracoda" , type: "prey" , defx: 700 , defy: 605.1, level: "L99" },
+			{ name: " " , type: "node" , defx: 766.66 , defy: 801.9, level: "L99" },
+			{ name: "Copepoda" , type: "prey" , defx: 700 , defy: 703.8, level: "L99" },
+			{ name: "Malacostraca" , type: "node" , defx: 733.33 , defy: 851.25, level: "L99" },
+			{ name: "Amphipoda" , type: "prey" , defx: 700 , defy: 802.5, level: "L99" },
+			{ name: "Decapoda" , type: "prey" , defx: 700 , defy: 900, level: "L99" },
+			{ name: "Rhizophysa eyesenhardti" , type: "siph" , defx: 300 , defy: 309, level: "L0" },
+			{ name: "Codonophora" , type: "node" , defx: 133.33 , defy: 634.05, level: "L5" },
+			{ name: "Physonectae" , type: "node" , defx: 166.66 , defy: 811.35, level: "L4" },
+			{ name: "Calycophorae" , type: "node" , defx: 166.66 , defy: 515.85, level: "L4" },
+			{ name: "Agalmatidae" , type: "node" , defx: 200 , defy: 781.8, level: "L3" },
+			{ name: "Forskalia edwardsii" , type: "siph" , defx: 300 , defy: 900, level: "L0" },
+			{ name: "Nanomia bijuga" , type: "siph" , defx: 300 , defy: 840.9, level: "L0" },
+			{ name: " " , type: "node" , defx: 266.66 , defy: 752.25, level: "L1" },
+			{ name: "Agalma elegans" , type: "siph" , defx: 300 , defy: 781.8, level: "L0" },
+			{ name: "Athorybia rosacea" , type: "siph" , defx: 300 , defy: 722.7, level: "L0" },
+			{ name: "Hippopodius hippopus" , type: "siph" , defx: 300 , defy: 663.6, level: "L0" },
+			{ name: " " , type: "node" , defx: 200 , defy: 486.3, level: "L3" },
+			{ name: "Sphaeronectes gracilis" , type: "siph" , defx: 300 , defy: 604.5, level: "L0" },
+			{ name: "Diphyidae" , type: "node" , defx: 233.33 , defy: 456.75, level: "L2" },
+			{ name: " " , type: "node" , defx: 266.66 , defy: 515.85, level: "L1" },
+			{ name: " " , type: "node" , defx: 266.66 , defy: 397.65, level: "L1" },
+			{ name: "Muggiaea atlantica" , type: "siph" , defx: 300 , defy: 545.4, level: "L0" },
+			{ name: "Sulculeolaria quadrivalvis" , type: "siph" , defx: 300 , defy: 486.3, level: "L0" },
+			{ name: "Abyla trigona" , type: "siph" , defx: 300 , defy: 427.2, level: "L0" },
+			{ name: "Diphyes dispar" , type: "siph" , defx: 300 , defy: 368.1, level: "L0" }
 		    ],
 
 	edges: [
@@ -212,10 +212,9 @@ setTimeout(function() {
   for (var i = 18; i > 0; --i) force.tick();
   force.stop();
 
-	svg.selectAll("line.default")
+	svg.selectAll("line")
 	      .data(links)
 	    .enter().append("line")
-	    .attr("class", "default")
 	      .attr("x1", function(d) { return xScale(d.source.defx); })
 	      .attr("y1", function(d) { return yScale(d.source.defy); })
 	      .attr("x2", function(d) { return xScale(d.target.defx); })
@@ -230,7 +229,10 @@ setTimeout(function() {
       .attr("cy", function(d) { return yScale(d.defy); })
       .attr("r", function(d) {if (d.type == "node") {return 4;} else {return 10;}})
       .attr("fill", function(d) { return colors[d.type]; })
-      .attr("opacity", 0.9);
+      .attr("opacity", 0.9)
+      .attr("id", function(d) { return d.level})
+      .on("mouseover", function() { d3.select(this).transition().duration(300).attr("r", 15);})
+      .on("mouseout", function(d) { d3.select(this).transition().duration(300).attr("r", function(d) {if (d.type == "node") {return 4;} else {return 10;}});});
 
     svg.selectAll("text.lab")
    		.data(nodes)
@@ -242,11 +244,13 @@ setTimeout(function() {
    		.attr("y", function(d) {return yScale(d.defy);})
 		.attr("font-family", "arial-black")
    		.style("font-size", function(d) {if (d.type == "node") {return "10px";} else {return "14px";}})
-   		.attr("fill", function(d) {if (d.type == "node") {return "grey";} else {return "black";}});
-  loading.remove();
-}, 10);
+   		.attr("fill", function(d) {if (d.type == "node") {return "grey";} else {return "black";}})
+   		.on("mouseover", function() { d3.select(this).transition().duration(300).style("font-size", "23px");})
+        .on("mouseout", function(d) { d3.select(this).transition().duration(300).style("font-size", function(d) {if (d.type == "node") {return "10px";} else {return "14px";}}).transition().duration(300);});
 
- d3.select("h3.sp").on("click", function() {
+
+
+ d3.selectAll("circle#L0").on("click", function() {
 
 	links0 = [
 			{ source: 0 , target: 1 , type: "phylo" , intensity: 50 },
@@ -316,14 +320,10 @@ minint = 1.6;
 maxint = d3.max(links0, function(d) {return d.intensity;});
 lineScale.domain([minint, maxint]);
 force.nodes(nodes).links(links0);
-setTimeout(function() {
 
-  // Run the layout a fixed number of times.
-  // The ideal number of times scales with graph complexity.
-  // Of course, don't run too long—you'll hang the page!
   force.start();
-  for (var i = 18; i > 0; --i) force.tick();
-  force.stop();
+
+
 
 		  svg.selectAll("line").data(links0)
 		  .attr("x1", function(d) { return xScale(d.source.defx); })
@@ -332,11 +332,9 @@ setTimeout(function() {
 	      .attr("y2", function(d) { return yScale(d.target.defy); })
 	      .style("stroke", function(d) { if (d.type == "food") {return "orange";} else {return "grey";}})
 	      .style("stroke-width", function(d) { if (d.type == "phylo") {return 3;} else{return lineScale(d.intensity);}});
-  loading.remove();
-}, 10);
 });
 
-d3.select("h3.n1").on("click", function() {
+d3.selectAll("circle#L1").on("click", function() {
 
 links1 = [
 			{ source: 0 , target: 1 , type: "phylo" , intensity: 50 },
@@ -419,7 +417,8 @@ minint = 0;
 maxint = d3.max(links1, function(d) {return d.intensity;});
 lineScale.domain([minint, maxint]).range([0,4]);
 force.nodes(nodes).links(links1);
-force.start();
+
+  force.start();
 
 		  svg.selectAll("line").data(links1) 
 		  .attr("x1", function(d) { return xScale(d.source.defx); })
@@ -433,7 +432,7 @@ force.start();
 
 });
 
-d3.select("h3.n2").on("click", function() {
+d3.selectAll("circle#L2").on("click", function() {
 
 	links2 = [
 			{ source: 0 , target: 1 , type: "phylo" , intensity: 50 },
@@ -510,14 +509,9 @@ minint = 0;
 maxint = d3.max(links2, function(d) {return d.intensity;});
 lineScale.domain([minint, maxint]).range([0,4]);
 force.nodes(nodes).links(links2);
-setTimeout(function() {
 
-  // Run the layout a fixed number of times.
-  // The ideal number of times scales with graph complexity.
-  // Of course, don't run too long—you'll hang the page!
   force.start();
-  for (var i = 18; i > 0; --i) force.tick();
-  force.stop();
+
 
 		  svg.selectAll("line").data(links2) 
 		  .attr("x1", function(d) { return xScale(d.source.defx); })
@@ -526,11 +520,10 @@ setTimeout(function() {
 	      .attr("y2", function(d) { return yScale(d.target.defy); })
 	      .style("stroke", function(d) { if (d.type == "food") {return "red";} else {return "grey";}})
 	      .style("stroke-width", function(d) { if (d.type == "phylo") {return 3;} else{return lineScale(d.intensity);}});
-  loading.remove();
-}, 10);
+
 });
 
-d3.select("h3.n3").on("click", function() {
+d3.selectAll("circle#L3").on("click", function() {
 
 	links3 = [
 			{ source: 0 , target: 1 , type: "phylo" , intensity: 50 },
@@ -610,14 +603,8 @@ minint = 0;
 maxint = d3.max(links3, function(d) {return d.intensity;});
 lineScale.domain([minint, maxint]).range([0,4]);
 force.nodes(nodes).links(links3);
-setTimeout(function() {
 
-  // Run the layout a fixed number of times.
-  // The ideal number of times scales with graph complexity.
-  // Of course, don't run too long—you'll hang the page!
   force.start();
-  for (var i = 18; i > 0; --i) force.tick();
-  force.stop();
 
 		  svg.selectAll("line").data(links3) 
 		  .attr("x1", function(d) { return xScale(d.source.defx); })
@@ -626,11 +613,10 @@ setTimeout(function() {
 	      .attr("y2", function(d) { return yScale(d.target.defy); })
 	      .style("stroke", function(d) { if (d.type == "food") {return "red";} else {return "grey";}})
 	      .style("stroke-width", function(d) { if (d.type == "phylo") {return 3;} else{return lineScale(d.intensity);}});
-  loading.remove();
-}, 10);
+
 });
 
-d3.select("h3.n4").on("click", function() {
+d3.selectAll("circle#L4").on("click", function() {
 
 	links4 = [
 			{ source: 0 , target: 1 , type: "phylo" , intensity: 50 },
@@ -712,14 +698,9 @@ minint = 0;
 maxint = d3.max(links4, function(d) {return d.intensity;});
 lineScale.domain([minint, maxint]).range([0,4]);
 force.nodes(nodes).links(links4);
-setTimeout(function() {
 
-  // Run the layout a fixed number of times.
-  // The ideal number of times scales with graph complexity.
-  // Of course, don't run too long—you'll hang the page!
   force.start();
-  for (var i = 18; i > 0; --i) force.tick();
-  force.stop();
+
 
 		  svg.selectAll("line").data(links4) 
 		  .attr("x1", function(d) { return xScale(d.source.defx); })
@@ -728,11 +709,10 @@ setTimeout(function() {
 	      .attr("y2", function(d) { return yScale(d.target.defy); })
 	      .style("stroke", function(d) { if (d.type == "food") {return "red";} else {return "grey";}})
 	      .style("stroke-width", function(d) { if (d.type == "phylo") {return 3;} else{return lineScale(d.intensity);}});
-  loading.remove();
-}, 10);
+
 });
 
-d3.select("h3.n5").on("click", function() {
+d3.select("circle#L5").on("click", function() {
 
 	links5 = [
 			{ source: 0 , target: 1 , type: "phylo" , intensity: 50 },
@@ -809,14 +789,8 @@ minint = 0;
 maxint = d3.max(links5, function(d) {return d.intensity;});
 lineScale.domain([minint, maxint]).range([0,4]);
 force.nodes(nodes).links(links5);
-setTimeout(function() {
 
-  // Run the layout a fixed number of times.
-  // The ideal number of times scales with graph complexity.
-  // Of course, don't run too long—you'll hang the page!
   force.start();
-  for (var i = 18; i > 0; --i) force.tick();
-  force.stop();
 
 		  svg.selectAll("line").data(links5) 
 		  .attr("x1", function(d) { return xScale(d.source.defx); })
@@ -825,11 +799,10 @@ setTimeout(function() {
 	      .attr("y2", function(d) { return yScale(d.target.defy); })
 	      .style("stroke", function(d) { if (d.type == "food") {return "red";} else {return "grey";}})
 	      .style("stroke-width", function(d) { if (d.type == "phylo") {return 3;} else{return lineScale(d.intensity);}});
-  loading.remove();
-}, 10);
+
 });
 
-d3.select("h3.mrca").on("click", function() {
+d3.select("circle#L6").on("click", function() {
 
 	links6 = [
 			{ source: 0 , target: 1 , type: "phylo" , intensity: 50 },
@@ -906,14 +879,8 @@ minint = 0;
 maxint = d3.max(links6, function(d) {return d.intensity;});
 lineScale.domain([minint, maxint]).range([0,4]);
 force.nodes(nodes).links(links6);
-setTimeout(function() {
 
-  // Run the layout a fixed number of times.
-  // The ideal number of times scales with graph complexity.
-  // Of course, don't run too long—you'll hang the page!
   force.start();
-  for (var i = 18; i > 0; --i) force.tick();
-  force.stop();
 
 		  svg.selectAll("line").data(links6) 
 		  .attr("x1", function(d) { return xScale(d.source.defx); })
@@ -924,6 +891,7 @@ setTimeout(function() {
 	      .style("stroke-width", function(d) { if (d.type == "phylo") {return 3;} else{return lineScale(d.intensity);}});
 
 });
+
 
 
   loading.remove();
