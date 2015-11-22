@@ -232,7 +232,7 @@ setTimeout(function() {
       .attr("opacity", 0.9)
       .attr("id", function(d) { return d.level})
       .on("mouseover", function() { d3.select(this).transition().duration(300).attr("r", 15);})
-      .on("mouseout", function(d) { d3.select(this).transition().duration(300).attr("r", function(d) {if (d.type == "node") {return 4;} else {return 10;}});});
+      .on("mouseout", function(d) { d3.select(this).transition().duration(300).attr("r", function(d) {if (d.type == "node") {return 4;} else {return 10;}}).transition().duration(300);});
 
     svg.selectAll("text.lab")
    		.data(nodes)
