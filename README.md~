@@ -145,7 +145,7 @@ Future directions: A 3D visualization which the user could rotate 360º would pr
 
 ## License
 
-This visualization is distributed under the GNU General Public License version 3. For more information, see LICENSE or visit: http://www.gnu.org/licenses/gpl.html
+This visualization and all others in this repository are distributed under the GNU General Public License version 3. For more information, see LICENSE or visit: http://www.gnu.org/licenses/gpl.html
 
 ## Acknowledgements
 

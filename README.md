@@ -139,7 +139,7 @@ In this project the user has total control on the perspective of observation ove
 
 The new visualization allows a novel way to visualize a siphonophore phylogeny together with morpho-ecological variables combined on user demand.
 
-Limitations: It can only show 2 variables at a time. It does not show an acurate representation of evolutionary time of rates of change along the branches.
+Limitations: It can only show 2 variables at a time. It does not show an accurate representation of evolutionary time of rates of change along the branches.
 
 Future directions: A 3D visualization which the user could rotate 360º would provide more simultaneous information about variable relationships. More species and traits will be included after the data acquisition process of my PhD work. With a molecular clock it would be possible in the future to obtain evolutionary time data to plot on the branches as a color gradient.
 
