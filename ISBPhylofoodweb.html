@@ -243,7 +243,7 @@ setTimeout(function() {
 		.attr("x", function(d) {return xScale(d.defx);})
    		.attr("y", function(d) {return yScale(d.defy);})
 		.attr("font-family", "arial-black")
-   		.style("font-size", function(d) {if (d.type == "node") {return "10px";} else {return "14px";}})
+   		.style("font-size", function(d) {if (d.type == "node") {return "20px";} else {return "22px";}})
    		.attr("fill", function(d) {if (d.type == "node") {return "grey";} else {return "black";}})
    		.on("mouseover", function() { d3.select(this).transition().duration(300).style("font-size", "23px");})
         .on("mouseout", function(d) { d3.select(this).transition().duration(300).style("font-size", function(d) {if (d.type == "node") {return "10px";} else {return "14px";}}).transition().duration(300);});
